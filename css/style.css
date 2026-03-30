@@ -1,0 +1,840 @@
+/* ============================================================
+   V3 PORTFOLIO — DESIGN SYSTEM & STYLES
+   Typography: Instrument Serif (headers) + Inter (body)
+   ============================================================ */
+
+/* --- Google Fonts Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Colors */
+  --color-bg: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-text-secondary: #6B6B6B;
+  --color-surface: #F5F5F5;
+  --color-border: #E0E0E0;
+  --color-notch-bg: rgba(20, 20, 20, 0.85);
+  --color-notch-text: #FFFFFF;
+  --color-accent: #0044FF;
+
+  /* Typography */
+  --font-heading: 'Instrument Serif', serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-2xl: 96px;
+
+  /* Layout */
+  --max-width: 1200px;
+  --card-radius: 16px;
+  --notch-radius: 50px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 0.2s;
+  --duration-normal: 0.4s;
+  --duration-slow: 0.6s;
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Page Transition Overlay --- */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--color-bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.page-transition.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Body fade-in on load — excludes persistent/utility elements */
+body > *:not(.notch-nav):not(.page-transition):not(#toast) {
+  animation: bodyFadeIn 0.5s ease forwards;
+}
+
+@keyframes bodyFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   NOTCH NAVIGATION
+   ============================================================ */
+.notch-nav {
+  position: fixed;
+  top: var(--space-sm);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 10px 10px 10px 20px;
+  background: var(--color-notch-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--notch-radius);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+  min-width: 320px;
+  justify-content: space-between;
+  transition: transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) ease;
+}
+
+.notch-nav:hover {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+}
+
+.notch-logo {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-notch-text);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.notch-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.notch-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-notch-text);
+  padding: 6px 16px;
+  border-radius: 50px;
+  transition: background var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.8;
+}
+
+.notch-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  opacity: 1;
+}
+
+.notch-link.active {
+  background: var(--color-bg);
+  color: var(--color-text);
+  opacity: 1;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+  text-align: center;
+  padding: 140px var(--space-md) 80px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 6vw, 48px);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+/* Hero entrance animation */
+.hero-title .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroLineIn 0.7s var(--ease-out) forwards;
+}
+
+.hero-title .line:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+@keyframes heroLineIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   PROJECT CARDS GRID (Homepage)
+   ============================================================ */
+.projects-grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.project-card {
+  position: relative;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+  will-change: transform;
+}
+
+.project-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.project-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.project-card:hover .project-card-bg {
+  transform: scale(1.04);
+}
+
+.project-card-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 6vw, 56px);
+  color: #FFFFFF;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+/* Staggered entrance */
+.project-card {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.project-card.visible {
+  animation: cardIn 0.65s var(--ease-out) forwards;
+}
+
+.project-card.visible:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.project-card.visible:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.project-card.visible:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.project-card.visible:nth-child(5) {
+  animation-delay: 0.35s;
+}
+
+.project-card.visible:nth-child(6) {
+  animation-delay: 0.4s;
+}
+
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   PROJECT DETAIL PAGE
+   ============================================================ */
+.project-hero {
+  position: relative;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 120px auto 0;
+  padding: 0 var(--space-md);
+}
+
+.project-hero-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.project-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.project-hero-label {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 6vw, 56px);
+  color: #FFFFFF;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+.project-info {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+}
+
+.project-info-title {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 400;
+  margin-bottom: var(--space-sm);
+  line-height: 1.3;
+}
+
+.project-info-description {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto var(--space-md);
+}
+
+/* Base styles for user-generated inline links */
+[data-editable] a,
+.content-blocks a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: opacity 0.2s ease;
+}
+
+[data-editable] a:hover,
+.content-blocks a:hover {
+  opacity: 0.6;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.project-meta span {
+  white-space: nowrap;
+}
+
+/* --- Content Blocks --- */
+.content-blocks {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.block-full-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(30px);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.block-full-image.visible {
+  animation: cardIn 0.6s var(--ease-out) forwards;
+}
+
+.block-full-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.block-full-image-label {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 5vw, 48px);
+  color: #FFFFFF;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+}
+
+.block-image-grid {
+  display: grid;
+  gap: var(--space-sm);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.block-image-grid.visible {
+  animation: cardIn 0.6s var(--ease-out) forwards;
+}
+
+.block-image-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.block-image-grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.block-image-grid.cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.block-grid-item {
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.block-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.block-text {
+  text-align: center;
+  padding: var(--space-md) 0;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.block-text.visible {
+  animation: cardIn 0.5s var(--ease-out) forwards;
+}
+
+.block-text p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.block-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.block-video.visible {
+  animation: cardIn 0.6s var(--ease-out) forwards;
+}
+
+.block-video iframe,
+.block-video video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.block-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  align-items: start;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.block-two-column.visible {
+  animation: cardIn 0.6s var(--ease-out) forwards;
+}
+
+.block-two-column .col-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) 0;
+}
+
+.block-two-column .col-image {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.block-two-column .col-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ============================================================
+   EDIT MODE
+   ============================================================ */
+.sync-toggle {
+  position: fixed;
+  bottom: calc(var(--space-md) + 48px);
+  right: var(--space-md);
+  z-index: 2000;
+  width: 38px;
+  height: 38px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 18px;
+  line-height: 1;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-fast) var(--ease-spring),
+    background var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+.sync-toggle:hover {
+  transform: scale(1.1) rotate(20deg);
+  background: var(--color-bg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sync-toggle.syncing {
+  animation: syncSpin 0.8s linear infinite;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes syncSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+
+.edit-toggle {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  z-index: 2000;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform var(--duration-fast) var(--ease-spring),
+    background var(--duration-fast) ease;
+}
+
+.edit-toggle:hover {
+  transform: scale(1.05);
+}
+
+.edit-toggle.active {
+  background: var(--color-accent);
+}
+
+/* Editable elements in edit mode */
+body.edit-mode [data-editable] {
+  outline: 2px dashed rgba(0, 68, 255, 0.3);
+  outline-offset: 4px;
+  cursor: text;
+  border-radius: 4px;
+  transition: outline-color var(--duration-fast) ease;
+}
+
+body.edit-mode [data-editable]:hover {
+  outline-color: var(--color-accent);
+}
+
+body.edit-mode [data-editable]:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* Drag handle for cards and blocks in edit mode */
+body.edit-mode .project-card,
+body.edit-mode #contentBlocks>div[data-block-index] {
+  cursor: grab;
+}
+
+body.edit-mode .project-card.dragging,
+body.edit-mode #contentBlocks>div[data-block-index].dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.drag-placeholder {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--card-radius);
+  aspect-ratio: 16 / 10;
+  background: var(--color-surface);
+}
+
+.drag-placeholder-block {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--card-radius);
+  min-height: 120px;
+  background: var(--color-surface);
+}
+
+/* Image upload overlay */
+.image-upload-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--card-radius);
+  cursor: pointer;
+  z-index: 5;
+  transition: opacity var(--duration-fast) ease;
+}
+
+body.edit-mode .image-upload-overlay {
+  display: flex;
+}
+
+.image-upload-overlay span {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px 24px;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Delete Element Button */
+.delete-element-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(20, 20, 20, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+}
+
+body.edit-mode .delete-element-btn {
+  display: flex;
+}
+
+.delete-element-btn:hover {
+  transform: scale(1.1);
+  background: #d93025;
+  /* Red warning color */
+}
+
+/* Ensure parents of delete buttons establish containing block */
+body.edit-mode .block-image-grid,
+body.edit-mode .block-text,
+body.edit-mode .block-two-column,
+body.edit-mode .block-video {
+  position: relative;
+}
+
+/* Edit toolbar */
+.edit-toolbar {
+  position: fixed;
+  bottom: var(--space-md);
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  z-index: 2000;
+  display: flex;
+  gap: var(--space-xs);
+  background: var(--color-notch-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 8px;
+  border-radius: var(--notch-radius);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  transition: transform var(--duration-normal) var(--ease-out);
+  pointer-events: none;
+  opacity: 0;
+}
+
+body.edit-mode .edit-toolbar {
+  transform: translateX(-50%) translateY(0);
+  pointer-events: all;
+  opacity: 1;
+}
+
+.edit-toolbar button {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  color: var(--color-notch-text);
+  background: transparent;
+  transition: background var(--duration-fast) ease;
+}
+
+.edit-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.edit-toolbar button.primary {
+  background: var(--color-accent);
+  color: #FFFFFF;
+}
+
+.edit-toolbar button.primary:hover {
+  background: #0033CC;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .hero {
+    padding: 100px var(--space-sm) var(--space-md);
+  }
+
+  .projects-grid {
+    padding: 0 var(--space-sm) var(--space-xl);
+    gap: var(--space-md);
+  }
+
+  .notch-nav {
+    min-width: 280px;
+    padding: 8px 8px 8px 16px;
+  }
+
+  .project-meta {
+    gap: var(--space-sm);
+    font-size: 10px;
+  }
+
+  .block-two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .block-image-grid.cols-3,
+  .block-image-grid.cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content-blocks {
+    padding: 0 var(--space-sm) var(--space-xl);
+  }
+}
