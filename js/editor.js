@@ -2,22 +2,22 @@
 // EDITOR.JS — Live editing overlay, drag-and-drop reordering
 // ============================================================
 
-let editMode = false;
+window.editMode = false;
 
 // ============================================================
 // TOGGLE EDIT MODE
 // ============================================================
 function toggleEditMode() {
-  editMode = !editMode;
-  document.body.classList.toggle("edit-mode", editMode);
+  window.editMode = !window.editMode;
+  document.body.classList.toggle("edit-mode", window.editMode);
 
   const btn = document.getElementById("editToggle");
   if (btn) {
-    btn.textContent = editMode ? "Done" : "Edit";
-    btn.classList.toggle("active", editMode);
+    btn.textContent = window.editMode ? "Done" : "Edit";
+    btn.classList.toggle("active", window.editMode);
   }
 
-  if (editMode) {
+  if (window.editMode) {
     enableInlineEditing();
     if (!isProjectPage()) {
       setupDragAndDrop();
@@ -130,7 +130,7 @@ function setupDragAndDrop() {
     card.setAttribute("draggable", "true");
 
     card.addEventListener("dragstart", (e) => {
-      if (!editMode) return;
+      if (!window.editMode) return;
       draggedCard = card;
       draggedIndex = parseInt(card.getAttribute("data-index"));
       card.classList.add("dragging");
@@ -153,7 +153,7 @@ function setupDragAndDrop() {
     });
 
     card.addEventListener("dragover", (e) => {
-      if (!editMode || !draggedCard) return;
+      if (!window.editMode || !draggedCard) return;
       e.preventDefault();
       e.dataTransfer.dropEffect = "move";
 
@@ -179,7 +179,7 @@ function setupDragAndDrop() {
     });
 
     card.addEventListener("drop", (e) => {
-      if (!editMode || !draggedCard) return;
+      if (!window.editMode || !draggedCard) return;
       e.preventDefault();
 
       const targetIndex = parseInt(card.getAttribute("data-index"));
@@ -219,7 +219,7 @@ function setupBlockDragAndDrop() {
     block.setAttribute("draggable", "true");
 
     block.addEventListener("dragstart", (e) => {
-      if (!editMode) return;
+      if (!window.editMode) return;
       draggedBlock = block;
       draggedBlockIndex = parseInt(block.getAttribute("data-block-index"));
       block.classList.add("dragging");
@@ -240,7 +240,7 @@ function setupBlockDragAndDrop() {
     });
 
     block.addEventListener("dragover", (e) => {
-      if (!editMode || !draggedBlock) return;
+      if (!window.editMode || !draggedBlock) return;
       e.preventDefault();
       e.dataTransfer.dropEffect = "move";
 
@@ -264,7 +264,7 @@ function setupBlockDragAndDrop() {
     });
 
     block.addEventListener("drop", (e) => {
-      if (!editMode || !draggedBlock) return;
+      if (!window.editMode || !draggedBlock) return;
       e.preventDefault();
 
       const targetIndex = parseInt(block.getAttribute("data-block-index"));

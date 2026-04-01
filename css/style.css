@@ -96,7 +96,7 @@ a {
 }
 
 /* Body fade-in on load — excludes persistent/utility elements */
-body > *:not(.notch-nav):not(.page-transition):not(#toast) {
+body>*:not(.notch-nav):not(.page-transition):not(#toast) {
   animation: bodyFadeIn 0.5s ease forwards;
 }
 
@@ -348,7 +348,7 @@ body > *:not(.notch-nav):not(.page-transition):not(#toast) {
 .project-info {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-lg) var(--space-md);
+  padding: var(--space-xl) var(--space-md);
   text-align: center;
 }
 
@@ -356,17 +356,29 @@ body > *:not(.notch-nav):not(.page-transition):not(#toast) {
   font-family: var(--font-heading);
   font-size: clamp(28px, 5vw, 40px);
   font-weight: 400;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   line-height: 1.3;
 }
 
 .project-info-description {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.75;
   color: var(--color-text-secondary);
-  max-width: 600px;
-  margin: 0 auto var(--space-md);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.project-info-description span {
+  font-size: inherit !important;
+}
+
+.project-info-description p {
+  margin-bottom: var(--space-sm) !important;
+}
+
+.project-info-description p:last-child {
+  margin-bottom: 0 !important;
 }
 
 /* Base styles for user-generated inline links */
@@ -390,11 +402,12 @@ body > *:not(.notch-nav):not(.page-transition):not(#toast) {
   gap: var(--space-md);
   flex-wrap: wrap;
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-secondary);
+  margin-top: var(--space-lg);
 }
 
 .project-meta span {
@@ -497,10 +510,10 @@ body > *:not(.notch-nav):not(.page-transition):not(#toast) {
 
 .block-text p {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.75;
   color: var(--color-text-secondary);
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -543,7 +556,7 @@ body > *:not(.notch-nav):not(.page-transition):not(#toast) {
 
 .block-two-column .col-text {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.75;
   color: var(--color-text-secondary);
   padding: var(--space-sm) 0;
@@ -603,8 +616,13 @@ body > *:not(.notch-nav):not(.page-transition):not(#toast) {
 }
 
 @keyframes syncSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 
@@ -616,7 +634,7 @@ body > *:not(.notch-nav):not(.page-transition):not(#toast) {
   background: var(--color-text);
   color: var(--color-bg);
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   padding: 10px 20px;
   border: none;
@@ -778,7 +796,7 @@ body.edit-mode .edit-toolbar {
 
 .edit-toolbar button {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   padding: 8px 16px;
   border: none;
@@ -822,7 +840,7 @@ body.edit-mode .edit-toolbar {
 
   .project-meta {
     gap: var(--space-sm);
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .block-two-column {

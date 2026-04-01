@@ -177,6 +177,10 @@ function renderProjectsGrid() {
 
     grid.appendChild(card);
   });
+
+  if (typeof enableInlineEditing === "function" && window.editMode) {
+    enableInlineEditing();
+  }
 }
 
 // ============================================================
@@ -235,7 +239,7 @@ function renderProjectPage() {
   if (infoContainer) {
     infoContainer.innerHTML = `
       <h1 class="project-info-title" data-editable="projects.${projectIndex}.title">${project.title}</h1>
-      <p class="project-info-description" data-editable="projects.${projectIndex}.description">${project.description}</p>
+      <div class="project-info-description" data-editable="projects.${projectIndex}.description">${project.description}</div>
       <div class="project-meta">
         <span>ROLE: <strong data-editable="projects.${projectIndex}.role">${project.role}</strong></span>
         <span>TYPE: <strong data-editable="projects.${projectIndex}.type">${project.type}</strong></span>
@@ -285,6 +289,10 @@ function renderContentBlocks(project, projectIndex) {
       container.appendChild(el);
     }
   });
+
+  if (typeof enableInlineEditing === "function" && window.editMode) {
+    enableInlineEditing();
+  }
 }
 
 function createBlockElement(block, projectIndex, blockIndex) {
@@ -450,10 +458,21 @@ function createVideoBlock(block, projectIndex, blockIndex) {
     if (embedUrl.includes("drive.google.com/file/d/") && embedUrl.includes("/view")) {
       embedUrl = embedUrl.replace(/\/view.*$/, "/preview");
     }
-    // Auto-convert standard YouTube watch URLs to embed URLs
-    else if (embedUrl.includes("youtube.com/watch?v=")) {
-      const videoId = embedUrl.split("v=")[1].split("&")[0];
-      embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    // Auto-convert YouTube URLs (watch, youtu.be, shorts)
+    else if (embedUrl.includes("youtube.com") || embedUrl.includes("youtu.be")) {
+      const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+      const match = embedUrl.match(ytRegex);
+      if (match && match[1]) {
+        embedUrl = `https://www.youtube.com/embed/${match[1]}`;
+      }
+    }
+    // Auto-convert Vimeo URLs
+    else if (embedUrl.includes("vimeo.com")) {
+      const vimeoRegex = /vimeo\.com\/(?:.*#|.*\/videos\/)?([0-9]+)/;
+      const match = embedUrl.match(vimeoRegex);
+      if (match && match[1]) {
+        embedUrl = `https://player.vimeo.com/video/${match[1]}`;
+      }
     }
 
     const iframe = document.createElement("iframe");
@@ -461,6 +480,8 @@ function createVideoBlock(block, projectIndex, blockIndex) {
     iframe.frameBorder = "0";
     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
     iframe.allowFullscreen = true;
+    // Fix YouTube Error 153 (video player configuration error)
+    iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
     div.appendChild(iframe);
   } else {
     div.style.backgroundColor = block.color || "#999";
