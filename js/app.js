@@ -47,10 +47,11 @@ function navigateTo(url) {
     window.location.href = url;
     return;
   }
+  document.body.classList.add("is-transitioning");
   overlay.classList.add("active");
   setTimeout(() => {
     window.location.href = url;
-  }, 350);
+  }, 180);
 }
 
 // ============================================================

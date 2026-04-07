@@ -60,6 +60,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
 }
 
 body {
@@ -71,6 +72,7 @@ body {
   background-color: var(--color-outer);
   overflow: hidden; /* Outer body doesn't scroll — frame does */
   height: 100vh;
+  overscroll-behavior: none;
 }
 
 img {
@@ -89,15 +91,23 @@ a {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: var(--color-bg);
+  background: rgba(17, 17, 17, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.18s ease;
 }
 
 .page-transition.active {
   opacity: 1;
   pointer-events: all;
+}
+
+body.is-transitioning .site-frame {
+  transform: scale(0.992);
+  opacity: 0.94;
+  filter: saturate(0.96);
 }
 
 /* ============================================================
@@ -120,7 +130,9 @@ a {
   border-radius: var(--frame-radius);
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: none;
   position: relative;
+  transition: transform 0.18s ease, opacity 0.18s ease, filter 0.18s ease;
   /* Custom scrollbar */
   scrollbar-width: thin;
   scrollbar-color: #D0D0D0 transparent;
@@ -299,36 +311,20 @@ a {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  padding: 0;
-  /* Small gap below last card and bottom of frame */
-  padding-bottom: 0;
+  gap: var(--space-md);
+  padding: 0 0 var(--space-md);
 }
 
 .project-card {
   position: relative;
-  width: 100%;
+  width: min(calc(100% - (var(--space-md) * 2)), 85%);
+  max-width: calc(var(--max-width) * 0.85);
+  margin: 0 auto;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   cursor: pointer;
   display: block;
-  /* No border-radius — flush with the frame */
-  border-radius: 0;
-}
-
-/* First card gets a subtle top border separator from the hero */
-.project-card:first-child {
-  border-top: 1px solid var(--color-border);
-}
-
-.project-card + .project-card {
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-/* Last card: clip bottom corners to match the frame */
-.project-card:last-child {
-  border-bottom-left-radius: var(--frame-radius);
-  border-bottom-right-radius: var(--frame-radius);
+  border-radius: var(--frame-radius);
 }
 
 /* BG image — fills full card */
@@ -338,6 +334,7 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  border-radius: inherit;
   transition: transform 0.7s var(--ease-out);
 }
 
@@ -395,7 +392,7 @@ a {
 .project-hero-image {
   width: 100%;
   aspect-ratio: 16 / 10;
-  border-radius: var(--card-radius);
+  border-radius: var(--frame-radius);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -500,7 +497,7 @@ a {
 .block-full-image {
   width: 100%;
   aspect-ratio: 16 / 10;
-  border-radius: var(--card-radius);
+  border-radius: var(--frame-radius);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -542,7 +539,7 @@ a {
 
 .block-grid-item {
   aspect-ratio: 3 / 4;
-  border-radius: 12px;
+  border-radius: var(--frame-radius);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -575,7 +572,7 @@ a {
 .block-video {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: var(--card-radius);
+  border-radius: var(--frame-radius);
   overflow: hidden;
   position: relative;
   display: flex;
@@ -606,7 +603,7 @@ a {
 }
 
 .block-two-column .col-image {
-  border-radius: 12px;
+  border-radius: var(--frame-radius);
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background-size: contain;
