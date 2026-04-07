@@ -126,18 +126,28 @@ function setupDragAndDrop() {
 
   const cards = grid.querySelectorAll(".project-card");
 
+  // Track the last valid target card so drop-on-placeholder still works
+  let lastTargetCard = null;
+
   cards.forEach(card => {
     card.setAttribute("draggable", "true");
 
     card.addEventListener("dragstart", (e) => {
-      if (!window.editMode) return;
+      if (!window.editMode) {
+        e.preventDefault();
+        return;
+      }
       draggedCard = card;
       draggedIndex = parseInt(card.getAttribute("data-index"));
+
       card.classList.add("dragging");
       e.dataTransfer.effectAllowed = "move";
-      // Need a small delay for the visual to appear
+      e.dataTransfer.setData("text/plain", draggedIndex);
+
       setTimeout(() => {
         card.style.opacity = "0.4";
+        // Disable overlays so they don't swallow drag events on other cards
+        grid.classList.add("is-card-dragging");
       }, 0);
     });
 
@@ -147,56 +157,60 @@ function setupDragAndDrop() {
       draggedCard.style.opacity = "";
       draggedCard = null;
       draggedIndex = -1;
+      lastTargetCard = null;
 
-      // Remove all placeholders
+      // Re-enable overlays
+      grid.classList.remove("is-card-dragging");
       grid.querySelectorAll(".drag-placeholder").forEach(p => p.remove());
     });
+  });
 
-    card.addEventListener("dragover", (e) => {
-      if (!window.editMode || !draggedCard) return;
-      e.preventDefault();
-      e.dataTransfer.dropEffect = "move";
+  // --- Grid-level dragover: catches events on cards AND placeholders ---
+  grid.addEventListener("dragover", (e) => {
+    if (!window.editMode || !draggedCard) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
 
-      const targetIndex = parseInt(card.getAttribute("data-index"));
-      if (targetIndex === draggedIndex) return;
+    // Find the real card being hovered (skip the placeholder itself)
+    const targetCard = e.target.closest(".project-card:not(.drag-placeholder)");
+    if (!targetCard || targetCard === draggedCard) return;
 
-      // Visual feedback: shift card
-      const rect = card.getBoundingClientRect();
-      const midY = rect.top + rect.height / 2;
-      const isAbove = e.clientY < midY;
+    lastTargetCard = targetCard;
 
-      // Remove existing placeholders
-      grid.querySelectorAll(".drag-placeholder").forEach(p => p.remove());
+    const rect = targetCard.getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    const isBefore = e.clientY < midY;
 
-      const placeholder = document.createElement("div");
-      placeholder.className = "drag-placeholder";
+    grid.querySelectorAll(".drag-placeholder").forEach(p => p.remove());
 
-      if (isAbove) {
-        grid.insertBefore(placeholder, card);
-      } else {
-        grid.insertBefore(placeholder, card.nextSibling);
-      }
-    });
+    const placeholder = document.createElement("div");
+    placeholder.className = "drag-placeholder";
 
-    card.addEventListener("drop", (e) => {
-      if (!window.editMode || !draggedCard) return;
-      e.preventDefault();
+    if (isBefore) {
+      grid.insertBefore(placeholder, targetCard);
+    } else {
+      grid.insertBefore(placeholder, targetCard.nextSibling);
+    }
+  });
 
-      const targetIndex = parseInt(card.getAttribute("data-index"));
-      if (targetIndex === draggedIndex) return;
+  // --- Grid-level drop: fires regardless of whether cursor is on card or placeholder ---
+  grid.addEventListener("drop", (e) => {
+    if (!window.editMode || !draggedCard || !lastTargetCard) return;
+    e.preventDefault();
 
-      // Reorder data
-      const [moved] = PORTFOLIO_DATA.projects.splice(draggedIndex, 1);
-      const newIndex = targetIndex > draggedIndex ? targetIndex : targetIndex;
-      PORTFOLIO_DATA.projects.splice(newIndex, 0, moved);
+    const targetIndex = parseInt(lastTargetCard.getAttribute("data-index"));
+    if (targetIndex === draggedIndex) return;
 
-      // Save and re-render
-      saveData();
-      renderProjectsGrid();
-      setupScrollAnimations();
-      setupDragAndDrop();
-      showToast("Reordered!");
-    });
+    // Reorder data
+    const [moved] = PORTFOLIO_DATA.projects.splice(draggedIndex, 1);
+    PORTFOLIO_DATA.projects.splice(targetIndex, 0, moved);
+
+    // Save and re-render
+    saveData();
+    renderProjectsGrid();
+    setupScrollAnimations();
+    setupDragAndDrop();
+    showToast("Reordered!");
   });
 }
 

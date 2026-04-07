@@ -8,23 +8,35 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <!-- Page Transition Overlay -->
   <div class="page-transition" id="pageTransition"></div>
 
-  <!-- Notch Navigation -->
-  <nav class="notch-nav" id="notchNav">
-    <span class="notch-logo" id="notchLogo"></span>
-    <div class="notch-links" id="notchLinks"></div>
-  </nav>
+  <!-- Viewport Outer (dark background) -->
+  <div class="viewport-outer">
+    <div class="site-frame" id="siteFrame">
 
-  <!-- Project Hero Image -->
-  <section class="project-hero" id="projectHero"></section>
+      <!-- Site Header -->
+      <header class="site-header" id="siteHeader">
+        <div class="site-header-left"></div>
+        <nav class="notch-nav" id="notchNav">
+          <span class="site-logo" id="notchLogo"></span>
+          <div class="notch-links" id="notchLinks"></div>
+        </nav>
+        <div class="site-header-right"></div>
+      </header>
 
-  <!-- Project Info -->
-  <section class="project-info" id="projectInfo"></section>
+      <!-- Project Hero Image -->
+      <section class="project-hero" id="projectHero"></section>
 
-  <!-- Content Blocks -->
-  <section class="content-blocks" id="contentBlocks"></section>
+      <!-- Project Info -->
+      <section class="project-info" id="projectInfo"></section>
+
+      <!-- Content Blocks -->
+      <section class="content-blocks" id="contentBlocks"></section>
+
+    </div><!-- /site-frame -->
+  </div><!-- /viewport-outer -->
 
   <!-- Sync Button -->
   <button class="sync-toggle" id="syncToggle" title="Sync from data.js" onclick="syncFromFile()">↻</button>

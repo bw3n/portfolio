@@ -8,22 +8,43 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <!-- Page Transition Overlay -->
   <div class="page-transition" id="pageTransition"></div>
 
-  <!-- Notch Navigation -->
-  <nav class="notch-nav" id="notchNav">
-    <span class="notch-logo" id="notchLogo" data-editable="site.logo"></span>
-    <div class="notch-links" id="notchLinks"></div>
-  </nav>
+  <!-- Viewport Outer (dark background) -->
+  <div class="viewport-outer">
+    <div class="site-frame" id="siteFrame">
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <h1 class="hero-title" id="heroTitle"></h1>
-  </section>
+      <!-- Site Header -->
+      <header class="site-header" id="siteHeader">
+        <div class="site-header-left"></div>
+        <nav class="notch-nav" id="notchNav">
+          <span class="site-logo" id="notchLogo" data-editable="site.logo"></span>
+          <div class="notch-links" id="notchLinks"></div>
+        </nav>
+        <div class="site-header-right"></div>
+      </header>
 
-  <!-- Projects Grid -->
-  <section class="projects-grid" id="projectsGrid"></section>
+      <!-- Work View -->
+      <div id="workView">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+          <p class="hero-eyebrow">PROJECTS</p>
+          <h1 class="hero-title" id="heroTitle"></h1>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="projects-grid" id="projectsGrid"></section>
+      </div>
+
+      <!-- About View -->
+      <div id="aboutView" style="display: none;">
+        <section class="about-section" id="about"></section>
+      </div>
+
+    </div><!-- /site-frame -->
+  </div><!-- /viewport-outer -->
 
   <!-- Sync Button -->
   <button class="sync-toggle" id="syncToggle" title="Sync from data.js" onclick="syncFromFile()">↻</button>
