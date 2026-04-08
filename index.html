@@ -9,9 +9,6 @@
 </head>
 <body>
 
-  <!-- Page Transition Overlay -->
-  <div class="page-transition" id="pageTransition"></div>
-
   <!-- Viewport Outer (dark background) -->
   <div class="viewport-outer">
     <div class="site-frame" id="siteFrame">
@@ -30,12 +27,22 @@
       <div id="workView">
         <!-- Hero Section -->
         <section class="hero" id="hero">
-          <p class="hero-eyebrow">PROJECTS</p>
+          <p class="hero-eyebrow">WORK</p>
           <h1 class="hero-title" id="heroTitle"></h1>
         </section>
 
         <!-- Projects Grid -->
         <section class="projects-grid" id="projectsGrid"></section>
+      </div>
+
+      <!-- Lab View -->
+      <div id="labView" style="display: none;">
+        <section class="hero" id="labHero">
+          <p class="hero-eyebrow">LAB</p>
+          <h1 class="hero-title" id="labTitle"></h1>
+        </section>
+
+        <section class="projects-grid" id="labProjectsGrid"></section>
       </div>
 
       <!-- About View -->

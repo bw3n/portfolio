@@ -34,6 +34,7 @@
 
   /* Layout */
   --max-width: 1200px;
+  --media-max-width: 1280px;
   --card-radius: 16px;
   --notch-radius: 50px;
   --frame-radius: 32px;
@@ -60,7 +61,6 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior: none;
 }
 
 body {
@@ -70,9 +70,8 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-outer);
-  overflow: hidden; /* Outer body doesn't scroll — frame does */
-  height: 100vh;
-  overscroll-behavior: none;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 img {
@@ -86,38 +85,14 @@ a {
   text-decoration: none;
 }
 
-/* --- Page Transition Overlay --- */
-.page-transition {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(17, 17, 17, 0.12);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s ease;
-}
-
-.page-transition.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-body.is-transitioning .site-frame {
-  transform: scale(0.992);
-  opacity: 0.94;
-  filter: saturate(0.96);
-}
-
 /* ============================================================
    ARCHITECTURAL FRAME LAYOUT
    ============================================================ */
 
 /* Outer container — the dark background "border" */
 .viewport-outer {
-  position: fixed;
-  inset: 0;
+  position: relative;
+  min-height: 100vh;
   background-color: var(--color-outer);
   padding: var(--frame-padding);
   display: flex;
@@ -128,27 +103,12 @@ body.is-transitioning .site-frame {
   flex: 1;
   background: var(--color-bg);
   border-radius: var(--frame-radius);
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: none;
+  overflow: visible;
   position: relative;
-  transition: transform 0.18s ease, opacity 0.18s ease, filter 0.18s ease;
-  /* Custom scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: #D0D0D0 transparent;
-}
-
-.site-frame::-webkit-scrollbar {
-  width: 6px;
-}
-
-.site-frame::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.site-frame::-webkit-scrollbar-thumb {
-  background-color: #D0D0D0;
-  border-radius: 4px;
+  transition:
+    transform 0.42s var(--ease-out),
+    opacity 0.28s var(--ease-out),
+    filter 0.28s var(--ease-out);
 }
 
 /* Body fade-in on load */
@@ -191,7 +151,8 @@ body.is-transitioning .site-frame {
   cursor: pointer;
   user-select: none;
   padding-left: 12px;
-  padding-right: 8px;
+  padding-right: 18px;
+  margin-right: 8px;
   transition: opacity var(--duration-fast) ease;
 }
 
@@ -224,20 +185,37 @@ body.is-transitioning .site-frame {
 }
 
 .notch-links {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
+}
+
+.notch-active-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 50px;
+  background: var(--color-bg);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+  transition: transform 0.35s var(--ease-out),
+              width 0.35s var(--ease-out),
+              opacity 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .notch-link {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
   color: var(--color-notch-text);
   padding: 7px 18px;
   border-radius: 50px;
-  transition: background var(--duration-fast) ease,
-              color var(--duration-fast) ease,
+  transition: color var(--duration-fast) ease,
               opacity var(--duration-fast) ease;
   cursor: pointer;
   user-select: none;
@@ -246,12 +224,10 @@ body.is-transitioning .site-frame {
 }
 
 .notch-link:hover {
-  background: rgba(255, 255, 255, 0.12);
   opacity: 1;
 }
 
 .notch-link.active {
-  background: var(--color-bg);
   color: var(--color-text);
   opacity: 1;
 }
@@ -317,8 +293,8 @@ body.is-transitioning .site-frame {
 
 .project-card {
   position: relative;
-  width: min(calc(100% - (var(--space-md) * 2)), 85%);
-  max-width: calc(var(--max-width) * 0.85);
+  width: min(calc(100% - (var(--space-md) * 2)), var(--media-max-width));
+  max-width: var(--media-max-width);
   margin: 0 auto;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -385,7 +361,7 @@ body.is-transitioning .site-frame {
   width: 100%;
   margin-top: 0;
   padding: 0 var(--space-md);
-  max-width: var(--max-width);
+  max-width: var(--media-max-width);
   margin: 80px auto 0;
 }
 
@@ -486,7 +462,7 @@ body.is-transitioning .site-frame {
 
 /* --- Content Blocks --- */
 .content-blocks {
-  max-width: var(--max-width);
+  max-width: var(--media-max-width);
   margin: 0 auto;
   padding: 0 var(--space-md) var(--space-2xl);
   display: flex;
@@ -868,7 +844,7 @@ body.edit-mode .edit-toolbar {
   }
 
   body {
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
   .site-header {
@@ -911,6 +887,11 @@ body.edit-mode .edit-toolbar {
     gap: var(--space-md);
   }
 
+  .about-hero-headline {
+    max-width: 100%;
+    font-size: clamp(38px, 12vw, 58px);
+  }
+
   .about-two-col {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
@@ -939,7 +920,7 @@ body.edit-mode .edit-toolbar {
   padding: var(--space-2xl) var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
+  gap: var(--space-xl);
 }
 
 /* Section label */
@@ -956,7 +937,7 @@ body.edit-mode .edit-toolbar {
 /* Divider */
 .about-divider {
   border: none;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(26, 26, 26, 0.12);
 }
 
 /* --- Intro --- */
@@ -966,6 +947,46 @@ body.edit-mode .edit-toolbar {
   align-items: flex-start;
 }
 
+.about-intro-full {
+  width: 100%;
+}
+
+.about-hero-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.about-hero-copy {
+  max-width: 980px;
+}
+
+.about-hero-headline {
+  font-family: var(--font-heading);
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+  max-width: 11ch;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .about-intro-left {
   flex: 0 0 40%;
 }
@@ -973,9 +994,23 @@ body.edit-mode .edit-toolbar {
 .about-bio {
   font-family: var(--font-body);
   font-size: 17px;
-  line-height: 1.75;
+  line-height: 1.8;
   color: var(--color-text);
   margin-top: 0;
+  max-width: 42rem;
+}
+
+.about-bio--intro {
+  max-width: 46rem;
+  margin-top: var(--space-lg);
+}
+
+.about-bio p {
+  margin-bottom: var(--space-md);
+}
+
+.about-bio p:last-child {
+  margin-bottom: 0;
 }
 
 .about-philosophy {
@@ -1001,6 +1036,13 @@ body.edit-mode .edit-toolbar {
 .about-col {
   display: flex;
   flex-direction: column;
+}
+
+.about-col-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
 }
 
 .about-experience,
@@ -1082,24 +1124,65 @@ body.edit-mode .edit-toolbar {
 }
 
 .about-clients {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  align-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px 18px;
+  align-items: stretch;
 }
 
 .about-client {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  padding: 10px 12px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  transition: border-color var(--duration-fast) ease,
+              background var(--duration-fast) ease;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
   color: var(--color-text);
-  padding: 2px 0;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--duration-fast) ease;
+  text-align: center;
 }
 
 .about-client:hover {
-  border-bottom-color: var(--color-text);
+  border-color: rgba(17, 17, 17, 0.18);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.about-client--logo {
+  border-bottom: none;
+}
+
+.about-client--logo:hover {
+  border-bottom-color: transparent;
+}
+
+.about-client-logo-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, var(--logo-width, 132px));
+  height: var(--logo-height, 30px);
+}
+
+.about-client-logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0.78;
+  filter: brightness(0) saturate(100%);
+  transition: opacity var(--duration-fast) ease;
+}
+
+.about-client--logo:hover .about-client-logo {
+  opacity: 1;
 }
 
 /* --- Side Projects --- */
@@ -1207,3 +1290,6 @@ body.edit-mode .edit-toolbar {
 .site-header.scrolled {
   box-shadow: 0 1px 0 var(--color-border);
 }
+
+
+

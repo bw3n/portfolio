@@ -16,11 +16,57 @@ function saveData() {
   }
 }
 
+function cloneData(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function normalizeNavLinks(navLinks) {
+  if (!Array.isArray(navLinks)) return [];
+  return navLinks
+    .map(link => ({
+      label: typeof link?.label === "string" ? link.label.trim() : "",
+      href: typeof link?.href === "string" ? link.href.trim() : ""
+    }))
+    .filter(link => link.label && link.href);
+}
+
+function shouldKeepDefaultNavLinks(savedNavLinks, defaultNavLinks) {
+  const saved = normalizeNavLinks(savedNavLinks);
+  const defaults = normalizeNavLinks(defaultNavLinks);
+
+  if (!saved.length) return true;
+
+  return defaults.some(defaultLink => {
+    return !saved.some(savedLink => (
+      savedLink.label === defaultLink.label &&
+      savedLink.href === defaultLink.href
+    ));
+  });
+}
+
 function loadData() {
   const saved = localStorage.getItem("portfolio_v3_data");
   if (saved) {
+    const defaultSite = cloneData(PORTFOLIO_DATA.site);
     const parsed = JSON.parse(saved);
-    if (parsed.site) Object.assign(PORTFOLIO_DATA.site, parsed.site);
+    if (parsed.site) {
+      Object.assign(PORTFOLIO_DATA.site, parsed.site);
+
+      // Keep nav links from the current source file when older browser state
+      // is missing newly added links like "Lab".
+      if (shouldKeepDefaultNavLinks(parsed.site.navLinks, defaultSite.navLinks)) {
+        PORTFOLIO_DATA.site.navLinks = defaultSite.navLinks;
+      }
+
+      // Migrate older saved lab hero copy so localStorage does not keep reviving it.
+      const hadOldLabHeading = parsed.site.labLine1 === "Lab.";
+      const hadOldLabSubheading = parsed.site.labLine2 === "Side projects, experiments, and things I make for myself.";
+
+      if (hadOldLabHeading || hadOldLabSubheading) {
+        PORTFOLIO_DATA.site.labLine1 = "Experiments, ideas and vibes";
+        PORTFOLIO_DATA.site.labLine2 = "";
+      }
+    }
     if (parsed.projects) PORTFOLIO_DATA.projects = parsed.projects;
   }
 }
@@ -109,6 +155,13 @@ async function syncFromFile() {
 
   document.head.appendChild(script);
 }
+
+function resetSavedData({ reload = true } = {}) {
+  localStorage.removeItem("portfolio_v3_data");
+  if (reload) window.location.reload();
+}
+
+window.resetPortfolioBrowserState = resetSavedData;
 
 // Initialize data loading
 loadData();

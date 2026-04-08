@@ -40,18 +40,71 @@ function getProjectById(id) {
   return PORTFOLIO_DATA.projects.find(p => p.id === id) || null;
 }
 
+function getProjectCategory(project) {
+  return project.category === "lab" ? "lab" : "work";
+}
+
+function getHomeViewFromHash() {
+  if (window.location.hash === "#work") return "work";
+  if (window.location.hash === "#about") return "about";
+  if (window.location.hash === "#contact") return "about";
+  if (window.location.hash === "#lab") return "lab";
+  return "work";
+}
+
+function getEmbedUrl(url) {
+  if (!url) return "";
+
+  const trimmedUrl = url.trim();
+
+  const driveMatch = trimmedUrl.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch && driveMatch[1]) {
+    return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+  }
+
+  const youtubeMatch = trimmedUrl.match(
+    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+  );
+  if (youtubeMatch && youtubeMatch[1]) {
+    return `https://www.youtube-nocookie.com/embed/${youtubeMatch[1]}?rel=0&modestbranding=1`;
+  }
+
+  const vimeoMatch = trimmedUrl.match(/vimeo\.com\/(?:.*#|.*\/videos\/)?([0-9]+)/);
+  if (vimeoMatch && vimeoMatch[1]) {
+    return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+  }
+
+  return trimmedUrl;
+}
+
 // --- Page Transition ---
 function navigateTo(url) {
-  const overlay = document.getElementById("pageTransition");
-  if (!overlay) {
-    window.location.href = url;
+  window.location.href = url;
+}
+
+function updateNavHighlight() {
+  const linksContainer = document.getElementById("notchLinks");
+  if (!linksContainer) return;
+
+  const highlight = linksContainer.querySelector(".notch-active-pill");
+  const activeLink = linksContainer.querySelector(".notch-link.active");
+  if (!highlight) return;
+
+  if (!activeLink) {
+    highlight.style.opacity = "0";
     return;
   }
-  document.body.classList.add("is-transitioning");
-  overlay.classList.add("active");
-  setTimeout(() => {
-    window.location.href = url;
-  }, 180);
+
+  const left = activeLink.offsetLeft;
+  const width = activeLink.offsetWidth;
+
+  highlight.style.width = `${width}px`;
+  highlight.style.transform = `translateX(${left}px)`;
+  highlight.style.opacity = "1";
+}
+
+function scheduleNavHighlightUpdate() {
+  window.requestAnimationFrame(updateNavHighlight);
 }
 
 // ============================================================
@@ -72,6 +125,10 @@ function renderNav() {
   };
 
   links.innerHTML = "";
+  const highlight = document.createElement("span");
+  highlight.className = "notch-active-pill";
+  links.appendChild(highlight);
+
   PORTFOLIO_DATA.site.navLinks.forEach(link => {
     const a = document.createElement("a");
     a.className = "notch-link";
@@ -81,7 +138,19 @@ function renderNav() {
       a.onclick = (e) => {
         e.preventDefault();
         const targetId = link.href.substring(1);
-        if (targetId === "about") {
+        if (targetId === "work") {
+          if (isProjectPage()) {
+            navigateTo("index.html");
+          } else {
+            switchView("work");
+          }
+        } else if (targetId === "lab") {
+          if (isProjectPage()) {
+            navigateTo("index.html#lab");
+          } else {
+            switchView("lab");
+          }
+        } else if (targetId === "about") {
           if (isProjectPage()) {
             navigateTo("index.html#about");
           } else {
@@ -91,15 +160,7 @@ function renderNav() {
           if (isProjectPage()) {
             navigateTo("index.html#contact");
           } else {
-            const targetEl = document.getElementById("contact");
-            if (targetEl) {
-              const frame = document.getElementById("siteFrame");
-              if (frame) {
-                frame.scrollTo({ top: targetEl.offsetTop - 80, behavior: "smooth" });
-              } else {
-                targetEl.scrollIntoView({ behavior: "smooth" });
-              }
-            }
+            switchView("about", { scrollToId: "contact" });
           }
         }
       };
@@ -111,24 +172,25 @@ function renderNav() {
     links.appendChild(a);
   });
 
+  scheduleNavHighlightUpdate();
+
   // Scroll listener: handle visibility on scroll direction
-  const frame = document.getElementById("siteFrame");
   const header = document.getElementById("siteHeader");
   let lastScrollTop = 0;
 
-  if (frame && header) {
-    frame.addEventListener("scroll", () => {
-      const st = frame.scrollTop;
-      
+  if (header) {
+    window.addEventListener("scroll", () => {
+      const st = window.scrollY || document.documentElement.scrollTop;
+
       // Hide on scroll down, show on scroll up
       if (st > lastScrollTop && st > 100) {
         header.classList.add("header-hidden");
       } else {
         header.classList.remove("header-hidden");
       }
-      
+
       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-    });
+    }, { passive: true });
   }
 }
 
@@ -137,34 +199,50 @@ function renderNav() {
 // ============================================================
 function renderHomepage() {
   renderHero();
-  renderProjectsGrid();
+  renderLabHero();
+  renderProjectsGrid("work");
+  renderProjectsGrid("lab");
   renderAbout();
-  
-  // Initial view based on hash
-  if (window.location.hash === "#about") {
-    switchView("about");
-  } else {
-    switchView("work");
-  }
+
+  switchView(getHomeViewFromHash());
 }
 
-function switchView(view) {
+function switchView(view, options = {}) {
   const workView = document.getElementById("workView");
+  const labView = document.getElementById("labView");
   const aboutView = document.getElementById("aboutView");
-  const logo = document.getElementById("notchLogo");
-  const aboutLink = Array.from(document.querySelectorAll(".notch-link")).find(a => a.textContent === "About");
+  const navLinks = Array.from(document.querySelectorAll(".notch-link"));
+  const scrollToId = options.scrollToId;
+
+  navLinks.forEach(link => link.classList.remove("active"));
+
+  if (workView) workView.style.display = view === "work" ? "block" : "none";
+  if (labView) labView.style.display = view === "lab" ? "block" : "none";
+  if (aboutView) aboutView.style.display = view === "about" ? "block" : "none";
 
   if (view === "about") {
-    if (workView) workView.style.display = "none";
-    if (aboutView) aboutView.style.display = "block";
     window.location.hash = "about";
-    if (aboutLink) aboutLink.classList.add("active");
-    window.scrollTo(0, 0);
+  } else if (view === "lab") {
+    window.location.hash = "lab";
   } else {
-    if (aboutView) aboutView.style.display = "none";
-    if (workView) workView.style.display = "block";
-    history.pushState("", document.title, window.location.pathname + window.location.search);
-    if (aboutLink) aboutLink.classList.remove("active");
+    window.location.hash = "work";
+  }
+
+  const activeLink = navLinks.find(link => {
+    return link.getAttribute("href") === `#${view}`;
+  });
+  if (activeLink) activeLink.classList.add("active");
+  scheduleNavHighlightUpdate();
+
+  if (scrollToId) {
+    requestAnimationFrame(() => {
+      const targetEl = document.getElementById(scrollToId);
+      if (targetEl) {
+        const top = targetEl.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    });
+  } else {
     window.scrollTo(0, 0);
   }
 }
@@ -172,11 +250,11 @@ function switchView(view) {
 // Global hash listener for browser back/forward
 window.addEventListener("hashchange", () => {
   if (!isProjectPage()) {
-    if (window.location.hash === "#about") {
-      switchView("about");
-    } else {
-      switchView("work");
+    if (window.location.hash === "#contact") {
+      switchView("about", { scrollToId: "contact" });
+      return;
     }
+    switchView(getHomeViewFromHash());
   }
 });
 
@@ -184,6 +262,7 @@ function renderAbout() {
   const container = document.getElementById("about");
   if (!container || !PORTFOLIO_DATA.about) return;
   const a = PORTFOLIO_DATA.about;
+  const heroHeadline = a.heroHeadline || "Ideas, designed to work";
 
   // Experience rows
   const expRows = (a.experience || []).map((e, i) => `
@@ -200,9 +279,9 @@ function renderAbout() {
       <span class="about-award-name" data-editable="about.awards.${i}.name">${aw.name}</span>
       <span class="about-award-meta">
         <span data-editable="about.awards.${i}.campaign">${aw.campaign}</span>
-        &nbsp;·&nbsp;
+         &middot; 
         <span data-editable="about.awards.${i}.body">${aw.body}</span>
-        &nbsp;·&nbsp;
+         &middot; 
         <span data-editable="about.awards.${i}.year">${aw.year}</span>
       </span>
     </div>
@@ -214,28 +293,34 @@ function renderAbout() {
   `).join("");
 
   // Client names
-  const clientNames = (a.clients || []).map((c, i) => `
-    <span class="about-client" data-editable="about.clients.${i}">${c}</span>
-  `).join("");
+  const clientNames = (a.clients || []).map((client, i) => {
+    if (typeof client === "object" && client?.logoSrc) {
+      const name = client.name || `Client ${i + 1}`;
+      const styleParts = [];
+      if (client.logoWidth) styleParts.push(`--logo-width:${client.logoWidth}px`);
+      if (client.logoHeight) styleParts.push(`--logo-height:${client.logoHeight}px`);
+      const stageStyle = styleParts.length ? ` style="${styleParts.join(";")}"` : "";
+      return `
+        <span class="about-client about-client--logo" data-editable="about.clients.${i}.name">
+          <span class="about-client-logo-stage"${stageStyle}>
+            <img src="${client.logoSrc}" alt="${name}" class="about-client-logo">
+          </span>
+        </span>
+      `;
+    }
 
-  // Side project cards
-  const sideCards = (a.sideProjects || []).map((p, i) => `
-    <a class="about-project-card" href="${p.href}" target="_blank" rel="noopener noreferrer">
-      <div class="about-project-card-content">
-        <span class="about-project-title" data-editable="about.sideProjects.${i}.title">${p.title}</span>
-        <span class="about-project-desc" data-editable="about.sideProjects.${i}.description">${p.description}</span>
-      </div>
-      <span class="about-project-arrow">↗</span>
-    </a>
-  `).join("");
+    return `
+      <span class="about-client" data-editable="about.clients.${i}">${client}</span>
+    `;
+  }).join("");
 
   // Press rows
   const pressRows = (a.press || []).map((p, i) => `
     <div class="about-award-row">
-      <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="about-award-name" data-editable="about.press.${i}.name">${p.name} ↗</a>
+      <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="about-award-name" data-editable="about.press.${i}.name">${p.name} -></a>
       <span class="about-award-meta">
         <span data-editable="about.press.${i}.project">${p.project}</span>
-        &nbsp;·&nbsp;
+         &middot; 
         <span data-editable="about.press.${i}.brand">${p.brand}</span>
       </span>
     </div>
@@ -246,9 +331,12 @@ function renderAbout() {
 
       <!-- Intro -->
       <div class="about-intro">
-        <div class="about-intro-full">
+        <div class="about-intro-full about-hero-block">
           <p class="about-section-label">About</p>
-          <div class="about-bio" data-editable="about.bio">${a.bio}</div>
+          <div class="about-hero-copy">
+            <h1 class="about-hero-headline" data-editable="about.heroHeadline">${heroHeadline}</h1>
+            <div class="about-bio about-bio--intro" data-editable="about.bio">${a.bio}</div>
+          </div>
         </div>
       </div>
 
@@ -259,6 +347,16 @@ function renderAbout() {
         <div class="about-col">
           <p class="about-section-label">Experience</p>
           <div class="about-experience">${expRows}</div>
+          <div class="about-col-stack">
+            <div>
+              <p class="about-section-label">Capabilities</p>
+              <div class="about-capabilities">${capPills}</div>
+            </div>
+            <div>
+              <p class="about-section-label">Clients</p>
+              <div class="about-clients">${clientNames}</div>
+            </div>
+          </div>
         </div>
         <div class="about-col">
           <p class="about-section-label">Recognition</p>
@@ -272,40 +370,18 @@ function renderAbout() {
 
       <div class="about-divider"></div>
 
-      <!-- Capabilities & Clients -->
-      <div class="about-two-col">
-        <div class="about-col">
-          <p class="about-section-label">Capabilities</p>
-          <div class="about-capabilities">${capPills}</div>
-        </div>
-        <div class="about-col">
-          <p class="about-section-label">Clients</p>
-          <div class="about-clients">${clientNames}</div>
-        </div>
-      </div>
-
-      <div class="about-divider"></div>
-
-      <!-- Side Projects -->
-      <p class="about-section-label">Side Projects</p>
-      <div class="about-side-projects">${sideCards}</div>
-
-      <div class="about-divider"></div>
-
       <!-- Contact -->
       <div class="about-contact" id="contact">
         <p class="about-section-label">Let's Talk</p>
         <div class="about-contact-links">
           <a class="about-contact-link" href="mailto:${a.contact.email}" data-editable="about.contact.email">${a.contact.email}</a>
-          <a class="about-contact-link" href="${a.contact.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a class="about-contact-link" href="${a.contact.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn -></a>
         </div>
-        <p class="about-footer-note">© ${new Date().getFullYear()} — Built with intent.</p>
       </div>
 
     </div>
   `;
 }
-
 
 function renderHero() {
   const container = document.getElementById("heroTitle");
@@ -320,13 +396,28 @@ function renderHero() {
   `;
 }
 
-function renderProjectsGrid() {
-  const grid = document.getElementById("projectsGrid");
+function renderLabHero() {
+  const container = document.getElementById("labTitle");
+  if (!container) return;
+
+  const line1 = PORTFOLIO_DATA.site.labLine1 || "Experiments, ideas and vibes";
+  const line2 = PORTFOLIO_DATA.site.labLine2 || "";
+
+  container.innerHTML = `
+    <span class="line" data-editable="site.labLine1">${line1}</span>
+    <span class="line" data-editable="site.labLine2">${line2}</span>
+  `;
+}
+
+function renderProjectsGrid(category = "work") {
+  const grid = document.getElementById(category === "lab" ? "labProjectsGrid" : "projectsGrid");
   if (!grid) return;
 
   grid.innerHTML = "";
 
   PORTFOLIO_DATA.projects.forEach((project, index) => {
+    if (getProjectCategory(project) !== category) return;
+
     const card = document.createElement("div");
     card.className = "project-card";
     card.setAttribute("data-index", index);
@@ -343,19 +434,6 @@ function renderProjectsGrid() {
       bgDiv.style.backgroundColor = project.cardColor;
     }
     card.appendChild(bgDiv);
-
-    // Brand tag (top-left minimalist pill)
-    const brandTag = document.createElement("div");
-    brandTag.className = "project-brand-tag";
-    // Derive brand name from client or title
-    const brandName = project.client || "";
-    if (brandName) {
-      const pill = document.createElement("span");
-      pill.className = "brand-pill";
-      pill.textContent = brandName;
-      brandTag.appendChild(pill);
-    }
-    card.appendChild(brandTag);
 
     // Image upload overlay (visible in edit mode)
     const uploadOverlay = document.createElement("div");
@@ -382,7 +460,8 @@ function renderProjectsGrid() {
         if (confirm("Are you sure you want to delete this project?")) {
           PORTFOLIO_DATA.projects.splice(index, 1);
           saveData();
-          renderProjectsGrid();
+          renderProjectsGrid("work");
+          renderProjectsGrid("lab");
           if (typeof setupDragAndDrop === 'function') setupDragAndDrop();
         }
       }
@@ -672,34 +751,13 @@ function createVideoBlock(block, projectIndex, blockIndex) {
   div.setAttribute("data-block-index", blockIndex);
 
   if (block.url) {
-    let embedUrl = block.url.trim();
-    // Auto-convert Google Drive viewer links to embeddable preview links
-    if (embedUrl.includes("drive.google.com/file/d/") && embedUrl.includes("/view")) {
-      embedUrl = embedUrl.replace(/\/view.*$/, "/preview");
-    }
-    // Auto-convert YouTube URLs (watch, youtu.be, shorts)
-    else if (embedUrl.includes("youtube.com") || embedUrl.includes("youtu.be")) {
-      const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-      const match = embedUrl.match(ytRegex);
-      if (match && match[1]) {
-        embedUrl = `https://www.youtube.com/embed/${match[1]}`;
-      }
-    }
-    // Auto-convert Vimeo URLs
-    else if (embedUrl.includes("vimeo.com")) {
-      const vimeoRegex = /vimeo\.com\/(?:.*#|.*\/videos\/)?([0-9]+)/;
-      const match = embedUrl.match(vimeoRegex);
-      if (match && match[1]) {
-        embedUrl = `https://player.vimeo.com/video/${match[1]}`;
-      }
-    }
-
     const iframe = document.createElement("iframe");
-    iframe.src = embedUrl;
+    iframe.src = getEmbedUrl(block.url);
     iframe.frameBorder = "0";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.title = "Embedded project video";
+    iframe.loading = "lazy";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
-    // Fix YouTube Error 153 (video player configuration error)
     iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
     div.appendChild(iframe);
   } else {
@@ -820,9 +878,12 @@ function addNewProject() {
   const id = "project-" + (PORTFOLIO_DATA.projects.length + 1) + "-" + Date.now();
   const colors = ["#6B4C1E", "#1A6B1A", "#0044FF", "#8B1A1A", "#4A1A6B", "#1A4A6B"];
   const color = colors[PORTFOLIO_DATA.projects.length % colors.length];
+  const currentView = getHomeViewFromHash();
+  const category = currentView === "lab" ? "lab" : "work";
 
   PORTFOLIO_DATA.projects.push({
     id: id,
+    category: category,
     title: "New Project",
     cardColor: color,
     cardImage: null,
@@ -845,9 +906,10 @@ function addNewProject() {
   });
 
   saveData();
-  renderProjectsGrid();
+  renderProjectsGrid("work");
+  renderProjectsGrid("lab");
   setupDragAndDrop();
-  showToast("Project added!");
+  showToast(category === "lab" ? "Lab project added!" : "Project added!");
 }
 
 // ============================================================
@@ -914,4 +976,10 @@ document.addEventListener("DOMContentLoaded", () => {
       a.rel = "noopener noreferrer";
     }
   });
+
+  window.addEventListener("resize", scheduleNavHighlightUpdate);
 });
+
+
+
+
