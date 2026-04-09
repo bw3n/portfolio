@@ -245,11 +245,72 @@ const PORTFOLIO_DATA = {
           "content": "<a href=\"https://open.spotify.com/user/31ucvejxlaawbs5s6cylpmyak5mm?si=b73bf40552c94de7\" target=\"_blank\" rel=\"noopener noreferrer\">Please enjoy the full playlist on Spotify here</a>. :)"
         }
       ]
+    },
+    {
+      "id": "project-7-1775737307838",
+      "category": "lab",
+      "title": "Digitas / Rabbithood",
+      "cardColor": "#6B4C1E",
+      "cardImage": "assets/rabbithood-thumbnail.gif",
+      "description": "Rabbithood is an AI-powered EDM generator that transforms brand-approved components into modular, production-ready emails. Built on the concept “Enter the Burrow,” the brand unfolds as a generative world where elements morph, duplicate, and adapt, reflecting the platform’s ability to swap, recombine, and scale content across segments.",
+      "role": "Art Director",
+      "type": "Branding",
+      "client": "Digitas",
+      "agency": "Digitas",
+      "contentBlocks": [
+        {
+          "type": "full-image",
+          "src": "assets/rabbithood-0.png",
+          "color": "#6B4C1E",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": "The identity is driven by organic, shape-shifting forms and anchored by the brand bunny as a guide. Rather than static assets, the system is designed to behave like the product itself, capable of generating variations and evolving across different outputs. The result is a brand that operates in sync with the platform, reinforcing speed, adaptability, and high-volume personalisation."
+        },
+        {
+          "type": "two-image",
+          "color": "#6B4C1E",
+          "images": [
+            {
+              "src": "assets/rabbithood-1.png",
+              "color": "#6B4C1E"
+            },
+            {
+              "src": "assets/rabbithood-4.png",
+              "color": "#6B4C1E"
+            }
+          ]
+        },
+        {
+          "type": "two-image",
+          "color": "#6B4C1E",
+          "images": [
+            {
+              "src": "assets/rabbithood-5.png",
+              "color": "#6B4C1E"
+            },
+            {
+              "src": "assets/rabbithood-3.png",
+              "color": "#6B4C1E"
+            }
+          ]
+        },
+        {
+          "type": "video",
+          "url": "https://vimeo.com/1181568371?share=copy&fl=sv&fe=ci#t=0",
+          "color": "#6B4C1E"
+        },
+        {
+          "type": "text",
+          "content": "Product Demonstration"
+        }
+      ]
     }
   ],
   "about": {
     "heroHeadline": "Ideas, designed to work",
-    "bio": "<p>Hi, I'm Bwen.</p><p>I build things that live beyond ads.</p><p>Trained as an Art Director, my work now sits across brand, product and systems, combining visual storytelling, UX thinking and AI to shape how ideas actually function, not just how they look.</p><p>I've worked across telco, F&B, banking and government, building everything from campaigns to interfaces to experimental tools, taking ideas from concept to execution.</p><p>Currently at Digitas Singapore, pushing pixels, prototyping flows, and occasionally teaching machines new tricks.</p>",
+    "bio": "<p>Hi, I’m Boon.</p><p>I design ideas that work across brand and product.</p><p>I started as an Art Director, but my work has evolved into building end-to-end experiences. I combine visual storytelling, UX thinking and AI to shape how ideas behave, from campaigns to interfaces to experimental systems.</p><p>I’ve worked across telco, F&amp;B, banking and government, taking ideas from concept through to execution, not just in communication, but in how users interact with them.</p><p>Currently at Digitas Singapore, focusing on the intersection of brand, experience and emerging technology.</p>",
     "labIntro": "A selection of experiments exploring AI, interaction, and creative technology.",
     "labPreview": [
       {
@@ -449,6 +510,13 @@ const PORTFOLIO_DATA = {
         "brand": "Riot Games",
         "year": "2023",
         "link": "https://campaignbriefasia.com/2023/12/05/teamfight-tactics-mobile-launches-in-apac-with-karaoke-challenge-by-goodstuph-singapore/"
+      },
+      {
+        "name": "Teamfight Tactics News",
+        "project": "Hyper Roll Karaoke",
+        "brand": "Riot Games",
+        "year": "2023",
+        "link": "https://teamfighttactics.leagueoflegends.com/en-sg/news/announcements/tft-mobile-hyper-roll-karaoke/"
       },
       {
         "name": "AsiaOne",

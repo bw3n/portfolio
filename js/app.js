@@ -191,6 +191,56 @@ function scheduleNavHighlightUpdate() {
   window.requestAnimationFrame(updateNavHighlight);
 }
 
+function wireInternalNavLink(a, href) {
+  a.href = href;
+
+  if (!href.startsWith("#")) {
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    return;
+  }
+
+  a.onclick = (e) => {
+    e.preventDefault();
+    const targetId = href.substring(1);
+
+    if (targetId === "work") {
+      if (isProjectPage()) {
+        navigateTo("index.html");
+      } else {
+        switchView("work");
+      }
+      return;
+    }
+
+    if (targetId === "lab") {
+      if (isProjectPage()) {
+        navigateTo("index.html#lab");
+      } else {
+        switchView("lab");
+      }
+      return;
+    }
+
+    if (targetId === "about") {
+      if (isProjectPage()) {
+        navigateTo("index.html#about");
+      } else {
+        switchView("about");
+      }
+      return;
+    }
+
+    if (targetId === "contact") {
+      if (isProjectPage()) {
+        navigateTo("index.html#contact");
+      } else {
+        switchView("about", { scrollToId: "contact", activeNavId: "contact" });
+      }
+    }
+  };
+}
+
 // ============================================================
 // RENDER: Site Header & Notch Nav
 // ============================================================
@@ -223,42 +273,7 @@ function renderNav() {
     const a = document.createElement("a");
     a.className = "notch-link";
     a.textContent = link.label;
-    a.href = link.href;
-    if (link.href.startsWith("#")) {
-      a.onclick = (e) => {
-        e.preventDefault();
-        const targetId = link.href.substring(1);
-        if (targetId === "work") {
-          if (isProjectPage()) {
-            navigateTo("index.html");
-          } else {
-            switchView("work");
-          }
-        } else if (targetId === "lab") {
-          if (isProjectPage()) {
-            navigateTo("index.html#lab");
-          } else {
-            switchView("lab");
-          }
-        } else if (targetId === "about") {
-          if (isProjectPage()) {
-            navigateTo("index.html#about");
-          } else {
-            switchView("about");
-          }
-        } else if (targetId === "contact") {
-          if (isProjectPage()) {
-            navigateTo("index.html#contact");
-          } else {
-            switchView("about", { scrollToId: "contact", activeNavId: "contact" });
-          }
-        }
-      };
-    } else {
-      a.href = link.href;
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-    }
+    wireInternalNavLink(a, link.href);
     links.appendChild(a);
   });
 
@@ -298,6 +313,56 @@ function renderHomepage() {
     switchView("about", { scrollToId: "contact", activeNavId: "contact" });
   } else {
     switchView(getHomeViewFromHash());
+  }
+}
+
+function renderFooter() {
+  const footer = document.getElementById("siteFooter");
+  if (!footer) return;
+
+  const logoSrc = PORTFOLIO_DATA.site.logoImage;
+  const logoAlt = PORTFOLIO_DATA.site.logoAlt || PORTFOLIO_DATA.site.logo || "Boon";
+  const contact = PORTFOLIO_DATA.about?.contact || {};
+
+  footer.innerHTML = `
+    <div class="site-footer-inner">
+      <button class="site-footer-toplink" id="siteFooterToplink" type="button">Scroll to top</button>
+      <div class="site-footer-top">
+        <div class="site-footer-brand">
+          ${logoSrc
+            ? `<img src="${logoSrc}" alt="${logoAlt}" class="site-footer-logo-mark">`
+            : `<span class="site-footer-wordmark">${PORTFOLIO_DATA.site.logo || "Boon"}</span>`
+          }
+        </div>
+        <div class="site-footer-meta">
+          <p class="site-footer-kicker">Get in touch</p>
+          <a class="site-footer-link" href="mailto:${contact.email || ""}">${contact.email || ""}</a>
+          <a class="site-footer-link site-footer-link--secondary" href="${contact.linkedin || "#"}" target="_blank" rel="noopener noreferrer">LinkedIn -></a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const toplink = document.getElementById("siteFooterToplink");
+  if (toplink) {
+    toplink.onclick = () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  }
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        footer.classList.toggle("footer-reveal-active", entry.isIntersecting);
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: "0px 0px -8% 0px"
+    });
+
+    observer.observe(footer);
+  } else {
+    footer.classList.add("footer-reveal-active");
   }
 }
 
@@ -460,25 +525,29 @@ function renderAbout() {
 
       <!-- Experience & Awards -->
       <div class="about-two-col">
-        <div class="about-section-group about-section-group--experience">
-          <p class="about-section-label">Experience</p>
-          <div class="about-experience">${expRows}</div>
+        <div class="about-col about-col--left">
+          <div class="about-section-group about-section-group--experience">
+            <p class="about-section-label">Experience</p>
+            <div class="about-experience">${expRows}</div>
+          </div>
+          <div class="about-section-group about-section-group--capabilities">
+            <p class="about-section-label">Capabilities</p>
+            <div class="about-capabilities">${capPills}</div>
+          </div>
+          <div class="about-section-group about-section-group--clients">
+            <p class="about-section-label">Clients</p>
+            <div class="about-clients">${clientNames}</div>
+          </div>
         </div>
-        <div class="about-section-group about-section-group--recognition">
-          <p class="about-section-label">Recognition</p>
-          <div class="about-awards">${awardRows}</div>
-        </div>
-        <div class="about-section-group about-section-group--press">
-          <p class="about-section-label">Selected Press</p>
-          <div class="about-awards">${pressRows}</div>
-        </div>
-        <div class="about-section-group about-section-group--capabilities">
-          <p class="about-section-label">Capabilities</p>
-          <div class="about-capabilities">${capPills}</div>
-        </div>
-        <div class="about-section-group about-section-group--clients">
-          <p class="about-section-label">Clients</p>
-          <div class="about-clients">${clientNames}</div>
+        <div class="about-col about-col--right">
+          <div class="about-section-group about-section-group--recognition">
+            <p class="about-section-label">Recognition</p>
+            <div class="about-awards">${awardRows}</div>
+          </div>
+          <div class="about-section-group about-section-group--press">
+            <p class="about-section-label">Selected Press</p>
+            <div class="about-awards">${pressRows}</div>
+          </div>
         </div>
       </div>
 
@@ -594,6 +663,8 @@ function renderProjectsGrid(category = "work") {
 
   if (typeof enableInlineEditing === "function" && window.editMode) {
     enableInlineEditing();
+    if (typeof setupBlockDragAndDrop === "function") setupBlockDragAndDrop();
+    if (typeof setupThumbnailDragAndDrop === "function") setupThumbnailDragAndDrop();
   }
 }
 
@@ -675,6 +746,14 @@ function renderContentBlocks(project, projectIndex) {
   project.contentBlocks.forEach((block, blockIndex) => {
     const el = createBlockElement(block, projectIndex, blockIndex);
     if (el) {
+      const dragHandle = document.createElement("button");
+      dragHandle.className = "block-drag-handle";
+      dragHandle.type = "button";
+      dragHandle.title = "Drag to reorder";
+      dragHandle.innerHTML = "⋮⋮";
+      dragHandle.setAttribute("aria-label", "Drag to reorder block");
+      el.appendChild(dragHandle);
+
       // Delete block button (visible in edit mode)
       const deleteBtn = document.createElement("button");
       deleteBtn.className = "delete-element-btn delete-block-btn";
@@ -711,6 +790,8 @@ function createBlockElement(block, projectIndex, blockIndex) {
   switch (block.type) {
     case "full-image":
       return createFullImageBlock(block, projectIndex, blockIndex);
+    case "two-image":
+      return createTwoImageBlock(block, projectIndex, blockIndex);
     case "image-grid":
       return createImageGridBlock(block, projectIndex, blockIndex);
     case "text":
@@ -768,6 +849,7 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
   (block.images || []).forEach((img, imgIndex) => {
     const item = document.createElement("div");
     item.className = "block-grid-item";
+    item.setAttribute("data-image-index", imgIndex);
 
     if (img.src) {
       item.style.backgroundImage = `url("${img.src}")`;
@@ -795,6 +877,92 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
       saveData();
     });
     item.appendChild(overlay);
+
+    const thumbHandle = document.createElement("button");
+    thumbHandle.className = "thumbnail-drag-handle";
+    thumbHandle.type = "button";
+    thumbHandle.title = "Drag to reorder image";
+    thumbHandle.innerHTML = "⋮⋮";
+    thumbHandle.setAttribute("aria-label", "Drag to reorder image");
+    item.appendChild(thumbHandle);
+
+    div.appendChild(item);
+  });
+
+  return div;
+}
+
+function createTwoImageBlock(block, projectIndex, blockIndex) {
+  const div = document.createElement("div");
+  div.className = "block-two-image";
+  div.setAttribute("data-block-index", blockIndex);
+
+  const images = Array.isArray(block.images) ? block.images : [];
+  while (images.length < 2) {
+    images.push({ src: null, color: block.color || "#999" });
+  }
+  block.images = images.slice(0, 2);
+
+  block.images.forEach((img, imgIndex) => {
+    const item = document.createElement("div");
+    item.className = "block-two-image-item";
+    item.setAttribute("data-image-index", imgIndex);
+
+    if (img.src) {
+      item.style.backgroundImage = `url("${img.src}")`;
+      item.style.backgroundSize = "contain";
+      item.style.backgroundRepeat = "no-repeat";
+      item.style.backgroundPosition = "center";
+      applyDynamicAspectRatio(item, img.src);
+    } else {
+      item.style.backgroundColor = img.color || block.color || "#999";
+    }
+
+    const overlay = document.createElement("div");
+    overlay.className = "image-upload-overlay";
+    overlay.style.borderRadius = "12px";
+    overlay.innerHTML = "<span>Click/Drag</span>";
+    setupImageUpload(overlay, (dataUrl) => {
+      img.src = dataUrl;
+      item.style.backgroundImage = `url("${dataUrl}")`;
+      item.style.backgroundColor = "transparent";
+      item.style.backgroundSize = "contain";
+      item.style.backgroundRepeat = "no-repeat";
+      item.style.backgroundPosition = "center";
+      applyDynamicAspectRatio(item, dataUrl);
+      saveData();
+    });
+    item.appendChild(overlay);
+
+    const thumbHandle = document.createElement("button");
+    thumbHandle.className = "thumbnail-drag-handle";
+    thumbHandle.type = "button";
+    thumbHandle.title = "Drag to reorder image";
+    thumbHandle.innerHTML = "⋮⋮";
+    thumbHandle.setAttribute("aria-label", "Drag to reorder image");
+    item.appendChild(thumbHandle);
+
+    if (img.src) {
+      const clearBtn = document.createElement("button");
+      clearBtn.className = "delete-element-btn delete-image-btn";
+      clearBtn.innerHTML = "×";
+      clearBtn.title = "Remove image";
+      clearBtn.onclick = (e) => {
+        e.stopPropagation();
+        img.src = null;
+        item.style.backgroundImage = "";
+        item.style.backgroundColor = img.color || block.color || "#999";
+        saveData();
+        const projectId = getProjectIdFromURL();
+        const project = getProjectById(projectId);
+        if (project) {
+          renderContentBlocks(project, PORTFOLIO_DATA.projects.indexOf(project));
+          if (typeof setupBlockDragAndDrop === "function") setupBlockDragAndDrop();
+        }
+      };
+      item.appendChild(clearBtn);
+    }
+
     div.appendChild(item);
   });
 
@@ -1042,6 +1210,16 @@ function addContentBlock(type) {
     case "full-image":
       newBlock = { type: "full-image", src: null, color: color, label: "SECTION TITLE" };
       break;
+    case "two-image":
+      newBlock = {
+        type: "two-image",
+        color: color,
+        images: [
+          { src: null, color: color },
+          { src: null, color: color }
+        ]
+      };
+      break;
     case "image-grid":
       newBlock = {
         type: "image-grid", columns: 3,
@@ -1075,6 +1253,7 @@ function addContentBlock(type) {
 // ============================================================
 document.addEventListener("DOMContentLoaded", () => {
   renderNav();
+  renderFooter();
 
   if (isProjectPage()) {
     renderProjectPage();
