@@ -52,6 +52,91 @@ function getHomeViewFromHash() {
   return "work";
 }
 
+function getActiveNavId(view, options = {}) {
+  if (options.activeNavId) return options.activeNavId;
+  if (window.location.hash === "#contact") return "contact";
+  return view;
+}
+
+function getAwardTier(label = "") {
+  const value = label.toLowerCase();
+  if (value.includes("gold")) return "gold";
+  if (value.includes("silver")) return "silver";
+  if (value.includes("bronze")) return "bronze";
+  return "gold";
+}
+
+function getAwardMedalIcon(tier) {
+  return `
+    <span class="about-award-medal about-award-medal--${tier}" aria-hidden="true">
+      <svg viewBox="0 0 24 28" role="presentation" focusable="false" aria-hidden="true">
+        <path class="medal-ribbon medal-ribbon-left" d="M6 1h6l-2.4 8.2L4.4 6.1z"></path>
+        <path class="medal-ribbon medal-ribbon-right" d="M12 1h6l1.6 5.1-5.8 3.1z"></path>
+        <circle class="medal-face" cx="12" cy="16" r="6.7"></circle>
+        <circle class="medal-highlight" cx="12" cy="14.2" r="2.1"></circle>
+      </svg>
+    </span>
+  `;
+}
+
+function getExperienceBrandMeta(agency = "") {
+  const value = agency.toLowerCase();
+
+  if (value.includes("digitas")) {
+    return {
+      logoSrc: "assets/digitas-publicis.png",
+      logoAlt: "Digitas Publicis",
+      logoScale: 0.95,
+      tone: "digitas",
+    };
+  }
+
+  if (value.includes("goodstuph")) {
+    return {
+      logoSrc: "assets/goodstuph.png",
+      logoAlt: "GOODSTUPH",
+      logoScale: 1.155,
+      tone: "goodstuph",
+    };
+  }
+
+  if (value.includes("snackereco")) {
+    return {
+      logoSrc: "assets/snackereco.png",
+      logoAlt: "Snackereco",
+      tone: "snackereco",
+    };
+  }
+
+  if (value.includes("facebook") || value.includes("meta")) {
+    return {
+      logoSrc: "assets/meta.png",
+      logoAlt: "Facebook (Meta)",
+      logoScale: 0.75,
+      tone: "meta",
+    };
+  }
+
+  if (value.includes("freelance")) {
+    return {
+      logoSrc: "assets/freelance.png",
+      logoAlt: "Freelance",
+      logoScale: 0.6,
+      tone: "freelance",
+    };
+  }
+
+  const initials = agency
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0])
+    .join("")
+    .toUpperCase() || "•";
+
+  return { initials, tone: "default" };
+}
+
 function getEmbedUrl(url) {
   if (!url) return "";
 
@@ -115,7 +200,13 @@ function renderNav() {
   const links = document.getElementById("notchLinks");
   if (!logo || !links) return;
 
-  logo.textContent = PORTFOLIO_DATA.site.logo;
+  if (PORTFOLIO_DATA.site.logoImage) {
+    const alt = PORTFOLIO_DATA.site.logoAlt || PORTFOLIO_DATA.site.logo || "Logo";
+    logo.innerHTML = `<img src="${PORTFOLIO_DATA.site.logoImage}" alt="${alt}" class="site-logo-mark">`;
+  } else {
+    logo.textContent = PORTFOLIO_DATA.site.logo;
+  }
+
   logo.onclick = () => {
     if (isProjectPage()) {
       navigateTo("index.html");
@@ -160,7 +251,7 @@ function renderNav() {
           if (isProjectPage()) {
             navigateTo("index.html#contact");
           } else {
-            switchView("about", { scrollToId: "contact" });
+            switchView("about", { scrollToId: "contact", activeNavId: "contact" });
           }
         }
       };
@@ -204,7 +295,11 @@ function renderHomepage() {
   renderProjectsGrid("lab");
   renderAbout();
 
-  switchView(getHomeViewFromHash());
+  if (window.location.hash === "#contact") {
+    switchView("about", { scrollToId: "contact", activeNavId: "contact" });
+  } else {
+    switchView(getHomeViewFromHash());
+  }
 }
 
 function switchView(view, options = {}) {
@@ -213,6 +308,7 @@ function switchView(view, options = {}) {
   const aboutView = document.getElementById("aboutView");
   const navLinks = Array.from(document.querySelectorAll(".notch-link"));
   const scrollToId = options.scrollToId;
+  const activeNavId = getActiveNavId(view, options);
 
   navLinks.forEach(link => link.classList.remove("active"));
 
@@ -229,7 +325,7 @@ function switchView(view, options = {}) {
   }
 
   const activeLink = navLinks.find(link => {
-    return link.getAttribute("href") === `#${view}`;
+    return link.getAttribute("href") === `#${activeNavId}`;
   });
   if (activeLink) activeLink.classList.add("active");
   scheduleNavHighlightUpdate();
@@ -251,7 +347,7 @@ function switchView(view, options = {}) {
 window.addEventListener("hashchange", () => {
   if (!isProjectPage()) {
     if (window.location.hash === "#contact") {
-      switchView("about", { scrollToId: "contact" });
+      switchView("about", { scrollToId: "contact", activeNavId: "contact" });
       return;
     }
     switchView(getHomeViewFromHash());
@@ -267,16 +363,38 @@ function renderAbout() {
   // Experience rows
   const expRows = (a.experience || []).map((e, i) => `
     <div class="about-exp-row">
-      <span class="about-exp-year" data-editable="about.experience.${i}.year">${e.year}</span>
-      <span class="about-exp-agency" data-editable="about.experience.${i}.agency">${e.agency}</span>
-      <span class="about-exp-role" data-editable="about.experience.${i}.role">${e.role}</span>
+      <div class="about-exp-branding">
+        ${(() => {
+          const brand = getExperienceBrandMeta(e.agency);
+          if (brand.logoSrc) {
+            const logoStyle = brand.logoScale ? ` style=\"--brand-logo-scale:${brand.logoScale}\"` : "";
+            return `
+              <span class="about-exp-brand about-exp-brand--logo about-exp-brand--${brand.tone}" aria-hidden="true">
+                <img src="${brand.logoSrc}" alt="${brand.logoAlt || e.agency}" class="about-exp-brand-image"${logoStyle}>
+              </span>
+            `;
+          }
+
+          return `
+            <span class="about-exp-brand about-exp-brand--${brand.tone}" aria-hidden="true">${brand.initials}</span>
+          `;
+        })()}
+        <span class="about-exp-agency" data-editable="about.experience.${i}.agency">${e.agency}</span>
+      </div>
+      <div class="about-exp-meta">
+        <span class="about-exp-role" data-editable="about.experience.${i}.role">${e.role}</span>
+        <span class="about-exp-year" data-editable="about.experience.${i}.year">${e.year}</span>
+      </div>
     </div>
   `).join("");
 
   // Award rows
   const awardRows = (a.awards || []).map((aw, i) => `
     <div class="about-award-row">
-      <span class="about-award-name" data-editable="about.awards.${i}.name">${aw.name}</span>
+      <div class="about-award-heading">
+        ${getAwardMedalIcon(getAwardTier(aw.name))}
+        <span class="about-award-name" data-editable="about.awards.${i}.name">${aw.name}</span>
+      </div>
       <span class="about-award-meta">
         <span data-editable="about.awards.${i}.campaign">${aw.campaign}</span>
          &middot; 

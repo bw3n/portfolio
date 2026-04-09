@@ -1,6 +1,8 @@
 const PORTFOLIO_DATA = {
   "site": {
     "logo": "B",
+    "logoImage": "assets/boon-logo.png",
+    "logoAlt": "Boon",
     "heroLine1": "Hello, I'm Boon.",
     "heroLine2": "Currently Pushin' Ps in Digitas Singapore",
     "labLine1": "Experiments, ideas and vibes",
@@ -76,6 +78,50 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "project-6-1775716421818",
+      "category": "work",
+      "title": "MORROW / Longevity Care",
+      "cardColor": "#1A4A6B",
+      "cardImage": "assets/morrow-thumbnail.gif",
+      "description": "Project desMORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.<div><br></div><div>I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.</div><div><br></div>The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth.cription goes here.",
+      "role": "Art director / UIUX Designer",
+      "type": "Website",
+      "client": "Morrow",
+      "agency": "Digitas publicis",
+      "contentBlocks": [
+        {
+          "type": "full-image",
+          "src": "assets/morrow-intro.gif",
+          "color": "#1A4A6B",
+          "label": "VISUALS"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/morrow-three.gif",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/morrow-two.gif",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/morrow-one.gif",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/morrow-moodboard.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        }
+      ]
+    },
+    {
       "id": "hyper-roll-karaoke",
       "category": "work",
       "title": "Riot Games / Hyper Roll Karaoke",
@@ -107,7 +153,7 @@ const PORTFOLIO_DATA = {
     {
       "id": "project-2",
       "category": "work",
-      "title": "<h1 class=\"project-info-title\" data-editable=\"projects.0.title\" spellcheck=\"false\" style=\"margin-bottom: 24px; font-family: &quot;Instrument Serif&quot;, serif; outline-color: rgb(0, 68, 255); outline-style: solid; transition: outline-color 0.2s;\">Riot Games / Pengu's Big Adventure</h1>",
+      "title": "<h1 class=\"project-info-title\" data-editable=\"projects.0.title\" spellcheck=\"false\" style=\"margin-bottom: 24px; font-family: &quot;Instrument Serif&quot;, serif; transition: outline-color 0.2s;\">Riot Games / Pengu's Big Adventure</h1>",
       "cardColor": "#1A6B1A",
       "cardImage": "assets/pengu-big-adventure-thumbnail.gif",
       "description": "<span style=\"color: rgb(28, 28, 28); font-family: &quot;Helvetica Neue&quot;; font-size: 13.3333px; text-align: left;\">To launch Teamfight Tactics Mobile in South East Asia for our fans who have been waiting for three long years, we proposed a social strategy that transformed the mobile launch from a mere extension of TFT into a trailblazing event that celebrated and united the APAC gaming community, ensuring TFT Mobile wasn’t just launched – it was spectacularly unleashed. we sought out to amplify every asset from Riot Games, giving them a bigger purpose — beyond simply being eye-catching. We tapped into the kind of stimuli that instinctively makes our fans tick at every touchpoint, giving them a chance to be part of Riot’s plan to take over the region.&nbsp;&nbsp;</span>",
@@ -139,7 +185,7 @@ const PORTFOLIO_DATA = {
       "title": "Personal Project / Masturband&nbsp;",
       "cardColor": "#0044FF",
       "cardImage": "assets/masturband-thumbnail.gif",
-      "description": "<div>MASTURBAND is an ongoing experiment in sound, motion, and design. Each mix is built around a mood that lingers in the background of daily life, from city commutes to warm coastal afternoons. I shape the audio and design the visuals as a single immersive piece, shaped through a blend of intuition, storytelling, and digital craft.</div>",
+      "description": "<div>MASTURBAND is built on a simple idea: every moment carries a mood, and every mood has a distinct texture. From city commutes to slow coastal afternoons, each piece translates these everyday states into a defined audiovisual experience, where sound and visuals move as one.<br><br>I direct and assemble AI-generated audio, motion, and imagery alongside photography and design, shaping each output as a cohesive system. Every element, from pacing to texture, is intentionally paired to reinforce a singular vibe, turning abstract moods into structured, multi-sensory works.</div>",
       "role": "Art director",
       "type": "Creative",
       "client": "Personal",
