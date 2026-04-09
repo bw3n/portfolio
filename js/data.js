@@ -34,7 +34,7 @@ const PORTFOLIO_DATA = {
       "cardColor": "#8B1A1A",
       "cardImage": "assets/year-of-the-unicorn-thumbnail.gif",
       "description": "To capitalize on the rare alignment of the Year of the Horse with the Digitas Unicorn mascot, I transformed a traditional red packet into an interactive digital event. Amplifying a standard physical asset into a lead-generation tool, I built \"Ace the Unicorn Race\" using Google Antigravity. This gamified experience allowed users to engage directly with the brand through a competitive leaderboard.&nbsp;<br><a href=\"https://yearoftheunicorn.digitas-sg.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Play the game</a>!",
-      "role": "Art Director",
+      "role": "Creative Lead",
       "type": "integrated creative technology",
       "client": "Digitas",
       "agency": "Digitas",
