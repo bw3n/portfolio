@@ -31,13 +31,44 @@ function isProjectPage() {
     window.location.search.includes("project=");
 }
 
+function stripHTML(value = "") {
+  return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function slugifyProjectTitle(value = "") {
+  return stripHTML(value)
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
+}
+
+function getProjectSlug(project) {
+  if (!project) return "";
+
+  const baseSlug = slugifyProjectTitle(project.title || project.id || "project");
+  const duplicates = PORTFOLIO_DATA.projects.filter(candidate => {
+    return slugifyProjectTitle(candidate.title || candidate.id || "project") === baseSlug;
+  });
+
+  if (duplicates.length <= 1) return baseSlug;
+
+  const duplicateIndex = duplicates.findIndex(candidate => candidate.id === project.id);
+  return duplicateIndex <= 0 ? baseSlug : `${baseSlug}-${duplicateIndex + 1}`;
+}
+
 function getProjectIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get("project");
 }
 
 function getProjectById(id) {
-  return PORTFOLIO_DATA.projects.find(p => p.id === id) || null;
+  if (!id) return null;
+
+  return PORTFOLIO_DATA.projects.find((project) => {
+    return project.id === id || getProjectSlug(project) === id;
+  }) || null;
 }
 
 function getProjectCategory(project) {
@@ -161,23 +192,75 @@ function getEmbedUrl(url) {
   return trimmedUrl;
 }
 
+function renderAnimatedHeadlineLines(text = "") {
+  return text
+    .split(/<br\s*\/?>/i)
+    .map(line => line.trim())
+    .filter(Boolean)
+    .map((line, index) => `<span class="line"${index > 0 ? ` style="animation-delay:${(index * 0.12).toFixed(2)}s"` : ""}>${line}</span>`)
+    .join("");
+}
+
 // --- Page Transition ---
 function navigateTo(url) {
   window.location.href = url;
 }
 
-function updateNavHighlight() {
+function initProjectViewCursor() {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+  let cursor = document.getElementById("projectViewCursor");
+  if (!cursor) {
+    cursor = document.createElement("div");
+    cursor.id = "projectViewCursor";
+    cursor.className = "project-view-cursor";
+    cursor.setAttribute("aria-hidden", "true");
+    cursor.innerHTML = `<span class="project-view-cursor__label">View</span>`;
+    document.body.appendChild(cursor);
+  }
+
+  const deactivateCursor = () => {
+    cursor.classList.remove("is-active");
+    document.body.classList.remove("has-custom-view-cursor");
+  };
+
+  document.addEventListener("mousemove", (event) => {
+    cursor.style.left = `${event.clientX}px`;
+    cursor.style.top = `${event.clientY}px`;
+
+    const activeCard = event.target.closest(".project-card");
+    const shouldActivate = Boolean(activeCard) && !document.body.classList.contains("edit-mode");
+
+    if (shouldActivate) {
+      cursor.classList.add("is-active");
+      document.body.classList.add("has-custom-view-cursor");
+      return;
+    }
+
+    deactivateCursor();
+  });
+
+  document.addEventListener("mouseleave", deactivateCursor);
+  window.addEventListener("blur", deactivateCursor);
+}
+
+function updateNavHighlight(targetLink = null) {
   const linksContainer = document.getElementById("notchLinks");
   if (!linksContainer) return;
 
   const highlight = linksContainer.querySelector(".notch-active-pill");
-  const activeLink = linksContainer.querySelector(".notch-link.active");
+  const navLinks = Array.from(linksContainer.querySelectorAll(".notch-link"));
+  const activeLink = targetLink || linksContainer.querySelector(".notch-link.active");
   if (!highlight) return;
+
+  navLinks.forEach(link => link.classList.remove("is-highlighted"));
 
   if (!activeLink) {
     highlight.style.opacity = "0";
     return;
   }
+
+  activeLink.classList.add("is-highlighted");
 
   const left = activeLink.offsetLeft;
   const width = activeLink.offsetWidth;
@@ -187,8 +270,39 @@ function updateNavHighlight() {
   highlight.style.opacity = "1";
 }
 
-function scheduleNavHighlightUpdate() {
-  window.requestAnimationFrame(updateNavHighlight);
+function scheduleNavHighlightUpdate(targetLink = null) {
+  window.requestAnimationFrame(() => updateNavHighlight(targetLink));
+}
+
+const homepageRenderState = {
+  work: false,
+  lab: false,
+  about: false,
+};
+
+function ensureHomepageViewRendered(view) {
+  if (view === "lab") {
+    if (!homepageRenderState.lab) {
+      renderLabHero();
+      renderProjectsGrid("lab");
+      homepageRenderState.lab = true;
+    }
+    return;
+  }
+
+  if (view === "about") {
+    if (!homepageRenderState.about) {
+      renderAbout();
+      homepageRenderState.about = true;
+    }
+    return;
+  }
+
+  if (!homepageRenderState.work) {
+    renderHero();
+    renderProjectsGrid("work");
+    homepageRenderState.work = true;
+  }
 }
 
 function wireInternalNavLink(a, href) {
@@ -247,6 +361,8 @@ function wireInternalNavLink(a, href) {
 function renderNav() {
   const logo = document.getElementById("notchLogo");
   const links = document.getElementById("notchLinks");
+  const linksShell = document.querySelector(".notch-links-shell");
+  const header = document.getElementById("siteHeader");
   if (!logo || !links) return;
 
   if (PORTFOLIO_DATA.site.logoImage) {
@@ -274,17 +390,20 @@ function renderNav() {
     a.className = "notch-link";
     a.textContent = link.label;
     wireInternalNavLink(a, link.href);
+    a.addEventListener("mouseenter", () => scheduleNavHighlightUpdate(a));
+    a.addEventListener("focus", () => scheduleNavHighlightUpdate(a));
     links.appendChild(a);
   });
 
   scheduleNavHighlightUpdate();
 
-  // Scroll listener: handle visibility on scroll direction
-  const header = document.getElementById("siteHeader");
-  let lastScrollTop = 0;
+  if (linksShell) {
+    linksShell.onmouseleave = () => scheduleNavHighlightUpdate();
+  }
 
-  if (header) {
-    window.addEventListener("scroll", () => {
+  if (header && !header.dataset.scrollListenerBound) {
+    let lastScrollTop = 0;
+    const handleHeaderScroll = () => {
       const st = window.scrollY || document.documentElement.scrollTop;
 
       // Hide on scroll down, show on scroll up
@@ -295,7 +414,10 @@ function renderNav() {
       }
 
       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-    }, { passive: true });
+    };
+
+    window.addEventListener("scroll", handleHeaderScroll, { passive: true });
+    header.dataset.scrollListenerBound = "true";
   }
 }
 
@@ -303,16 +425,17 @@ function renderNav() {
 // RENDER: Homepage
 // ============================================================
 function renderHomepage() {
-  renderHero();
-  renderLabHero();
-  renderProjectsGrid("work");
-  renderProjectsGrid("lab");
-  renderAbout();
+  homepageRenderState.work = false;
+  homepageRenderState.lab = false;
+  homepageRenderState.about = false;
+
+  const initialView = getHomeViewFromHash();
+  ensureHomepageViewRendered(initialView);
 
   if (window.location.hash === "#contact") {
     switchView("about", { scrollToId: "contact", activeNavId: "contact" });
   } else {
-    switchView(getHomeViewFromHash());
+    switchView(initialView);
   }
 }
 
@@ -367,6 +490,8 @@ function renderFooter() {
 }
 
 function switchView(view, options = {}) {
+  ensureHomepageViewRendered(view);
+
   const workView = document.getElementById("workView");
   const labView = document.getElementById("labView");
   const aboutView = document.getElementById("aboutView");
@@ -418,7 +543,7 @@ window.addEventListener("hashchange", () => {
 });
 
 function renderAbout() {
-  const container = document.getElementById("about");
+  const container = document.getElementById("aboutSection");
   if (!container || !PORTFOLIO_DATA.about) return;
   const a = PORTFOLIO_DATA.about;
   const heroHeadline = a.heroHeadline || "Ideas, designed to work";
@@ -515,7 +640,7 @@ function renderAbout() {
         <div class="about-intro-full about-hero-block">
           <p class="about-section-label">About</p>
           <div class="about-hero-copy">
-            <h1 class="about-hero-headline" data-editable="about.heroHeadline">${heroHeadline}</h1>
+            <h1 class="about-hero-headline" data-editable="about.heroHeadline">${renderAnimatedHeadlineLines(heroHeadline)}</h1>
             <div class="about-bio about-bio--intro" data-editable="about.bio">${a.bio}</div>
           </div>
         </div>
@@ -573,10 +698,7 @@ function renderHero() {
   const line1 = PORTFOLIO_DATA.site.heroLine1;
   const line2 = PORTFOLIO_DATA.site.heroLine2;
 
-  container.innerHTML = `
-    <span class="line" data-editable="site.heroLine1">${line1}</span>
-    <span class="line" data-editable="site.heroLine2">${line2}</span>
-  `;
+  container.innerHTML = renderAnimatedHeadlineLines(`${line1}<br>${line2}`);
 }
 
 function renderLabHero() {
@@ -586,10 +708,7 @@ function renderLabHero() {
   const line1 = PORTFOLIO_DATA.site.labLine1 || "Experiments, ideas and vibes";
   const line2 = PORTFOLIO_DATA.site.labLine2 || "";
 
-  container.innerHTML = `
-    <span class="line" data-editable="site.labLine1">${line1}</span>
-    <span class="line" data-editable="site.labLine2">${line2}</span>
-  `;
+  container.innerHTML = renderAnimatedHeadlineLines(`${line1}<br>${line2}`);
 }
 
 function renderProjectsGrid(category = "work") {
@@ -654,7 +773,7 @@ function renderProjectsGrid(category = "work") {
     // Click to navigate (only when not in edit mode)
     card.addEventListener("click", () => {
       if (!document.body.classList.contains("edit-mode")) {
-        navigateTo(`project.html?project=${project.id}`);
+        navigateTo(`project.html?project=${encodeURIComponent(getProjectSlug(project))}`);
       }
     });
 
@@ -681,6 +800,13 @@ function renderProjectPage() {
 
   // Update page title
   document.title = `${project.title} — Boon`;
+
+  const canonicalSlug = getProjectSlug(project);
+  const currentProjectParam = getProjectIdFromURL();
+  if (canonicalSlug && currentProjectParam !== canonicalSlug) {
+    const canonicalUrl = `project.html?project=${encodeURIComponent(canonicalSlug)}`;
+    window.history.replaceState({}, "", canonicalUrl);
+  }
 
   const projectIndex = PORTFOLIO_DATA.projects.indexOf(project);
 
@@ -1254,6 +1380,7 @@ function addContentBlock(type) {
 document.addEventListener("DOMContentLoaded", () => {
   renderNav();
   renderFooter();
+  initProjectViewCursor();
 
   if (isProjectPage()) {
     renderProjectPage();
