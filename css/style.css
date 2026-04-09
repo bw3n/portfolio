@@ -237,10 +237,12 @@ a {
   position: relative;
   z-index: 1;
   font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--color-notch-text);
-  padding: 7px 18px;
+  padding: 7px 16px;
   border-radius: 50px;
   transition: color var(--duration-fast) ease,
               opacity var(--duration-fast) ease;
@@ -899,8 +901,8 @@ body.edit-mode .edit-toolbar {
   }
 
   .notch-link {
-    font-size: 12px;
-    padding: 6px 14px;
+    font-size: 10px;
+    padding: 6px 12px;
   }
 
   .about-exp-brand {
@@ -943,7 +945,7 @@ body.edit-mode .edit-toolbar {
 
   .about-hero-headline {
     max-width: 100%;
-    font-size: clamp(38px, 12vw, 58px);
+    font-size: clamp(32px, 5vw, 48px);
   }
 
   .about-two-col {
@@ -959,19 +961,23 @@ body.edit-mode .edit-toolbar {
     flex-direction: column;
     gap: var(--space-sm);
   }
+
+  .about-container {
+    padding-top: 60px;
+  }
 }
 
 /* ============================================================
    ABOUT SECTION
    ============================================================ */
 .about-section {
-  padding-top: 40px;
+  padding-top: 0;
 }
 
 .about-container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-2xl) var(--space-md);
+  padding: 80px var(--space-md) var(--space-2xl);
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
@@ -1017,12 +1023,12 @@ body.edit-mode .edit-toolbar {
 
 .about-hero-headline {
   font-family: var(--font-heading);
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: clamp(32px, 5vw, 48px);
   font-weight: 400;
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   color: var(--color-text);
-  max-width: 11ch;
+  max-width: none;
 }
 
 
