@@ -153,6 +153,15 @@ a {
   justify-content: flex-end;
   min-height: 0;
   width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.site-footer-brand:hover {
+  opacity: 0.82;
 }
 
 .site-footer-logo-mark {
@@ -501,15 +510,14 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  width: 92px;
-  height: 92px;
+  width: 55px;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111111;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+  background: rgba(17, 17, 17, 0.92);
+  color: #ffffff;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   transform: translate(-50%, -50%) scale(0.84);
@@ -528,7 +536,7 @@ a {
 
 .project-view-cursor__label {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;

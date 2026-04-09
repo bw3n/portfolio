@@ -250,7 +250,10 @@ function updateNavHighlight(targetLink = null) {
 
   const highlight = linksContainer.querySelector(".notch-active-pill");
   const navLinks = Array.from(linksContainer.querySelectorAll(".notch-link"));
-  const activeLink = targetLink || linksContainer.querySelector(".notch-link.active");
+  const highlightedLink = targetLink instanceof Element && targetLink.classList.contains("notch-link")
+    ? targetLink
+    : null;
+  const activeLink = highlightedLink || linksContainer.querySelector(".notch-link.active");
   if (!highlight) return;
 
   navLinks.forEach(link => link.classList.remove("is-highlighted"));
@@ -451,12 +454,12 @@ function renderFooter() {
     <div class="site-footer-inner">
       <button class="site-footer-toplink" id="siteFooterToplink" type="button">Scroll to top</button>
       <div class="site-footer-top">
-        <div class="site-footer-brand">
+        <button class="site-footer-brand" id="siteFooterBrand" type="button" aria-label="Scroll to top">
           ${logoSrc
             ? `<img src="${logoSrc}" alt="${logoAlt}" class="site-footer-logo-mark">`
             : `<span class="site-footer-wordmark">${PORTFOLIO_DATA.site.logo || "Boon"}</span>`
           }
-        </div>
+        </button>
         <div class="site-footer-meta">
           <p class="site-footer-kicker">Get in touch</p>
           <a class="site-footer-link" href="mailto:${contact.email || ""}">${contact.email || ""}</a>
@@ -467,10 +470,17 @@ function renderFooter() {
   `;
 
   const toplink = document.getElementById("siteFooterToplink");
+  const footerBrand = document.getElementById("siteFooterBrand");
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (toplink) {
-    toplink.onclick = () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+    toplink.onclick = scrollToTop;
+  }
+
+  if (footerBrand) {
+    footerBrand.onclick = scrollToTop;
   }
 
   if ("IntersectionObserver" in window) {
