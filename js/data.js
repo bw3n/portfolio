@@ -33,7 +33,7 @@ const PORTFOLIO_DATA = {
       "title": "<div>Digitas / Ace the Unicorn Race</div>",
       "cardColor": "#8B1A1A",
       "cardImage": "assets/year-of-the-unicorn-thumbnail.gif",
-      "description": "To capitalize on the rare alignment of the Year of the Horse with the Digitas Unicorn mascot, I transformed a traditional red packet into an interactive digital event. Amplifying a standard physical asset into a lead-generation tool, I built \"Ace the Unicorn Race\" using Google Antigravity. This gamified experience allowed users to engage directly with the brand through a competitive leaderboard.&nbsp;<br><a href=\"https://yearoftheunicorn.digitas-sg.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Play the game</a>!",
+      "description": "<blockquote data-start=\"381\" data-end=\"611\"><p data-start=\"383\" data-end=\"611\">\n<p data-start=\"777\" data-end=\"820\"></p></p><blockquote data-start=\"551\" data-end=\"775\"><p data-start=\"553\" data-end=\"775\">A festive red packet reimagined as a competitive digital game. “Ace the Unicorn Race” transforms a traditional giveaway into an interactive experience designed for engagement, replayability, and scalable participation.<br><br></p>\n</blockquote></blockquote><a href=\"https://yearoftheunicorn.digitas-sg.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Play the game</a>!",
       "role": "Creative Lead",
       "type": "integrated creative technology",
       "client": "Digitas",
@@ -47,7 +47,7 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<div><b>The Red Packet</b></div><div>Visually, I deconstructed our 'North Star' logo to create a bespoke pattern that wraps the packet, and designed a Key Visual that shows our Unicorn winning the race against standard horses—a metaphor for our agency leading the pack.</div>"
+          "content": "<div><b>The Red Packet</b></div><div><div>The red packet was designed as both a cultural object and an entry point into the experience.</div><div>By deconstructing the ‘North Star’ logo into a generative pattern system, it bridges physical and digital, carrying the same energy into the game.</div></div>"
         },
         {
           "type": "full-image",
@@ -57,7 +57,17 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<div><b>From Print to Play</b></div><div>A simple horse racing game to play with your friends and family that could potentially be a lead gen component.\u000bEverything was shaped with AI. All with $0 budget.</div>"
+          "content": "<div><b>From Print to Play</b></div><div><div>A simple racing game designed for quick, repeatable play. Built to work in social settings, where competition, randomness, and leaderboard dynamics drive engagement beyond a single interaction.</div></div>"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/year-of-the-unicorn-race.gif",
+          "color": "#8B1A1A",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": "<b>Gameplay Mechanics<br></b><div>The experience was designed with systems that sustain engagement, not just visual novelty.</div><div><br></div><div><u>Rubber Banding System</u></div><div>Trailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.</div><div><br></div><div><u>Random Event Triggers</u></div><div>Dynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.</div><div><br></div><div><u>Leaderboard Loop</u></div><div>Competitive ranking reinforces social play, driving repeated participation.</div>"
         },
         {
           "type": "full-image",
@@ -67,13 +77,17 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<div><b>Behind the scenes</b></div><div>Using Google Anti-Gravity, I directed AI agents to handle all coding and database infrastructure. This allowed me to focus on logic and strategy, successfully shipping a full-stack web app as a solo Art Director without a dev team.</div>"
+          "content": "<div><b>Behind the scenes</b></div><div><div>Using Google Antigravity, I directed AI agents to build and manage both front-end logic and backend infrastructure. This enabled me to operate as a solo creative delivering a functional full-stack experience, focusing on system design, interaction logic, and product thinking.</div></div>"
         },
         {
           "type": "full-image",
           "src": "assets/year-of-the-unicorn-board.gif",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": "A simple format on the surface, built as a loop between physical interaction, digital play, and repeat engagement.<br><br><a href=\"https://yearoftheunicorn.digitas-sg.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Play the game here!</a>"
         }
       ]
     },
@@ -83,9 +97,9 @@ const PORTFOLIO_DATA = {
       "title": "MORROW / Longevity Care",
       "cardColor": "#1A4A6B",
       "cardImage": "assets/morrow-thumbnail.gif",
-      "description": "Project desMORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.<div><br></div><div>I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.</div><div><br></div>The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth.cription goes here.",
+      "description": "MORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.<div><br></div><div>I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.</div><div><br></div>The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth.",
       "role": "Art director / UIUX Designer",
-      "type": "Website",
+      "type": "Web Design",
       "client": "Morrow",
       "agency": "Digitas publicis",
       "contentBlocks": [
@@ -187,7 +201,7 @@ const PORTFOLIO_DATA = {
       "cardImage": "assets/masturband-thumbnail.gif",
       "description": "<div>MASTURBAND is built on a simple idea: every moment carries a mood, and every mood has a distinct texture. From city commutes to slow coastal afternoons, each piece translates these everyday states into a defined audiovisual experience, where sound and visuals move as one.<br><br>I direct and assemble AI-generated audio, motion, and imagery alongside photography and design, shaping each output as a cohesive system. Every element, from pacing to texture, is intentionally paired to reinforce a singular vibe, turning abstract moods into structured, multi-sensory works.</div>",
       "role": "Art director",
-      "type": "Creative",
+      "type": "Creative / AI",
       "client": "Personal",
       "agency": "Personal",
       "contentBlocks": [
@@ -304,6 +318,50 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": "Product Demonstration"
+        }
+      ]
+    },
+    {
+      "id": "project-8-1775740149910",
+      "category": "lab",
+      "title": "Digitas / U-Scan",
+      "cardColor": "#1A6B1A",
+      "cardImage": "assets/uscan-thumbnail.gif",
+      "description": "U-Scan is an AI-powered receipt scanning system designed for markets where transactions are still largely offline and unstructured. Built for the Philippines, it transforms handwritten and printed receipts into usable data, enabling brands to track purchases, trigger promotions, and build loyalty without relying on traditional POS integrations.",
+      "role": "Art Director",
+      "type": "Branding",
+      "client": "Digitas",
+      "agency": "Digitas",
+      "contentBlocks": [
+        {
+          "type": "full-image",
+          "src": "assets/uscan-one.gif",
+          "color": "#1A6B1A",
+          "label": "VISUALS"
+        },
+        {
+          "type": "text",
+          "content": "The brand is built on the idea of finding structure within imperfection. Inspired by the inconsistencies of physical receipts, the identity translates noise into form, using pixel-based typography and modular graphic systems that evolve from fragmented shapes into recognisable patterns. This reflects how U-Scan processes raw, unstructured inputs into clean, actionable data. The result is a visual system that mirrors the product’s function, turning everyday transactions into scalable digital infrastructure."
+        },
+        {
+          "type": "two-image",
+          "color": "#1A6B1A",
+          "images": [
+            {
+              "src": "assets/uscan-two.gif",
+              "color": "#1A6B1A"
+            },
+            {
+              "src": "assets/uscan-three.gif",
+              "color": "#1A6B1A"
+            }
+          ]
+        },
+        {
+          "type": "full-image",
+          "src": "assets/uscan-four.gif",
+          "color": "#1A6B1A",
+          "label": "SECTION TITLE"
         }
       ]
     }
