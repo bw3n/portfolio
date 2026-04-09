@@ -488,7 +488,7 @@ const PORTFOLIO_DATA = {
     ],
     "contact": {
       "email": "jeremyngbb@gmail.com",
-      "linkedin": "https://www.linkedin.com/in/jeremyngboon/"
+      "linkedin": "https://www.linkedin.com/in/jeremyb000n/"
     }
   }
 };

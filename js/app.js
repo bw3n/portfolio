@@ -54,7 +54,6 @@ function getHomeViewFromHash() {
 
 function getActiveNavId(view, options = {}) {
   if (options.activeNavId) return options.activeNavId;
-  if (window.location.hash === "#contact") return "contact";
   return view;
 }
 
@@ -309,6 +308,9 @@ function switchView(view, options = {}) {
   const navLinks = Array.from(document.querySelectorAll(".notch-link"));
   const scrollToId = options.scrollToId;
   const activeNavId = getActiveNavId(view, options);
+  const targetHash = activeNavId === "contact" || scrollToId === "contact"
+    ? "contact"
+    : view;
 
   navLinks.forEach(link => link.classList.remove("active"));
 
@@ -316,12 +318,8 @@ function switchView(view, options = {}) {
   if (labView) labView.style.display = view === "lab" ? "block" : "none";
   if (aboutView) aboutView.style.display = view === "about" ? "block" : "none";
 
-  if (view === "about") {
-    window.location.hash = "about";
-  } else if (view === "lab") {
-    window.location.hash = "lab";
-  } else {
-    window.location.hash = "work";
+  if (window.location.hash !== `#${targetHash}`) {
+    window.location.hash = targetHash;
   }
 
   const activeLink = navLinks.find(link => {
@@ -462,27 +460,25 @@ function renderAbout() {
 
       <!-- Experience & Awards -->
       <div class="about-two-col">
-        <div class="about-col">
+        <div class="about-section-group about-section-group--experience">
           <p class="about-section-label">Experience</p>
           <div class="about-experience">${expRows}</div>
-          <div class="about-col-stack">
-            <div>
-              <p class="about-section-label">Capabilities</p>
-              <div class="about-capabilities">${capPills}</div>
-            </div>
-            <div>
-              <p class="about-section-label">Clients</p>
-              <div class="about-clients">${clientNames}</div>
-            </div>
-          </div>
         </div>
-        <div class="about-col">
+        <div class="about-section-group about-section-group--recognition">
           <p class="about-section-label">Recognition</p>
           <div class="about-awards">${awardRows}</div>
-          <div style="margin-top: 40px;">
-            <p class="about-section-label">Selected Press</p>
-            <div class="about-awards">${pressRows}</div>
-          </div>
+        </div>
+        <div class="about-section-group about-section-group--press">
+          <p class="about-section-label">Selected Press</p>
+          <div class="about-awards">${pressRows}</div>
+        </div>
+        <div class="about-section-group about-section-group--capabilities">
+          <p class="about-section-label">Capabilities</p>
+          <div class="about-capabilities">${capPills}</div>
+        </div>
+        <div class="about-section-group about-section-group--clients">
+          <p class="about-section-label">Clients</p>
+          <div class="about-clients">${clientNames}</div>
         </div>
       </div>
 
