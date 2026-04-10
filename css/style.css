@@ -370,6 +370,12 @@ a {
   pointer-events: none;
 }
 
+.notch-active-pill.is-returning {
+  transition: transform 0.8s var(--ease-out),
+              width 0.8s var(--ease-out),
+              opacity 0.2s ease;
+}
+
 .notch-link {
   position: relative;
   z-index: 1;

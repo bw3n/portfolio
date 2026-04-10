@@ -244,7 +244,9 @@ function initProjectViewCursor() {
   window.addEventListener("blur", deactivateCursor);
 }
 
-function updateNavHighlight(targetLink = null) {
+let navHighlightReturnTimer = null;
+
+function updateNavHighlight(targetLink = null, options = {}) {
   const linksContainer = document.getElementById("notchLinks");
   if (!linksContainer) return;
 
@@ -256,6 +258,7 @@ function updateNavHighlight(targetLink = null) {
   const activeLink = highlightedLink || linksContainer.querySelector(".notch-link.active");
   if (!highlight) return;
 
+  highlight.classList.toggle("is-returning", Boolean(options.isReturning));
   navLinks.forEach(link => link.classList.remove("is-highlighted"));
 
   if (!activeLink) {
@@ -273,8 +276,22 @@ function updateNavHighlight(targetLink = null) {
   highlight.style.opacity = "1";
 }
 
-function scheduleNavHighlightUpdate(targetLink = null) {
-  window.requestAnimationFrame(() => updateNavHighlight(targetLink));
+function scheduleNavHighlightUpdate(targetLink = null, options = {}) {
+  if (navHighlightReturnTimer) {
+    window.clearTimeout(navHighlightReturnTimer);
+    navHighlightReturnTimer = null;
+  }
+
+  window.requestAnimationFrame(() => updateNavHighlight(targetLink, options));
+}
+
+function scheduleNavHighlightReturn() {
+  if (navHighlightReturnTimer) window.clearTimeout(navHighlightReturnTimer);
+
+  navHighlightReturnTimer = window.setTimeout(() => {
+    navHighlightReturnTimer = null;
+    window.requestAnimationFrame(() => updateNavHighlight(null, { isReturning: true }));
+  }, 300);
 }
 
 const homepageRenderState = {
@@ -401,7 +418,7 @@ function renderNav() {
   scheduleNavHighlightUpdate();
 
   if (linksShell) {
-    linksShell.onmouseleave = () => scheduleNavHighlightUpdate();
+    linksShell.onmouseleave = scheduleNavHighlightReturn;
   }
 
   if (header && !header.dataset.scrollListenerBound) {
