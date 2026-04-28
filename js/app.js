@@ -907,6 +907,56 @@ function renderContentBlocks(project, projectIndex) {
       dragHandle.setAttribute("aria-label", "Drag to reorder block");
       el.appendChild(dragHandle);
 
+      const moveControls = document.createElement("div");
+      moveControls.className = "block-move-controls";
+      moveControls.addEventListener("pointerdown", (e) => {
+        e.stopPropagation();
+      });
+
+      const moveUpBtn = document.createElement("button");
+      moveUpBtn.className = "block-move-btn";
+      moveUpBtn.type = "button";
+      moveUpBtn.draggable = false;
+      moveUpBtn.title = "Move block up";
+      moveUpBtn.innerHTML = "↑";
+      moveUpBtn.setAttribute("aria-label", "Move block up");
+      moveUpBtn.disabled = blockIndex === 0;
+      moveUpBtn.addEventListener("pointerdown", (e) => {
+        e.stopPropagation();
+      });
+      moveUpBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!document.body.classList.contains("edit-mode")) return;
+        if (moveProjectContentBlock(project, blockIndex, blockIndex - 1)) {
+          showToast("Block moved up");
+        }
+      };
+
+      const moveDownBtn = document.createElement("button");
+      moveDownBtn.className = "block-move-btn";
+      moveDownBtn.type = "button";
+      moveDownBtn.draggable = false;
+      moveDownBtn.title = "Move block down";
+      moveDownBtn.innerHTML = "↓";
+      moveDownBtn.setAttribute("aria-label", "Move block down");
+      moveDownBtn.disabled = blockIndex === project.contentBlocks.length - 1;
+      moveDownBtn.addEventListener("pointerdown", (e) => {
+        e.stopPropagation();
+      });
+      moveDownBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!document.body.classList.contains("edit-mode")) return;
+        if (moveProjectContentBlock(project, blockIndex, blockIndex + 1)) {
+          showToast("Block moved down");
+        }
+      };
+
+      moveControls.appendChild(moveUpBtn);
+      moveControls.appendChild(moveDownBtn);
+      el.appendChild(moveControls);
+
       // Delete block button (visible in edit mode)
       const deleteBtn = document.createElement("button");
       deleteBtn.className = "delete-element-btn delete-block-btn";
@@ -939,6 +989,30 @@ function renderContentBlocks(project, projectIndex) {
   }
 }
 
+function refreshProjectEditorBlocks() {
+  const projectId = getProjectIdFromURL();
+  const project = getProjectById(projectId);
+  if (!project) return;
+
+  renderContentBlocks(project, PORTFOLIO_DATA.projects.indexOf(project));
+
+  if (typeof setupBlockDragAndDrop === "function") setupBlockDragAndDrop();
+  if (typeof setupThumbnailDragAndDrop === "function") setupThumbnailDragAndDrop();
+}
+
+function moveProjectContentBlock(project, fromIndex, toIndex) {
+  if (!project || !Array.isArray(project.contentBlocks)) return false;
+  if (fromIndex === toIndex) return false;
+  if (fromIndex < 0 || fromIndex >= project.contentBlocks.length) return false;
+  if (toIndex < 0 || toIndex >= project.contentBlocks.length) return false;
+
+  const [moved] = project.contentBlocks.splice(fromIndex, 1);
+  project.contentBlocks.splice(toIndex, 0, moved);
+  saveData();
+  refreshProjectEditorBlocks();
+  return true;
+}
+
 function createBlockElement(block, projectIndex, blockIndex) {
   switch (block.type) {
     case "full-image":
@@ -946,6 +1020,8 @@ function createBlockElement(block, projectIndex, blockIndex) {
     case "two-image":
       return createTwoImageBlock(block, projectIndex, blockIndex);
     case "image-grid":
+    case "3-grid":
+    case "4-grid":
       return createImageGridBlock(block, projectIndex, blockIndex);
     case "text":
       return createTextBlock(block, projectIndex, blockIndex);
@@ -981,22 +1057,49 @@ function createFullImageBlock(block, projectIndex, blockIndex) {
   overlay.innerHTML = "<span>Click or Drag image here</span>";
   setupImageUpload(overlay, (dataUrl) => {
     block.src = dataUrl;
-    div.style.backgroundImage = `url("${dataUrl}")`;
-    div.style.backgroundColor = "transparent";
-    div.style.backgroundSize = "contain";
-    div.style.backgroundRepeat = "no-repeat";
-    div.style.backgroundPosition = "center";
-    applyDynamicAspectRatio(div, dataUrl);
     saveData();
+    refreshProjectEditorBlocks();
   });
   div.appendChild(overlay);
 
   return div;
 }
 
+function applyImageGridShortestHeight(grid, images = [], heightCompensation = 1) {
+  const sources = images
+    .map((img) => img?.src)
+    .filter(Boolean);
+
+  if (!sources.length) return;
+
+  Promise.all(sources.map((src) => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        if (!img.width || !img.height) {
+          resolve(null);
+          return;
+        }
+        resolve(img.width / img.height);
+      };
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  })).then((ratios) => {
+    const validRatios = ratios.filter((ratio) => Number.isFinite(ratio) && ratio > 0);
+    if (!validRatios.length) return;
+
+    const shortestHeightRatio = Math.max(...validRatios) * heightCompensation;
+    grid.querySelectorAll(".block-grid-item").forEach((item) => {
+      item.style.aspectRatio = String(shortestHeightRatio);
+    });
+  });
+}
+
 function createImageGridBlock(block, projectIndex, blockIndex) {
+  const columns = block.columns || (block.type === "4-grid" ? 4 : 3);
   const div = document.createElement("div");
-  div.className = `block-image-grid cols-${block.columns || 3}`;
+  div.className = `block-image-grid cols-${columns}`;
   div.setAttribute("data-block-index", blockIndex);
 
   (block.images || []).forEach((img, imgIndex) => {
@@ -1006,10 +1109,9 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
 
     if (img.src) {
       item.style.backgroundImage = `url("${img.src}")`;
-      item.style.backgroundSize = "contain";
+      item.style.backgroundSize = "cover";
       item.style.backgroundRepeat = "no-repeat";
       item.style.backgroundPosition = "center";
-      applyDynamicAspectRatio(item, img.src);
     } else {
       item.style.backgroundColor = img.color || "#999";
     }
@@ -1021,13 +1123,8 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
     overlay.innerHTML = "<span>Click/Drag</span>";
     setupImageUpload(overlay, (dataUrl) => {
       img.src = dataUrl;
-      item.style.backgroundImage = `url("${dataUrl}")`;
-      item.style.backgroundColor = "transparent";
-      item.style.backgroundSize = "contain";
-      item.style.backgroundRepeat = "no-repeat";
-      item.style.backgroundPosition = "center";
-      applyDynamicAspectRatio(item, dataUrl);
       saveData();
+      refreshProjectEditorBlocks();
     });
     item.appendChild(overlay);
 
@@ -1041,6 +1138,12 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
 
     div.appendChild(item);
   });
+
+  if (columns === 3) {
+    applyImageGridShortestHeight(div, block.images || [], 0.96);
+  } else if (columns === 4) {
+    applyImageGridShortestHeight(div, block.images || [], 0.92);
+  }
 
   return div;
 }
@@ -1077,13 +1180,8 @@ function createTwoImageBlock(block, projectIndex, blockIndex) {
     overlay.innerHTML = "<span>Click/Drag</span>";
     setupImageUpload(overlay, (dataUrl) => {
       img.src = dataUrl;
-      item.style.backgroundImage = `url("${dataUrl}")`;
-      item.style.backgroundColor = "transparent";
-      item.style.backgroundSize = "contain";
-      item.style.backgroundRepeat = "no-repeat";
-      item.style.backgroundPosition = "center";
-      applyDynamicAspectRatio(item, dataUrl);
       saveData();
+      refreshProjectEditorBlocks();
     });
     item.appendChild(overlay);
 
@@ -1103,15 +1201,8 @@ function createTwoImageBlock(block, projectIndex, blockIndex) {
       clearBtn.onclick = (e) => {
         e.stopPropagation();
         img.src = null;
-        item.style.backgroundImage = "";
-        item.style.backgroundColor = img.color || block.color || "#999";
         saveData();
-        const projectId = getProjectIdFromURL();
-        const project = getProjectById(projectId);
-        if (project) {
-          renderContentBlocks(project, PORTFOLIO_DATA.projects.indexOf(project));
-          if (typeof setupBlockDragAndDrop === "function") setupBlockDragAndDrop();
-        }
+        refreshProjectEditorBlocks();
       };
       item.appendChild(clearBtn);
     }
@@ -1166,13 +1257,8 @@ function createTwoColumnBlock(block, projectIndex, blockIndex) {
   overlay.innerHTML = "<span>Click/Drag</span>";
   setupImageUpload(overlay, (dataUrl) => {
     block.imageSrc = dataUrl;
-    imgCol.style.backgroundImage = `url("${dataUrl}")`;
-    imgCol.style.backgroundColor = "transparent";
-    imgCol.style.backgroundSize = "contain";
-    imgCol.style.backgroundRepeat = "no-repeat";
-    imgCol.style.backgroundPosition = "center";
-    applyDynamicAspectRatio(imgCol, dataUrl);
     saveData();
+    refreshProjectEditorBlocks();
   });
   imgCol.appendChild(overlay);
   div.appendChild(imgCol);
@@ -1210,12 +1296,7 @@ function createVideoBlock(block, projectIndex, blockIndex) {
       if (url !== null) {
         block.url = url.trim();
         saveData();
-        const projectId = getProjectIdFromURL();
-        const project = getProjectById(projectId);
-        if (project) {
-          renderContentBlocks(project, PORTFOLIO_DATA.projects.indexOf(project));
-          if (typeof setupBlockDragAndDrop === "function") setupBlockDragAndDrop();
-        }
+        refreshProjectEditorBlocks();
       }
     }
   };
@@ -1253,6 +1334,11 @@ function getProjectAssetDir() {
 }
 
 function setupImageUpload(overlay, callback) {
+  function isFileDrag(dataTransfer) {
+    if (!dataTransfer) return false;
+    return Array.from(dataTransfer.types || []).includes("Files");
+  }
+
   function handleFile(file) {
     if (!file) return;
 
@@ -1283,26 +1369,30 @@ function setupImageUpload(overlay, callback) {
   };
 
   overlay.addEventListener("dragover", (e) => {
+    if (!document.body.classList.contains("edit-mode")) return;
+    if (!isFileDrag(e.dataTransfer)) return;
+
     e.preventDefault();
     e.stopPropagation();
-    if (document.body.classList.contains("edit-mode")) {
-      overlay.style.background = "rgba(0, 68, 255, 0.4)";
-    }
+    overlay.style.background = "rgba(0, 68, 255, 0.4)";
   });
 
   overlay.addEventListener("dragleave", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    if (isFileDrag(e.dataTransfer)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     overlay.style.background = "";
   });
 
   overlay.addEventListener("drop", (e) => {
+    if (!document.body.classList.contains("edit-mode")) return;
+    if (!isFileDrag(e.dataTransfer) || e.dataTransfer.files.length === 0) return;
+
     e.preventDefault();
     e.stopPropagation();
     overlay.style.background = "";
-    if (document.body.classList.contains("edit-mode") && e.dataTransfer.files.length > 0) {
-      handleFile(e.dataTransfer.files[0]);
-    }
+    handleFile(e.dataTransfer.files[0]);
   });
 }
 
@@ -1330,7 +1420,7 @@ function addNewProject() {
     contentBlocks: [
       { type: "full-image", src: null, color: color, label: "VISUALS" },
       {
-        type: "image-grid", columns: 3,
+        type: "3-grid", columns: 3,
         images: [
           { src: null, color: color },
           { src: null, color: color },
@@ -1374,9 +1464,21 @@ function addContentBlock(type) {
       };
       break;
     case "image-grid":
+    case "3-grid":
       newBlock = {
-        type: "image-grid", columns: 3,
+        type: "3-grid", columns: 3,
         images: [
+          { src: null, color: color },
+          { src: null, color: color },
+          { src: null, color: color }
+        ]
+      };
+      break;
+    case "4-grid":
+      newBlock = {
+        type: "4-grid", columns: 4,
+        images: [
+          { src: null, color: color },
           { src: null, color: color },
           { src: null, color: color },
           { src: null, color: color }
@@ -1398,6 +1500,7 @@ function addContentBlock(type) {
   saveData();
   renderContentBlocks(project, projectIndex);
   if (typeof setupBlockDragAndDrop === "function") setupBlockDragAndDrop();
+  if (typeof setupThumbnailDragAndDrop === "function") setupThumbnailDragAndDrop();
   showToast("Block added!");
 }
 

@@ -10,7 +10,7 @@
 /* --- Design Tokens --- */
 :root {
   /* Colors */
-  --color-bg: #FFFFFF;
+  --color-bg: #EBEBEA;
   --color-outer: #111111;
   --color-text: #1A1A1A;
   --color-text-secondary: #6B6B6B;
@@ -879,9 +879,9 @@ body.edit-mode .thumbnail-drag-handle:active {
    ============================================================ */
 .sync-toggle {
   position: fixed;
-  bottom: calc(var(--space-md) + 48px);
-  right: var(--space-md);
-  z-index: 2000;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-md) + 56px);
+  right: max(var(--space-md), env(safe-area-inset-right, 0px));
+  z-index: 99999;
   width: 38px;
   height: 38px;
   background: var(--color-surface);
@@ -892,7 +892,9 @@ body.edit-mode .thumbnail-drag-handle:active {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
   align-items: center;
   justify-content: center;
   transition: transform var(--duration-fast) var(--ease-spring),
@@ -919,9 +921,9 @@ body.edit-mode .thumbnail-drag-handle:active {
 
 .edit-toggle {
   position: fixed;
-  bottom: var(--space-md);
-  right: var(--space-md);
-  z-index: 2000;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-md));
+  right: max(var(--space-md), env(safe-area-inset-right, 0px));
+  z-index: 99999;
   background: var(--color-text);
   color: var(--color-bg);
   font-family: var(--font-body);
@@ -932,6 +934,11 @@ body.edit-mode .thumbnail-drag-handle:active {
   border-radius: 50px;
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  align-items: center;
+  justify-content: center;
   transition: transform var(--duration-fast) var(--ease-spring),
     background var(--duration-fast) ease;
 }
@@ -944,10 +951,16 @@ body.edit-mode .thumbnail-drag-handle:active {
   background: var(--color-accent);
 }
 
-.sync-toggle,
-.edit-toggle,
-.edit-toolbar {
-  display: none !important;
+body.editor-enabled .sync-toggle {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body.editor-enabled .edit-toggle {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Editable elements in edit mode */
@@ -1096,6 +1109,48 @@ body.edit-mode .block-drag-handle:active {
   cursor: grabbing;
 }
 
+.block-move-controls {
+  position: absolute;
+  top: 12px;
+  left: 52px;
+  display: none;
+  gap: 8px;
+  z-index: 20;
+}
+
+body.edit-mode .block-move-controls {
+  display: flex;
+}
+
+.block-move-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 20, 20, 0.85);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.block-move-btn:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.block-move-btn:not(:disabled):hover {
+  transform: scale(1.06);
+}
+
 /* Ensure parents of delete buttons establish containing block */
 body.edit-mode .block-image-grid,
 body.edit-mode .block-text,
@@ -1118,11 +1173,11 @@ body.edit-mode .block-full-image {
 /* Edit toolbar */
 .edit-toolbar {
   position: fixed;
-  bottom: var(--space-md);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-md));
   left: 50%;
   transform: translateX(-50%) translateY(80px);
-  z-index: 2000;
-  display: flex;
+  z-index: 99998;
+  display: none !important;
   gap: var(--space-xs);
   background: var(--color-notch-bg);
   backdrop-filter: blur(24px);
@@ -1134,6 +1189,10 @@ body.edit-mode .block-full-image {
   transition: transform var(--duration-normal) var(--ease-out);
   pointer-events: none;
   opacity: 0;
+}
+
+body.editor-enabled .edit-toolbar {
+  display: flex !important;
 }
 
 body.edit-mode .edit-toolbar {
@@ -1238,9 +1297,12 @@ body.edit-mode .edit-toolbar {
     grid-template-columns: 1fr;
   }
 
-  .block-image-grid.cols-3,
   .block-image-grid.cols-4 {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .block-image-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .content-blocks {

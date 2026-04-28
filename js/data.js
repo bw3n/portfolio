@@ -28,6 +28,146 @@ const PORTFOLIO_DATA = {
   },
   "projects": [
     {
+      "id": "project-8-1775740149910",
+      "category": "lab",
+      "title": "Digitas / U-Scan",
+      "cardColor": "#1A6B1A",
+      "cardImage": "assets/uscan-thumbnail.gif",
+      "description": "U-Scan is an AI-powered receipt scanning system designed for markets where transactions are still largely offline and unstructured. Built for the Philippines, it transforms handwritten and printed receipts into usable data, enabling brands to track purchases, trigger promotions, and build loyalty without relying on traditional POS integrations.",
+      "role": "Art Director",
+      "type": "Branding",
+      "client": "Digitas",
+      "agency": "Digitas",
+      "contentBlocks": [
+        {
+          "type": "full-image",
+          "src": "assets/uscan-one.gif",
+          "color": "#1A6B1A",
+          "label": "VISUALS"
+        },
+        {
+          "type": "text",
+          "content": "The brand is built on the idea of finding structure within imperfection. Inspired by the inconsistencies of physical receipts, the identity translates noise into form, using pixel-based typography and modular graphic systems that evolve from fragmented shapes into recognisable patterns. This reflects how U-Scan processes raw, unstructured inputs into clean, actionable data. The result is a visual system that mirrors the product’s function, turning everyday transactions into scalable digital infrastructure."
+        },
+        {
+          "type": "two-image",
+          "color": "#1A6B1A",
+          "images": [
+            {
+              "src": "assets/uscan-two.gif",
+              "color": "#1A6B1A"
+            },
+            {
+              "src": "assets/uscan-three.gif",
+              "color": "#1A6B1A"
+            }
+          ]
+        },
+        {
+          "type": "full-image",
+          "src": "assets/uscan-four.gif",
+          "color": "#1A6B1A",
+          "label": "SECTION TITLE"
+        }
+      ]
+    },
+    {
+      "id": "project-9-1777357020366",
+      "category": "work",
+      "title": "Samsung / Regional Experience &amp; Design",
+      "cardColor": "#0044FF",
+      "cardImage": "assets/samsung-thumbnail.gif",
+      "description": "<div>Samsung’s flagship launches operate across multiple markets, channels and audience segments.</div><div><br></div><div>As Regional Art Director for Samsung CRM, I shaped a scalable experience system across Southeast Asia, translating global launch direction into localised CRM journeys across EDM, Push and other digital touch points.</div><div><br></div><div>Rather than designing isolated assets, the work focused on building a repeatable framework that connects product storytelling, personalisation and conversion across the full lifecycle of a launch.</div>",
+      "role": "Regional Art Director",
+      "type": "CRM",
+      "client": "Samsung",
+      "agency": "Digitas Publicis",
+      "contentBlocks": [
+        {
+          "type": "full-image",
+          "src": "assets/samsung-0.png",
+          "color": "#0044FF",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": "<p data-start=\"1171\" data-end=\"1297\">Samsung CRM operates as a continuous journey across multiple phases of a launch, guiding users from awareness to conversion.</p>\n<p data-start=\"1304\" data-end=\"1459\"></p>"
+        },
+        {
+          "type": "image-grid",
+          "columns": 3,
+          "images": [
+            {
+              "src": "assets/samsung-3.gif",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-5.gif",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-4.gif",
+              "color": "#0044FF"
+            }
+          ]
+        },
+        {
+          "type": "image-grid",
+          "columns": 3,
+          "images": [
+            {
+              "src": "assets/samsung-2 copy.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-7.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-6.png",
+              "color": "#0044FF"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "<blockquote data-start=\"1652\" data-end=\"1844\"><p data-start=\"1654\" data-end=\"1844\"><b>Selected CRM Modules Across Journey Phases<br></b><br>The work focused on shaping visual hierarchy and narrative flow across CRM touchpoints, balancing Samsung’s premium product storytelling with clear, action-driven communication.</p><p data-start=\"1654\" data-end=\"1844\"><br></p><p data-start=\"1654\" data-end=\"1844\">Each asset is designed as part of a larger system, where layout, pacing and messaging work together across the full journey.</p>\n</blockquote>"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/samsung-1.jpg",
+          "color": "#0044FF",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/samsung-stat1.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-stat3.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-stat2.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-stat4.png",
+              "color": "#0044FF"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
+        }
+      ]
+    },
+    {
       "id": "project-4-1775051652483",
       "category": "work",
       "title": "<div>Digitas / Ace the Unicorn Race</div>",
@@ -318,50 +458,6 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": "Product Demonstration"
-        }
-      ]
-    },
-    {
-      "id": "project-8-1775740149910",
-      "category": "lab",
-      "title": "Digitas / U-Scan",
-      "cardColor": "#1A6B1A",
-      "cardImage": "assets/uscan-thumbnail.gif",
-      "description": "U-Scan is an AI-powered receipt scanning system designed for markets where transactions are still largely offline and unstructured. Built for the Philippines, it transforms handwritten and printed receipts into usable data, enabling brands to track purchases, trigger promotions, and build loyalty without relying on traditional POS integrations.",
-      "role": "Art Director",
-      "type": "Branding",
-      "client": "Digitas",
-      "agency": "Digitas",
-      "contentBlocks": [
-        {
-          "type": "full-image",
-          "src": "assets/uscan-one.gif",
-          "color": "#1A6B1A",
-          "label": "VISUALS"
-        },
-        {
-          "type": "text",
-          "content": "The brand is built on the idea of finding structure within imperfection. Inspired by the inconsistencies of physical receipts, the identity translates noise into form, using pixel-based typography and modular graphic systems that evolve from fragmented shapes into recognisable patterns. This reflects how U-Scan processes raw, unstructured inputs into clean, actionable data. The result is a visual system that mirrors the product’s function, turning everyday transactions into scalable digital infrastructure."
-        },
-        {
-          "type": "two-image",
-          "color": "#1A6B1A",
-          "images": [
-            {
-              "src": "assets/uscan-two.gif",
-              "color": "#1A6B1A"
-            },
-            {
-              "src": "assets/uscan-three.gif",
-              "color": "#1A6B1A"
-            }
-          ]
-        },
-        {
-          "type": "full-image",
-          "src": "assets/uscan-four.gif",
-          "color": "#1A6B1A",
-          "label": "SECTION TITLE"
         }
       ]
     }
