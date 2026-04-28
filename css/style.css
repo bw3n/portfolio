@@ -38,6 +38,7 @@
   --card-radius: 16px;
   --notch-radius: 50px;
   --frame-radius: 32px;
+  --grid-item-radius: 24px;
   --frame-padding: 18px;
 
   /* Transitions */
@@ -766,7 +767,7 @@ a {
 .block-grid-item {
   position: relative;
   aspect-ratio: 3 / 4;
-  border-radius: var(--frame-radius);
+  border-radius: var(--grid-item-radius);
   overflow: hidden;
   display: flex;
   align-items: center;
