@@ -22,17 +22,53 @@ function applyDynamicAspectRatio(el, src) {
   imgObj.onload = () => {
     el.style.aspectRatio = `${imgObj.width} / ${imgObj.height}`;
   };
-  imgObj.src = src;
+  imgObj.src = resolveSitePath(src);
 }
 
 // --- Utility: Detect which page we're on ---
+function getProjectRouteSegments(pathname = window.location.pathname) {
+  let normalizedPath = pathname.replace(/\\/g, "/");
+
+  try {
+    normalizedPath = decodeURIComponent(normalizedPath);
+  } catch (error) {
+    // Keep the raw pathname when decoding fails.
+  }
+
+  const routeMatch = normalizedPath.match(/(?:^|\/)(work|lab)\/([^/]+?)(?:\/index\.html?)?\/?$/i);
+  if (!routeMatch) return null;
+
+  return {
+    section: routeMatch[1].toLowerCase(),
+    slug: routeMatch[2],
+  };
+}
+
 function isProjectPage() {
   return window.location.pathname.includes("project.html") ||
-    window.location.search.includes("project=");
+    window.location.search.includes("project=") ||
+    Boolean(getProjectRouteSegments());
+}
+
+function decodeHTMLText(value = "") {
+  if (typeof document === "undefined") {
+    return value
+      .replace(/&amp;/gi, "&")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&#39;/gi, "'")
+      .replace(/&quot;/gi, '"');
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = value;
+  return textarea.value;
 }
 
 function stripHTML(value = "") {
-  return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return decodeHTMLText(value)
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function slugifyProjectTitle(value = "") {
@@ -58,9 +94,54 @@ function getProjectSlug(project) {
   return duplicateIndex <= 0 ? baseSlug : `${baseSlug}-${duplicateIndex + 1}`;
 }
 
+function getSiteRootPrefix(pathname = window.location.pathname) {
+  if (window.location.protocol !== "file:") return "/";
+  return getProjectRouteSegments(pathname) ? "../../" : "./";
+}
+
+function resolveSitePath(value = "") {
+  if (!value) return "";
+
+  if (
+    /^(?:[a-z]+:)?\/\//i.test(value) ||
+    value.startsWith("data:") ||
+    value.startsWith("blob:") ||
+    value.startsWith("mailto:") ||
+    value.startsWith("tel:") ||
+    value.startsWith("#")
+  ) {
+    return value;
+  }
+
+  if (value.startsWith("/")) return value;
+
+  return `${getSiteRootPrefix()}${value.replace(/^\.\//, "")}`;
+}
+
+function getProjectPath(project) {
+  if (!project) return getHomePath();
+  const routePath = `${getProjectCategory(project)}/${getProjectSlug(project)}/`;
+  if (window.location.protocol !== "file:") {
+    return `/${routePath}`;
+  }
+  return `${getSiteRootPrefix()}${routePath}index.html`;
+}
+
+function getHomePath(hash = "") {
+  const normalizedHash = hash
+    ? (hash.startsWith("#") ? hash : `#${hash}`)
+    : "";
+
+  if (window.location.protocol !== "file:") {
+    return normalizedHash ? `/${normalizedHash}` : "/";
+  }
+
+  return `${getSiteRootPrefix()}index.html${normalizedHash}`;
+}
+
 function getProjectIdFromURL() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("project");
+  return params.get("project") || getProjectRouteSegments()?.slug || "";
 }
 
 function getProjectById(id) {
@@ -340,7 +421,7 @@ function wireInternalNavLink(a, href) {
 
     if (targetId === "work") {
       if (isProjectPage()) {
-        navigateTo("index.html");
+        navigateTo(getHomePath());
       } else {
         switchView("work");
       }
@@ -349,7 +430,7 @@ function wireInternalNavLink(a, href) {
 
     if (targetId === "lab") {
       if (isProjectPage()) {
-        navigateTo("index.html#lab");
+        navigateTo(getHomePath("#lab"));
       } else {
         switchView("lab");
       }
@@ -358,7 +439,7 @@ function wireInternalNavLink(a, href) {
 
     if (targetId === "about") {
       if (isProjectPage()) {
-        navigateTo("index.html#about");
+        navigateTo(getHomePath("#about"));
       } else {
         switchView("about");
       }
@@ -367,7 +448,7 @@ function wireInternalNavLink(a, href) {
 
     if (targetId === "contact") {
       if (isProjectPage()) {
-        navigateTo("index.html#contact");
+        navigateTo(getHomePath("#contact"));
       } else {
         switchView("about", { scrollToId: "contact", activeNavId: "contact" });
       }
@@ -387,14 +468,14 @@ function renderNav() {
 
   if (PORTFOLIO_DATA.site.logoImage) {
     const alt = PORTFOLIO_DATA.site.logoAlt || PORTFOLIO_DATA.site.logo || "Logo";
-    logo.innerHTML = `<img src="${PORTFOLIO_DATA.site.logoImage}" alt="${alt}" class="site-logo-mark">`;
+    logo.innerHTML = `<img src="${resolveSitePath(PORTFOLIO_DATA.site.logoImage)}" alt="${alt}" class="site-logo-mark">`;
   } else {
     logo.textContent = PORTFOLIO_DATA.site.logo;
   }
 
   logo.onclick = () => {
     if (isProjectPage()) {
-      navigateTo("index.html");
+      navigateTo(getHomePath());
     } else {
       switchView("work");
     }
@@ -463,7 +544,7 @@ function renderFooter() {
   const footer = document.getElementById("siteFooter");
   if (!footer) return;
 
-  const logoSrc = PORTFOLIO_DATA.site.logoImage;
+  const logoSrc = resolveSitePath(PORTFOLIO_DATA.site.logoImage);
   const logoAlt = PORTFOLIO_DATA.site.logoAlt || PORTFOLIO_DATA.site.logo || "Boon";
   const contact = PORTFOLIO_DATA.about?.contact || {};
 
@@ -585,7 +666,7 @@ function renderAbout() {
             const logoStyle = brand.logoScale ? ` style=\"--brand-logo-scale:${brand.logoScale}\"` : "";
             return `
               <span class="about-exp-brand about-exp-brand--logo about-exp-brand--${brand.tone}" aria-hidden="true">
-                <img src="${brand.logoSrc}" alt="${brand.logoAlt || e.agency}" class="about-exp-brand-image"${logoStyle}>
+                <img src="${resolveSitePath(brand.logoSrc)}" alt="${brand.logoAlt || e.agency}" class="about-exp-brand-image"${logoStyle}>
               </span>
             `;
           }
@@ -636,7 +717,7 @@ function renderAbout() {
       return `
         <span class="about-client about-client--logo" data-editable="about.clients.${i}.name">
           <span class="about-client-logo-stage"${stageStyle}>
-            <img src="${client.logoSrc}" alt="${name}" class="about-client-logo">
+            <img src="${resolveSitePath(client.logoSrc)}" alt="${name}" class="about-client-logo">
           </span>
         </span>
       `;
@@ -756,7 +837,7 @@ function renderProjectsGrid(category = "work") {
     const bgDiv = document.createElement("div");
     bgDiv.className = "project-card-bg";
     if (project.cardImage) {
-      bgDiv.style.backgroundImage = `url("${project.cardImage}")`;
+      bgDiv.style.backgroundImage = `url("${resolveSitePath(project.cardImage)}")`;
       bgDiv.style.backgroundSize = "cover";
       bgDiv.style.backgroundPosition = "center";
     } else {
@@ -800,7 +881,7 @@ function renderProjectsGrid(category = "work") {
     // Click to navigate (only when not in edit mode)
     card.addEventListener("click", () => {
       if (!document.body.classList.contains("edit-mode")) {
-        navigateTo(`project.html?project=${encodeURIComponent(getProjectSlug(project))}`);
+        navigateTo(getProjectPath(project));
       }
     });
 
@@ -821,7 +902,7 @@ function renderProjectPage() {
   const projectId = getProjectIdFromURL();
   const project = getProjectById(projectId);
   if (!project) {
-    navigateTo("index.html");
+    navigateTo(getHomePath());
     return;
   }
 
@@ -829,9 +910,14 @@ function renderProjectPage() {
   document.title = `${project.title} — Boon`;
 
   const canonicalSlug = getProjectSlug(project);
-  const currentProjectParam = getProjectIdFromURL();
-  if (canonicalSlug && currentProjectParam !== canonicalSlug) {
-    const canonicalUrl = `project.html?project=${encodeURIComponent(canonicalSlug)}`;
+  const canonicalPath = getProjectPath(project);
+  const currentRoute = getProjectRouteSegments();
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.delete("project");
+  const queryString = searchParams.toString();
+  const canonicalUrl = `${canonicalPath}${queryString ? `?${queryString}` : ""}${window.location.hash || ""}`;
+
+  if (!currentRoute || currentRoute.slug !== canonicalSlug || currentRoute.section !== getProjectCategory(project)) {
     window.history.replaceState({}, "", canonicalUrl);
   }
 
@@ -844,7 +930,7 @@ function renderProjectPage() {
     const heroDiv = document.createElement("div");
     heroDiv.className = "project-hero-image";
     if (project.cardImage) {
-      heroDiv.style.backgroundImage = `url("${project.cardImage}")`;
+      heroDiv.style.backgroundImage = `url("${resolveSitePath(project.cardImage)}")`;
       heroDiv.style.backgroundSize = "contain";
       heroDiv.style.backgroundRepeat = "no-repeat";
       heroDiv.style.backgroundPosition = "center";
@@ -1040,7 +1126,7 @@ function createFullImageBlock(block, projectIndex, blockIndex) {
   div.setAttribute("data-block-index", blockIndex);
 
   if (block.src) {
-    div.style.backgroundImage = `url("${block.src}")`;
+    div.style.backgroundImage = `url("${resolveSitePath(block.src)}")`;
     div.style.backgroundSize = "contain";
     div.style.backgroundRepeat = "no-repeat";
     div.style.backgroundPosition = "center";
@@ -1083,7 +1169,7 @@ function applyImageGridShortestHeight(grid, images = [], heightCompensation = 1)
         resolve(img.width / img.height);
       };
       img.onerror = () => resolve(null);
-      img.src = src;
+      img.src = resolveSitePath(src);
     });
   })).then((ratios) => {
     const validRatios = ratios.filter((ratio) => Number.isFinite(ratio) && ratio > 0);
@@ -1108,7 +1194,7 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
     item.setAttribute("data-image-index", imgIndex);
 
     if (img.src) {
-      item.style.backgroundImage = `url("${img.src}")`;
+      item.style.backgroundImage = `url("${resolveSitePath(img.src)}")`;
       item.style.backgroundSize = "cover";
       item.style.backgroundRepeat = "no-repeat";
       item.style.backgroundPosition = "center";
@@ -1165,7 +1251,7 @@ function createTwoImageBlock(block, projectIndex, blockIndex) {
     item.setAttribute("data-image-index", imgIndex);
 
     if (img.src) {
-      item.style.backgroundImage = `url("${img.src}")`;
+      item.style.backgroundImage = `url("${resolveSitePath(img.src)}")`;
       item.style.backgroundSize = "contain";
       item.style.backgroundRepeat = "no-repeat";
       item.style.backgroundPosition = "center";
@@ -1242,7 +1328,7 @@ function createTwoColumnBlock(block, projectIndex, blockIndex) {
   const imgCol = document.createElement("div");
   imgCol.className = "col-image";
   if (block.imageSrc) {
-    imgCol.style.backgroundImage = `url("${block.imageSrc}")`;
+    imgCol.style.backgroundImage = `url("${resolveSitePath(block.imageSrc)}")`;
     imgCol.style.backgroundSize = "contain";
     imgCol.style.backgroundRepeat = "no-repeat";
     imgCol.style.backgroundPosition = "center";

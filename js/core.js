@@ -120,7 +120,10 @@ async function syncFromFile() {
 
   const script = document.createElement("script");
   script.id = "_syncScript";
-  script.src = `js/data.js?v=${Date.now()}`;
+  const dataScriptPath = typeof window.resolveSitePath === "function"
+    ? window.resolveSitePath("js/data.js")
+    : "js/data.js";
+  script.src = `${dataScriptPath}?v=${Date.now()}`;
 
   script.onload = () => {
     try {

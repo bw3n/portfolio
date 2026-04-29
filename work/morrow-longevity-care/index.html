@@ -3,23 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Boon — Creative Portfolio. Currently Pushin' Ps in Digitas Singapore.">
-  <title>Boon — Portfolio</title>
+  <meta name="description" content="Project Detail — Boon's Portfolio">
+  <title>Project — Boon</title>
+  <base href="../../">
   <link rel="icon" type="image/png" href="assets/boon-logo.png">
   <link rel="apple-touch-icon" href="assets/boon-logo.png">
   <link rel="stylesheet" href="css/style.css?v=20260429-03">
 </head>
 <body>
-
-  <!-- Viewport Outer (dark background) -->
   <div class="viewport-outer">
     <div class="site-frame" id="siteFrame">
-
-      <!-- Site Header -->
       <header class="site-header" id="siteHeader">
         <div class="site-header-left"></div>
         <nav class="notch-nav" id="notchNav">
-          <span class="site-logo" id="notchLogo" data-editable="site.logo"></span>
+          <span class="site-logo" id="notchLogo"></span>
           <div class="notch-links-shell">
             <div class="notch-links" id="notchLinks"></div>
           </div>
@@ -27,52 +24,29 @@
         <div class="site-header-right"></div>
       </header>
 
-      <!-- Work View -->
-      <div id="workView">
-        <!-- Hero Section -->
-        <section class="hero" id="hero">
-          <p class="hero-eyebrow">WORK</p>
-          <h1 class="hero-title" id="heroTitle"></h1>
-        </section>
-
-        <!-- Projects Grid -->
-        <section class="projects-grid" id="projectsGrid"></section>
-      </div>
-
-      <!-- Lab View -->
-      <div id="labView" style="display: none;">
-        <section class="hero" id="labHero">
-          <p class="hero-eyebrow">LAB</p>
-          <h1 class="hero-title" id="labTitle"></h1>
-        </section>
-
-        <section class="projects-grid" id="labProjectsGrid"></section>
-      </div>
-
-      <!-- About View -->
-      <div id="aboutView" style="display: none;">
-        <section class="about-section" id="aboutSection"></section>
-      </div>
-
-    </div><!-- /site-frame -->
-  </div><!-- /viewport-outer -->
+      <section class="project-hero" id="projectHero"></section>
+      <section class="project-info" id="projectInfo"></section>
+      <section class="content-blocks" id="contentBlocks"></section>
+    </div>
+  </div>
 
   <footer class="site-footer" id="siteFooter"></footer>
 
-  <!-- Sync Button -->
   <button class="sync-toggle" id="syncToggle" title="Sync from data.js" onclick="syncFromFile()">↻</button>
-
-  <!-- Edit Mode Toggle -->
   <button class="edit-toggle" id="editToggle">Edit</button>
 
-  <!-- Edit Toolbar -->
   <div class="edit-toolbar" id="editToolbar">
-    <button onclick="addNewProject()">+ Add Project</button>
+    <button onclick="addContentBlock('full-image')">+ Full Image</button>
+    <button onclick="addContentBlock('two-image')">+ Two Images</button>
+    <button onclick="addContentBlock('3-grid')">+ 3-Grid</button>
+    <button onclick="addContentBlock('4-grid')">+ 4-Grid</button>
+    <button onclick="addContentBlock('text')">+ Text</button>
+    <button onclick="addContentBlock('two-column')">+ Two Column</button>
+    <button onclick="addContentBlock('video')">+ Video</button>
     <button onclick="exportData()">Export Data</button>
     <button class="primary" onclick="saveData(); showToast('Saved!');">Save</button>
   </div>
 
-  <!-- Toast notification -->
   <div id="toast" style="
     position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
     background: #1A1A1A; color: #fff; font-family: var(--font-body); font-size: 13px;
@@ -80,7 +54,6 @@
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 3000;
   "></div>
 
-  <!-- Scripts -->
   <script defer src="js/data.js?v=20260429-03"></script>
   <script defer src="js/core.js?v=20260429-03"></script>
   <script defer src="js/app.js?v=20260429-03"></script>
