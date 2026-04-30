@@ -131,96 +131,99 @@ let draggedCard = null;
 let draggedIndex = -1;
 
 function setupDragAndDrop() {
-  const grid = document.getElementById("projectsGrid");
-  if (!grid) return;
+  const grids = Array.from(document.querySelectorAll("#projectsGrid, #labProjectsGrid"));
+  if (!grids.length) return;
 
-  const cards = grid.querySelectorAll(".project-card");
+  grids.forEach((grid) => {
+    const cards = grid.querySelectorAll(".project-card");
 
-  // Track the last valid target card so drop-on-placeholder still works
-  let lastTargetCard = null;
+    // Track the last valid target card so drop-on-placeholder still works
+    let lastTargetCard = null;
 
-  cards.forEach(card => {
-    card.setAttribute("draggable", "true");
+    cards.forEach(card => {
+      card.setAttribute("draggable", "true");
 
-    card.addEventListener("dragstart", (e) => {
-      if (!window.editMode) {
-        e.preventDefault();
-        return;
-      }
-      draggedCard = card;
-      draggedIndex = parseInt(card.getAttribute("data-index"));
+      card.addEventListener("dragstart", (e) => {
+        if (!window.editMode) {
+          e.preventDefault();
+          return;
+        }
+        draggedCard = card;
+        draggedIndex = parseInt(card.getAttribute("data-index"));
 
-      card.classList.add("dragging");
-      e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.setData("text/plain", draggedIndex);
+        card.classList.add("dragging");
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", draggedIndex);
 
-      setTimeout(() => {
-        card.style.opacity = "0.4";
-        // Disable overlays so they don't swallow drag events on other cards
-        grid.classList.add("is-card-dragging");
-      }, 0);
+        setTimeout(() => {
+          card.style.opacity = "0.4";
+          // Disable overlays so they don't swallow drag events on other cards
+          grid.classList.add("is-card-dragging");
+        }, 0);
+      });
+
+      card.addEventListener("dragend", () => {
+        if (!draggedCard) return;
+        draggedCard.classList.remove("dragging");
+        draggedCard.style.opacity = "";
+        draggedCard = null;
+        draggedIndex = -1;
+        lastTargetCard = null;
+
+        // Re-enable overlays
+        grid.classList.remove("is-card-dragging");
+        grid.querySelectorAll(".drag-placeholder").forEach(p => p.remove());
+      });
     });
 
-    card.addEventListener("dragend", () => {
-      if (!draggedCard) return;
-      draggedCard.classList.remove("dragging");
-      draggedCard.style.opacity = "";
-      draggedCard = null;
-      draggedIndex = -1;
-      lastTargetCard = null;
+    // --- Grid-level dragover: catches events on cards AND placeholders ---
+    grid.addEventListener("dragover", (e) => {
+      if (!window.editMode || !draggedCard) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
 
-      // Re-enable overlays
-      grid.classList.remove("is-card-dragging");
+      // Find the real card being hovered (skip the placeholder itself)
+      const targetCard = e.target.closest(".project-card:not(.drag-placeholder)");
+      if (!targetCard || targetCard === draggedCard) return;
+
+      lastTargetCard = targetCard;
+
+      const rect = targetCard.getBoundingClientRect();
+      const midY = rect.top + rect.height / 2;
+      const isBefore = e.clientY < midY;
+
       grid.querySelectorAll(".drag-placeholder").forEach(p => p.remove());
+
+      const placeholder = document.createElement("div");
+      placeholder.className = "drag-placeholder";
+
+      if (isBefore) {
+        grid.insertBefore(placeholder, targetCard);
+      } else {
+        grid.insertBefore(placeholder, targetCard.nextSibling);
+      }
     });
-  });
 
-  // --- Grid-level dragover: catches events on cards AND placeholders ---
-  grid.addEventListener("dragover", (e) => {
-    if (!window.editMode || !draggedCard) return;
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
+    // --- Grid-level drop: fires regardless of whether cursor is on card or placeholder ---
+    grid.addEventListener("drop", (e) => {
+      if (!window.editMode || !draggedCard || !lastTargetCard) return;
+      e.preventDefault();
 
-    // Find the real card being hovered (skip the placeholder itself)
-    const targetCard = e.target.closest(".project-card:not(.drag-placeholder)");
-    if (!targetCard || targetCard === draggedCard) return;
+      const targetIndex = parseInt(lastTargetCard.getAttribute("data-index"));
+      if (targetIndex === draggedIndex) return;
 
-    lastTargetCard = targetCard;
+      // Reorder data
+      const [moved] = PORTFOLIO_DATA.projects.splice(draggedIndex, 1);
+      PORTFOLIO_DATA.projects.splice(targetIndex, 0, moved);
 
-    const rect = targetCard.getBoundingClientRect();
-    const midY = rect.top + rect.height / 2;
-    const isBefore = e.clientY < midY;
-
-    grid.querySelectorAll(".drag-placeholder").forEach(p => p.remove());
-
-    const placeholder = document.createElement("div");
-    placeholder.className = "drag-placeholder";
-
-    if (isBefore) {
-      grid.insertBefore(placeholder, targetCard);
-    } else {
-      grid.insertBefore(placeholder, targetCard.nextSibling);
-    }
-  });
-
-  // --- Grid-level drop: fires regardless of whether cursor is on card or placeholder ---
-  grid.addEventListener("drop", (e) => {
-    if (!window.editMode || !draggedCard || !lastTargetCard) return;
-    e.preventDefault();
-
-    const targetIndex = parseInt(lastTargetCard.getAttribute("data-index"));
-    if (targetIndex === draggedIndex) return;
-
-    // Reorder data
-    const [moved] = PORTFOLIO_DATA.projects.splice(draggedIndex, 1);
-    PORTFOLIO_DATA.projects.splice(targetIndex, 0, moved);
-
-    // Save and re-render
-    saveData();
-    renderProjectsGrid();
-    setupScrollAnimations();
-    setupDragAndDrop();
-    showToast("Reordered!");
+      // Save and re-render
+      saveData();
+      renderProjectsGrid("work");
+      renderProjectsGrid("lab");
+      setupScrollAnimations();
+      setupDragAndDrop();
+      showToast("Reordered!");
+    });
   });
 }
 

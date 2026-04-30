@@ -18,11 +18,25 @@ function showToast(message) {
 // --- Utility: Set Dynamic Aspect Ratio ---
 function applyDynamicAspectRatio(el, src) {
   if (!src) return;
+  const resolvedSrc = resolveSitePath(src);
+
+  if (isVideoAsset(src)) {
+    const video = document.createElement("video");
+    video.preload = "metadata";
+    video.onloadedmetadata = () => {
+      if (video.videoWidth && video.videoHeight) {
+        el.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+      }
+    };
+    video.src = resolvedSrc;
+    return;
+  }
+
   const imgObj = new Image();
   imgObj.onload = () => {
     el.style.aspectRatio = `${imgObj.width} / ${imgObj.height}`;
   };
-  imgObj.src = resolveSitePath(src);
+  imgObj.src = resolvedSrc;
 }
 
 // --- Utility: Detect which page we're on ---
@@ -95,7 +109,40 @@ function getProjectSlug(project) {
 }
 
 function getSiteRootPrefix(pathname = window.location.pathname) {
-  if (window.location.protocol !== "file:") return "/";
+  if (window.location.protocol !== "file:") {
+    let normalizedPath = pathname.replace(/\\/g, "/");
+
+    try {
+      normalizedPath = decodeURIComponent(normalizedPath);
+    } catch (error) {
+      // Keep the raw pathname when decoding fails.
+    }
+
+    const routeMatch = normalizedPath.match(/^(.*?)(?:\/(?:work|lab)\/[^/]+(?:\/index\.html?)?\/?)$/i);
+    if (routeMatch) {
+      const basePath = routeMatch[1] || "/";
+      return basePath.endsWith("/") ? basePath : `${basePath}/`;
+    }
+
+    if (/\/(?:index|project)\.html?$/i.test(normalizedPath)) {
+      return normalizedPath.replace(/\/(?:index|project)\.html?$/i, "/");
+    }
+
+    if (normalizedPath.endsWith("/")) return normalizedPath;
+
+    const lastSlashIndex = normalizedPath.lastIndexOf("/");
+    return lastSlashIndex >= 0 ? normalizedPath.slice(0, lastSlashIndex + 1) : "/";
+  }
+  const baseHref = typeof document !== "undefined"
+    ? document.querySelector("base")?.getAttribute("href")
+    : "";
+
+  if (baseHref) {
+    // Route pages opened directly from disk already set a <base href="../../">
+    // so inline JS URLs should stay relative to that base instead of walking up again.
+    return "./";
+  }
+
   return getProjectRouteSegments(pathname) ? "../../" : "./";
 }
 
@@ -118,13 +165,37 @@ function resolveSitePath(value = "") {
   return `${getSiteRootPrefix()}${value.replace(/^\.\//, "")}`;
 }
 
+function isVideoAsset(value = "") {
+  return /\.(?:webm|mp4|mov|m4v|ogv)(?:[?#].*)?$/i.test(value);
+}
+
+function createMediaElement(src, className, { autoplay = true, loop = true, muted = true, playsInline = true } = {}) {
+  if (!src) return null;
+
+  const resolvedSrc = resolveSitePath(src);
+  if (!isVideoAsset(src)) return null;
+
+  const video = document.createElement("video");
+  video.className = className;
+  video.src = resolvedSrc;
+  video.autoplay = autoplay;
+  video.loop = loop;
+  video.muted = muted;
+  video.playsInline = playsInline;
+  video.defaultMuted = muted;
+  video.preload = "auto";
+  video.setAttribute("aria-hidden", "true");
+  video.setAttribute("playsinline", "");
+  video.setAttribute("muted", "");
+  if (autoplay) video.setAttribute("autoplay", "");
+  if (loop) video.setAttribute("loop", "");
+  return video;
+}
+
 function getProjectPath(project) {
   if (!project) return getHomePath();
-  const routePath = `${getProjectCategory(project)}/${getProjectSlug(project)}/`;
-  if (window.location.protocol !== "file:") {
-    return `/${routePath}`;
-  }
-  return `${getSiteRootPrefix()}${routePath}index.html`;
+  const projectSlug = getProjectSlug(project);
+  return `${getSiteRootPrefix()}project.html?project=${encodeURIComponent(projectSlug)}`;
 }
 
 function getHomePath(hash = "") {
@@ -819,6 +890,31 @@ function renderLabHero() {
   container.innerHTML = renderAnimatedHeadlineLines(`${line1}<br>${line2}`);
 }
 
+function moveHomepageProjectByCategory(fromIndex, direction) {
+  const project = PORTFOLIO_DATA.projects[fromIndex];
+  if (!project) return false;
+
+  const category = getProjectCategory(project);
+  const step = direction < 0 ? -1 : 1;
+  let targetIndex = fromIndex + step;
+
+  while (targetIndex >= 0 && targetIndex < PORTFOLIO_DATA.projects.length) {
+    const candidate = PORTFOLIO_DATA.projects[targetIndex];
+    if (candidate && getProjectCategory(candidate) === category) {
+      PORTFOLIO_DATA.projects[fromIndex] = candidate;
+      PORTFOLIO_DATA.projects[targetIndex] = project;
+      saveData();
+      renderProjectsGrid("work");
+      renderProjectsGrid("lab");
+      if (typeof setupDragAndDrop === "function") setupDragAndDrop();
+      return true;
+    }
+    targetIndex += step;
+  }
+
+  return false;
+}
+
 function renderProjectsGrid(category = "work") {
   const grid = document.getElementById(category === "lab" ? "labProjectsGrid" : "projectsGrid");
   if (!grid) return;
@@ -837,9 +933,14 @@ function renderProjectsGrid(category = "work") {
     const bgDiv = document.createElement("div");
     bgDiv.className = "project-card-bg";
     if (project.cardImage) {
-      bgDiv.style.backgroundImage = `url("${resolveSitePath(project.cardImage)}")`;
-      bgDiv.style.backgroundSize = "cover";
-      bgDiv.style.backgroundPosition = "center";
+      if (isVideoAsset(project.cardImage)) {
+        const video = createMediaElement(project.cardImage, "project-card-media");
+        if (video) bgDiv.appendChild(video);
+      } else {
+        bgDiv.style.backgroundImage = `url("${resolveSitePath(project.cardImage)}")`;
+        bgDiv.style.backgroundSize = "cover";
+        bgDiv.style.backgroundPosition = "center";
+      }
     } else {
       bgDiv.style.backgroundColor = project.cardColor;
     }
@@ -851,13 +952,84 @@ function renderProjectsGrid(category = "work") {
     uploadOverlay.innerHTML = "<span>Click or Drag image here</span>";
     setupImageUpload(uploadOverlay, (dataUrl) => {
       project.cardImage = dataUrl;
-      bgDiv.style.backgroundImage = `url("${dataUrl}")`;
+      bgDiv.innerHTML = "";
       bgDiv.style.backgroundColor = "transparent";
-      bgDiv.style.backgroundSize = "cover";
-      bgDiv.style.backgroundPosition = "center";
+      bgDiv.style.backgroundImage = "";
+      if (isVideoAsset(dataUrl)) {
+        const video = createMediaElement(dataUrl, "project-card-media");
+        if (video) bgDiv.appendChild(video);
+      } else {
+        bgDiv.style.backgroundImage = `url("${dataUrl}")`;
+        bgDiv.style.backgroundSize = "cover";
+        bgDiv.style.backgroundPosition = "center";
+      }
       saveData();
     });
     card.appendChild(uploadOverlay);
+
+    const dragHandle = document.createElement("button");
+    dragHandle.className = "block-drag-handle card-drag-handle";
+    dragHandle.type = "button";
+    dragHandle.innerHTML = "⋮⋮";
+    dragHandle.title = "Drag to reorder";
+    dragHandle.setAttribute("aria-label", "Drag to reorder project");
+    dragHandle.tabIndex = -1;
+    card.appendChild(dragHandle);
+
+    const siblingIndexes = PORTFOLIO_DATA.projects
+      .map((candidate, candidateIndex) => getProjectCategory(candidate) === category ? candidateIndex : -1)
+      .filter((candidateIndex) => candidateIndex !== -1);
+    const categoryPosition = siblingIndexes.indexOf(index);
+
+    const moveControls = document.createElement("div");
+    moveControls.className = "block-move-controls card-move-controls";
+    moveControls.addEventListener("pointerdown", (e) => {
+      e.stopPropagation();
+    });
+
+    const moveUpBtn = document.createElement("button");
+    moveUpBtn.className = "block-move-btn";
+    moveUpBtn.type = "button";
+    moveUpBtn.draggable = false;
+    moveUpBtn.title = "Move project up";
+    moveUpBtn.innerHTML = "↑";
+    moveUpBtn.setAttribute("aria-label", "Move project up");
+    moveUpBtn.disabled = categoryPosition <= 0;
+    moveUpBtn.addEventListener("pointerdown", (e) => {
+      e.stopPropagation();
+    });
+    moveUpBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!document.body.classList.contains("edit-mode")) return;
+      if (moveHomepageProjectByCategory(index, -1)) {
+        showToast("Project moved up");
+      }
+    };
+
+    const moveDownBtn = document.createElement("button");
+    moveDownBtn.className = "block-move-btn";
+    moveDownBtn.type = "button";
+    moveDownBtn.draggable = false;
+    moveDownBtn.title = "Move project down";
+    moveDownBtn.innerHTML = "↓";
+    moveDownBtn.setAttribute("aria-label", "Move project down");
+    moveDownBtn.disabled = categoryPosition === -1 || categoryPosition >= siblingIndexes.length - 1;
+    moveDownBtn.addEventListener("pointerdown", (e) => {
+      e.stopPropagation();
+    });
+    moveDownBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!document.body.classList.contains("edit-mode")) return;
+      if (moveHomepageProjectByCategory(index, 1)) {
+        showToast("Project moved down");
+      }
+    };
+
+    moveControls.appendChild(moveUpBtn);
+    moveControls.appendChild(moveDownBtn);
+    card.appendChild(moveControls);
 
     // Delete project button (visible in edit mode)
     const deleteBtn = document.createElement("button");
@@ -930,10 +1102,15 @@ function renderProjectPage() {
     const heroDiv = document.createElement("div");
     heroDiv.className = "project-hero-image";
     if (project.cardImage) {
-      heroDiv.style.backgroundImage = `url("${resolveSitePath(project.cardImage)}")`;
-      heroDiv.style.backgroundSize = "contain";
-      heroDiv.style.backgroundRepeat = "no-repeat";
-      heroDiv.style.backgroundPosition = "center";
+      if (isVideoAsset(project.cardImage)) {
+        const video = createMediaElement(project.cardImage, "project-hero-media");
+        if (video) heroDiv.appendChild(video);
+      } else {
+        heroDiv.style.backgroundImage = `url("${resolveSitePath(project.cardImage)}")`;
+        heroDiv.style.backgroundSize = "contain";
+        heroDiv.style.backgroundRepeat = "no-repeat";
+        heroDiv.style.backgroundPosition = "center";
+      }
       applyDynamicAspectRatio(heroDiv, project.cardImage);
     } else {
       heroDiv.style.backgroundColor = project.cardColor;
@@ -946,11 +1123,18 @@ function renderProjectPage() {
     uploadOverlay.style.borderRadius = "var(--card-radius)";
     setupImageUpload(uploadOverlay, (dataUrl) => {
       project.cardImage = dataUrl;
-      heroDiv.style.backgroundImage = `url("${dataUrl}")`;
+      heroDiv.querySelectorAll(".project-hero-media").forEach((media) => media.remove());
+      heroDiv.style.backgroundImage = "";
       heroDiv.style.backgroundColor = "transparent";
-      heroDiv.style.backgroundSize = "contain";
-      heroDiv.style.backgroundRepeat = "no-repeat";
-      heroDiv.style.backgroundPosition = "center";
+      if (isVideoAsset(dataUrl)) {
+        const video = createMediaElement(dataUrl, "project-hero-media");
+        if (video) heroDiv.appendChild(video);
+      } else {
+        heroDiv.style.backgroundImage = `url("${dataUrl}")`;
+        heroDiv.style.backgroundSize = "contain";
+        heroDiv.style.backgroundRepeat = "no-repeat";
+        heroDiv.style.backgroundPosition = "center";
+      }
       applyDynamicAspectRatio(heroDiv, dataUrl);
       saveData();
     });
@@ -1126,10 +1310,15 @@ function createFullImageBlock(block, projectIndex, blockIndex) {
   div.setAttribute("data-block-index", blockIndex);
 
   if (block.src) {
-    div.style.backgroundImage = `url("${resolveSitePath(block.src)}")`;
-    div.style.backgroundSize = "contain";
-    div.style.backgroundRepeat = "no-repeat";
-    div.style.backgroundPosition = "center";
+    if (isVideoAsset(block.src)) {
+      const video = createMediaElement(block.src, "block-media block-media--contain");
+      if (video) div.appendChild(video);
+    } else {
+      div.style.backgroundImage = `url("${resolveSitePath(block.src)}")`;
+      div.style.backgroundSize = "contain";
+      div.style.backgroundRepeat = "no-repeat";
+      div.style.backgroundPosition = "center";
+    }
     applyDynamicAspectRatio(div, block.src);
   } else {
     div.style.backgroundColor = block.color || "#999";
@@ -1194,10 +1383,15 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
     item.setAttribute("data-image-index", imgIndex);
 
     if (img.src) {
-      item.style.backgroundImage = `url("${resolveSitePath(img.src)}")`;
-      item.style.backgroundSize = "cover";
-      item.style.backgroundRepeat = "no-repeat";
-      item.style.backgroundPosition = "center";
+      if (isVideoAsset(img.src)) {
+        const video = createMediaElement(img.src, "block-media block-media--cover");
+        if (video) item.appendChild(video);
+      } else {
+        item.style.backgroundImage = `url("${resolveSitePath(img.src)}")`;
+        item.style.backgroundSize = "cover";
+        item.style.backgroundRepeat = "no-repeat";
+        item.style.backgroundPosition = "center";
+      }
     } else {
       item.style.backgroundColor = img.color || "#999";
     }
@@ -1251,10 +1445,15 @@ function createTwoImageBlock(block, projectIndex, blockIndex) {
     item.setAttribute("data-image-index", imgIndex);
 
     if (img.src) {
-      item.style.backgroundImage = `url("${resolveSitePath(img.src)}")`;
-      item.style.backgroundSize = "contain";
-      item.style.backgroundRepeat = "no-repeat";
-      item.style.backgroundPosition = "center";
+      if (isVideoAsset(img.src)) {
+        const video = createMediaElement(img.src, "block-media block-media--contain");
+        if (video) item.appendChild(video);
+      } else {
+        item.style.backgroundImage = `url("${resolveSitePath(img.src)}")`;
+        item.style.backgroundSize = "contain";
+        item.style.backgroundRepeat = "no-repeat";
+        item.style.backgroundPosition = "center";
+      }
       applyDynamicAspectRatio(item, img.src);
     } else {
       item.style.backgroundColor = img.color || block.color || "#999";
@@ -1448,7 +1647,7 @@ function setupImageUpload(overlay, callback) {
     if (document.body.classList.contains("edit-mode")) {
       const input = document.createElement("input");
       input.type = "file";
-      input.accept = "image/*";
+      input.accept = "image/*,video/webm,.webm";
       input.onchange = (e) => handleFile(e.target.files[0]);
       input.click();
     }

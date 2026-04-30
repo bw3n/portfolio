@@ -509,6 +509,29 @@ a {
   transition: transform 0.7s var(--ease-out);
 }
 
+.project-card-media,
+.project-hero-media,
+.block-media {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: transparent;
+}
+
+.project-card-media {
+  object-fit: cover;
+}
+
+.project-hero-media,
+.block-media--contain {
+  object-fit: contain;
+}
+
+.block-media--cover {
+  object-fit: cover;
+}
+
 .project-card:hover .project-card-bg {
   transform: scale(1.03);
 }
@@ -1015,7 +1038,8 @@ body.edit-mode #contentBlocks > div[data-block-index].dragging {
 }
 
 /* Disable overlays during card drag */
-#projectsGrid.is-card-dragging .image-upload-overlay {
+#projectsGrid.is-card-dragging .image-upload-overlay,
+#labProjectsGrid.is-card-dragging .image-upload-overlay {
   pointer-events: none;
 }
 
@@ -1106,6 +1130,10 @@ body.edit-mode .block-drag-handle {
   display: flex;
 }
 
+.card-drag-handle {
+  pointer-events: none;
+}
+
 body.edit-mode .block-drag-handle:active {
   cursor: grabbing;
 }
@@ -1121,6 +1149,10 @@ body.edit-mode .block-drag-handle:active {
 
 body.edit-mode .block-move-controls {
   display: flex;
+}
+
+.card-move-controls {
+  left: 52px;
 }
 
 .block-move-btn {

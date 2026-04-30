@@ -32,7 +32,7 @@ const PORTFOLIO_DATA = {
       "category": "lab",
       "title": "Digitas / U-Scan",
       "cardColor": "#1A6B1A",
-      "cardImage": "assets/uscan-thumbnail.gif",
+      "cardImage": "assets/uscan-thumbnail.webm",
       "description": "U-Scan is an AI-powered receipt scanning system designed for markets where transactions are still largely offline and unstructured. Built for the Philippines, it transforms handwritten and printed receipts into usable data, enabling brands to track purchases, trigger promotions, and build loyalty without relying on traditional POS integrations.",
       "role": "Art Director",
       "type": "Branding",
@@ -41,7 +41,7 @@ const PORTFOLIO_DATA = {
       "contentBlocks": [
         {
           "type": "full-image",
-          "src": "assets/uscan-one.gif",
+          "src": "assets/uscan-one.webm",
           "color": "#1A6B1A",
           "label": "VISUALS"
         },
@@ -54,18 +54,18 @@ const PORTFOLIO_DATA = {
           "color": "#1A6B1A",
           "images": [
             {
-              "src": "assets/uscan-two.gif",
+              "src": "assets/uscan-two.webm",
               "color": "#1A6B1A"
             },
             {
-              "src": "assets/uscan-three.gif",
+              "src": "assets/uscan-three.webm",
               "color": "#1A6B1A"
             }
           ]
         },
         {
           "type": "full-image",
-          "src": "assets/uscan-four.gif",
+          "src": "assets/uscan-four.webm",
           "color": "#1A6B1A",
           "label": "SECTION TITLE"
         }
@@ -76,7 +76,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "Samsung / Regional Experience &amp; Design",
       "cardColor": "#0044FF",
-      "cardImage": "assets/samsung-thumbnail.gif",
+      "cardImage": "assets/samsung-thumbnail.webm",
       "description": "<div>Samsung’s flagship launches operate across multiple markets, channels and audience segments.</div><div><br></div><div>As Regional Art Director for Samsung CRM, I shaped a scalable experience system across Southeast Asia, translating global launch direction into localised CRM journeys across EDM, Push and other digital touch points.</div><div><br></div><div>Rather than designing isolated assets, the work focused on building a repeatable framework that connects product storytelling, personalisation and conversion across the full lifecycle of a launch.</div>",
       "role": "Regional Art Director",
       "type": "CRM",
@@ -98,15 +98,15 @@ const PORTFOLIO_DATA = {
           "columns": 3,
           "images": [
             {
-              "src": "assets/samsung-3.gif",
+              "src": "assets/samsung-3.webm",
               "color": "#0044FF"
             },
             {
-              "src": "assets/samsung-5.gif",
+              "src": "assets/samsung-5.webm",
               "color": "#0044FF"
             },
             {
-              "src": "assets/samsung-4.gif",
+              "src": "assets/samsung-4.webm",
               "color": "#0044FF"
             }
           ]
@@ -169,10 +169,10 @@ const PORTFOLIO_DATA = {
     },
     {
       "id": "project-4-1775051652483",
-      "category": "work",
+      "category": "lab",
       "title": "<div>Digitas / Ace the Unicorn Race</div>",
       "cardColor": "#8B1A1A",
-      "cardImage": "assets/year-of-the-unicorn-thumbnail.gif",
+      "cardImage": "assets/year-of-the-unicorn-thumbnail.webm",
       "description": "<blockquote data-start=\"381\" data-end=\"611\"><p data-start=\"383\" data-end=\"611\">\n<p data-start=\"777\" data-end=\"820\"></p></p><blockquote data-start=\"551\" data-end=\"775\"><p data-start=\"553\" data-end=\"775\">A festive red packet reimagined as a competitive digital game. “Ace the Unicorn Race” transforms a traditional giveaway into an interactive experience designed for engagement, replayability, and scalable participation.<br><br></p>\n</blockquote></blockquote><a href=\"https://yearoftheunicorn.digitas-sg.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Play the game</a>!",
       "role": "Creative Lead",
       "type": "integrated creative technology",
@@ -201,7 +201,7 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-race.gif",
+          "src": "assets/year-of-the-unicorn-race.webm",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
         },
@@ -211,7 +211,7 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-bts.gif",
+          "src": "assets/year-of-the-unicorn-bts.webm",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
         },
@@ -221,7 +221,7 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-board.gif",
+          "src": "assets/year-of-the-unicorn-board.webm",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
         },
@@ -236,7 +236,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "MORROW / Longevity Care",
       "cardColor": "#1A4A6B",
-      "cardImage": "assets/morrow-thumbnail.gif",
+      "cardImage": "assets/morrow-thumbnail.webm",
       "description": "MORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.<div><br></div><div>I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.</div><div><br></div>The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth.",
       "role": "Art director / UIUX Designer",
       "type": "Web Design",
@@ -245,25 +245,25 @@ const PORTFOLIO_DATA = {
       "contentBlocks": [
         {
           "type": "full-image",
-          "src": "assets/morrow-intro.gif",
+          "src": "assets/morrow-intro.webm",
           "color": "#1A4A6B",
           "label": "VISUALS"
         },
         {
           "type": "full-image",
-          "src": "assets/morrow-three.gif",
+          "src": "assets/morrow-three.webm",
           "color": "#1A4A6B",
           "label": "SECTION TITLE"
         },
         {
           "type": "full-image",
-          "src": "assets/morrow-two.gif",
+          "src": "assets/morrow-two.webm",
           "color": "#1A4A6B",
           "label": "SECTION TITLE"
         },
         {
           "type": "full-image",
-          "src": "assets/morrow-one.gif",
+          "src": "assets/morrow-one.webm",
           "color": "#1A4A6B",
           "label": "SECTION TITLE"
         },
@@ -280,7 +280,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "Riot Games / Hyper Roll Karaoke",
       "cardColor": "#6B4C1E",
-      "cardImage": "assets/hyper-roll-karaoke-thumbnail.gif",
+      "cardImage": "assets/hyper-roll-karaoke-thumbnail.webm",
       "description": "<p dir=\"ltr\" style=\"line-height:1.5;margin-top:6pt;margin-bottom:0pt;\"><span style=\"color: rgb(28, 28, 28); font-family: &quot;Helvetica Neue&quot;; font-size: 13.3333px; text-align: left;\">After three years of waiting, Teamfight Tactics Mobile was ready to make a big impact in South East Asia. Our audience, thriving on unpredictability and chaos, we knew we needed to engage our fans authentically. Our strategy was to surprise and excite players with an adrenaline-fueled experience. We selected nine super fans from across APAC to join us in a custom-designed vehicle. They competed to master TFT Mobile gameplay and sing the most lyrics, all for the chance to win the coveted Golden Spatula, an iconic symbol in the TFT universe.</span></p>",
       "role": "Art Director",
       "type": "Digital Campaign",
@@ -309,7 +309,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "<h1 class=\"project-info-title\" data-editable=\"projects.0.title\" spellcheck=\"false\" style=\"margin-bottom: 24px; font-family: &quot;Instrument Serif&quot;, serif; transition: outline-color 0.2s;\">Riot Games / Pengu's Big Adventure</h1>",
       "cardColor": "#1A6B1A",
-      "cardImage": "assets/pengu-big-adventure-thumbnail.gif",
+      "cardImage": "assets/pengu-big-adventure-thumbnail.webm",
       "description": "<span style=\"color: rgb(28, 28, 28); font-family: &quot;Helvetica Neue&quot;; font-size: 13.3333px; text-align: left;\">To launch Teamfight Tactics Mobile in South East Asia for our fans who have been waiting for three long years, we proposed a social strategy that transformed the mobile launch from a mere extension of TFT into a trailblazing event that celebrated and united the APAC gaming community, ensuring TFT Mobile wasn’t just launched – it was spectacularly unleashed. we sought out to amplify every asset from Riot Games, giving them a bigger purpose — beyond simply being eye-catching. We tapped into the kind of stimuli that instinctively makes our fans tick at every touchpoint, giving them a chance to be part of Riot’s plan to take over the region.&nbsp;&nbsp;</span>",
       "role": "Art Director",
       "type": "Social Launch",
@@ -338,7 +338,7 @@ const PORTFOLIO_DATA = {
       "category": "lab",
       "title": "Personal Project / Masturband&nbsp;",
       "cardColor": "#0044FF",
-      "cardImage": "assets/masturband-thumbnail.gif",
+      "cardImage": "assets/masturband-thumbnail.webm",
       "description": "<div>MASTURBAND is built on a simple idea: every moment carries a mood, and every mood has a distinct texture. From city commutes to slow coastal afternoons, each piece translates these everyday states into a defined audiovisual experience, where sound and visuals move as one.<br><br>I direct and assemble AI-generated audio, motion, and imagery alongside photography and design, shaping each output as a cohesive system. Every element, from pacing to texture, is intentionally paired to reinforce a singular vibe, turning abstract moods into structured, multi-sensory works.</div>",
       "role": "Art director",
       "type": "Creative / AI",
@@ -372,7 +372,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "MCCY / Let The Music Play",
       "cardColor": "#4A1A6B",
-      "cardImage": "assets/mccy-thumbnail.gif",
+      "cardImage": "assets/mccy-thumbnail.webm",
       "description": "<div>To promote local music in a Singapore where we are spoilt for choice, we created a series of playlists featuring Singaporean artistes, to accompany truly Singaporean moments. Each animated playlist is seen through the lens of the ubiquitous neighbourhood cat. As it wanders and peers into the moments that make this little red dot so unique.<br></div>",
       "role": "Art Director / Animator",
       "type": "Animated film",
@@ -405,7 +405,7 @@ const PORTFOLIO_DATA = {
       "category": "lab",
       "title": "Digitas / Rabbithood",
       "cardColor": "#6B4C1E",
-      "cardImage": "assets/rabbithood-thumbnail.gif",
+      "cardImage": "assets/rabbithood-thumbnail.webm",
       "description": "Rabbithood is an AI-powered EDM generator that transforms brand-approved components into modular, production-ready emails. Built on the concept “Enter the Burrow,” the brand unfolds as a generative world where elements morph, duplicate, and adapt, reflecting the platform’s ability to swap, recombine, and scale content across segments.",
       "role": "Art Director",
       "type": "Branding",
