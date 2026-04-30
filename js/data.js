@@ -3,9 +3,9 @@ const PORTFOLIO_DATA = {
     "logo": "B",
     "logoImage": "assets/boon-logo.png",
     "logoAlt": "Boon",
-    "heroLine1": "Hello, I'm Boon.",
-    "heroLine2": "Currently Pushin' Ps in Digitas Singapore",
-    "labLine1": "Experiments, ideas and vibes",
+    "heroLine1": "Hello, I’m Boon.",
+    "heroLine2": "An Art Director bridging advertising, design and digital experiences.",
+    "labLine1": "Ideas enhanced by AI",
     "labLine2": "",
     "navLinks": [
       {
@@ -537,7 +537,7 @@ const PORTFOLIO_DATA = {
   ],
   "about": {
     "heroHeadline": "Ideas, designed to work",
-    "bio": "<p>Hi, I’m Boon.</p><p>I design ideas that work across brand and product.</p><p>I started as an Art Director, but my work has evolved into building end-to-end experiences. I combine visual storytelling, UX thinking and AI to shape how ideas behave, from campaigns to interfaces to experimental systems.</p><p>I’ve worked across telco, F&amp;B, banking and government, taking ideas from concept through to execution, not just in communication, but in how users interact with them.</p><p>Currently at Digitas Singapore, focusing on the intersection of brand, experience and emerging technology.</p>",
+    "bio": "<p>Hi, I’m Boon.</p><p>I’m an Art Director with a background in advertising, now focused on brand-led digital experiences, campaign systems and AI-assisted creative workflows.</p><p>My work started in campaigns, but has grown into shaping how ideas behave across touchpoints: from regional CRM systems and landing pages, to interactive experiences, pitch concepts and self-initiated prototypes. I combine visual storytelling, UX thinking and emerging technology to move ideas from concept to execution.</p><p>Currently at Digitas Singapore, I lead regional art direction for Samsung CRM across Southeast Asia, working across launches, audience journeys, EDM systems and market adaptations. Beyond client work, I build experiments that explore how AI can accelerate creative production without replacing taste, strategy or craft.</p><p>Outside of work, I’m usually testing new tools, building strange side projects, or convincing myself one more portfolio tweak will be the final one.</p>",
     "labIntro": "A selection of experiments exploring AI, interaction, and creative technology.",
     "labPreview": [
       {
