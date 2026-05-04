@@ -5,7 +5,8 @@
 window.editMode = false;
 
 function isEditorUIEnabled() {
-  return true;
+  const params = new URLSearchParams(window.location.search);
+  return params.get("editor") === "1";
 }
 
 // ============================================================

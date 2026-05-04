@@ -533,6 +533,59 @@ const PORTFOLIO_DATA = {
           "content": "<a href=\"https://open.spotify.com/user/31ucvejxlaawbs5s6cylpmyak5mm?si=b73bf40552c94de7\" target=\"_blank\" rel=\"noopener noreferrer\">Please enjoy the full playlist on Spotify here</a>. :)"
         }
       ]
+    },
+    {
+      "id": "project-11-1777902605684",
+      "category": "work",
+      "title": "Facebook / The Butterfly Fashion Show",
+      "cardColor": "#4A1A6B",
+      "cardImage": "assets/bff-thumbnail.webm",
+      "description": "The Butterfly Fashion Show was created to inspire and support young girls from Singapore’s children’s homes, giving them a night where fashion became more than a runway, but a moment of confidence, care and possibility. I developed the brand identity around the butterfly as a symbol of transformation, capturing it between flight and rest to reflect the girls’ own journey of growing, becoming and finding their place in the world. The result was an identity that felt graceful, hopeful and memorable, helping the event carry both the elegance of a fashion show and the emotional weight of its purpose.",
+      "role": "Art Director",
+      "type": "Branding",
+      "client": "Facebook",
+      "agency": "Freelance",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "content": "Documented in <a href=\"https://marymountctr.org.sg/pdf/AR2018.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Marymount Centre Annual Report 2018</a> and listed in <a href=\"https://static1.straitstimes.com.sg/s3fs-public/attachments/2018/11/29/st_20181130_gigs.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">The Straits Times</a>."
+        },
+        {
+          "type": "video",
+          "url": "https://vimeo.com/428080310?fl=pl&fe=cm",
+          "color": "#4A1A6B"
+        },
+        {
+          "type": "3-grid",
+          "columns": 3,
+          "images": [
+            {
+              "src": "assets/bff5.jpg",
+              "color": "#4A1A6B"
+            },
+            {
+              "src": "assets/bff-2.webm",
+              "color": "#4A1A6B"
+            },
+            {
+              "src": "assets/bff-4.jpg",
+              "color": "#4A1A6B"
+            }
+          ]
+        },
+        {
+          "type": "full-image",
+          "src": "assets/bff-3.jpg",
+          "color": "#4A1A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/bff-1.jpg",
+          "color": "#4A1A6B",
+          "label": "VISUALS"
+        }
+      ]
     }
   ],
   "about": {
