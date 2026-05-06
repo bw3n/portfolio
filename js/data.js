@@ -170,6 +170,140 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "project-10-1777516844723",
+      "category": "work",
+      "title": "SMMA / The Heat Is On",
+      "cardColor": "#8B1A1A",
+      "cardImage": "assets/smma-thumbnail.gif",
+      "description": "<div>The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.</div><div><br></div><div>Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: <b>the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry</b>. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA.</div>",
+      "role": "Art Director",
+      "type": "Branding",
+      "client": "Singapore Media &amp; Marketing Awards",
+      "agency": "Digitas Publicis",
+      "contentBlocks": [
+        {
+          "type": "video",
+          "url": "https://vimeo.com/1187963229?fl=pl&fe=cm",
+          "color": "#8B1A1A"
+        },
+        {
+          "type": "3-grid",
+          "columns": 3,
+          "images": [
+            {
+              "src": "assets/smma-pos1.webm",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/smma-post8.png",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/smma-post2.webm",
+              "color": "#8B1A1A"
+            }
+          ]
+        },
+        {
+          "type": "3-grid",
+          "columns": 3,
+          "images": [
+            {
+              "src": "assets/smma-post9.png",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/smma-post4.png",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/smma-post10.png",
+              "color": "#8B1A1A"
+            }
+          ]
+        },
+        {
+          "type": "3-grid",
+          "columns": 3,
+          "images": [
+            {
+              "src": "assets/smma-post13.png",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/smma-post3.png",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/smma-post15.png",
+              "color": "#8B1A1A"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "project-7-1775737307838",
+      "category": "lab",
+      "title": "Digitas / Rabbithood",
+      "cardColor": "#6B4C1E",
+      "cardImage": "assets/rabbithood-thumbnail.gif",
+      "description": "Rabbithood is an AI-powered EDM generator that transforms brand-approved components into modular, production-ready emails. Built on the concept “Enter the Burrow,” the brand unfolds as a generative world where elements morph, duplicate, and adapt, reflecting the platform’s ability to swap, recombine, and scale content across segments.",
+      "role": "Art Director",
+      "type": "Branding",
+      "client": "Digitas",
+      "agency": "Digitas",
+      "contentBlocks": [
+        {
+          "type": "full-image",
+          "src": "assets/rabbithood-0.png",
+          "color": "#6B4C1E",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": "The identity is driven by organic, shape-shifting forms and anchored by the brand bunny as a guide. Rather than static assets, the system is designed to behave like the product itself, capable of generating variations and evolving across different outputs. The result is a brand that operates in sync with the platform, reinforcing speed, adaptability, and high-volume personalisation."
+        },
+        {
+          "type": "two-image",
+          "color": "#6B4C1E",
+          "images": [
+            {
+              "src": "assets/rabbithood-1.png",
+              "color": "#6B4C1E"
+            },
+            {
+              "src": "assets/rabbithood-4.png",
+              "color": "#6B4C1E"
+            }
+          ]
+        },
+        {
+          "type": "two-image",
+          "color": "#6B4C1E",
+          "images": [
+            {
+              "src": "assets/rabbithood-5.png",
+              "color": "#6B4C1E"
+            },
+            {
+              "src": "assets/rabbithood-3.png",
+              "color": "#6B4C1E"
+            }
+          ]
+        },
+        {
+          "type": "video",
+          "url": "https://vimeo.com/1181568371?share=copy&fl=sv&fe=ci#t=0",
+          "color": "#6B4C1E"
+        },
+        {
+          "type": "text",
+          "content": "Product Demonstration"
+        }
+      ]
+    },
+    {
       "id": "project-9-1777357020366",
       "category": "work",
       "title": "Samsung / Regional Experience &amp; Design",
@@ -262,140 +396,6 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
-        }
-      ]
-    },
-    {
-      "id": "project-7-1775737307838",
-      "category": "lab",
-      "title": "Digitas / Rabbithood",
-      "cardColor": "#6B4C1E",
-      "cardImage": "assets/rabbithood-thumbnail.gif",
-      "description": "Rabbithood is an AI-powered EDM generator that transforms brand-approved components into modular, production-ready emails. Built on the concept “Enter the Burrow,” the brand unfolds as a generative world where elements morph, duplicate, and adapt, reflecting the platform’s ability to swap, recombine, and scale content across segments.",
-      "role": "Art Director",
-      "type": "Branding",
-      "client": "Digitas",
-      "agency": "Digitas",
-      "contentBlocks": [
-        {
-          "type": "full-image",
-          "src": "assets/rabbithood-0.png",
-          "color": "#6B4C1E",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "text",
-          "content": "The identity is driven by organic, shape-shifting forms and anchored by the brand bunny as a guide. Rather than static assets, the system is designed to behave like the product itself, capable of generating variations and evolving across different outputs. The result is a brand that operates in sync with the platform, reinforcing speed, adaptability, and high-volume personalisation."
-        },
-        {
-          "type": "two-image",
-          "color": "#6B4C1E",
-          "images": [
-            {
-              "src": "assets/rabbithood-1.png",
-              "color": "#6B4C1E"
-            },
-            {
-              "src": "assets/rabbithood-4.png",
-              "color": "#6B4C1E"
-            }
-          ]
-        },
-        {
-          "type": "two-image",
-          "color": "#6B4C1E",
-          "images": [
-            {
-              "src": "assets/rabbithood-5.png",
-              "color": "#6B4C1E"
-            },
-            {
-              "src": "assets/rabbithood-3.png",
-              "color": "#6B4C1E"
-            }
-          ]
-        },
-        {
-          "type": "video",
-          "url": "https://vimeo.com/1181568371?share=copy&fl=sv&fe=ci#t=0",
-          "color": "#6B4C1E"
-        },
-        {
-          "type": "text",
-          "content": "Product Demonstration"
-        }
-      ]
-    },
-    {
-      "id": "project-10-1777516844723",
-      "category": "work",
-      "title": "SMMA / The Heat Is On",
-      "cardColor": "#8B1A1A",
-      "cardImage": "assets/smma-thumbnail.gif",
-      "description": "<div>The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.</div><div><br></div><div>Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: <b>the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry</b>. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA.</div>",
-      "role": "Art Director",
-      "type": "Branding",
-      "client": "Singapore Media &amp; Marketing Awards",
-      "agency": "Digitas Publicis",
-      "contentBlocks": [
-        {
-          "type": "video",
-          "url": "https://vimeo.com/1187963229?fl=pl&fe=cm",
-          "color": "#8B1A1A"
-        },
-        {
-          "type": "3-grid",
-          "columns": 3,
-          "images": [
-            {
-              "src": "assets/smma-pos1.webm",
-              "color": "#8B1A1A"
-            },
-            {
-              "src": "assets/smma-post8.png",
-              "color": "#8B1A1A"
-            },
-            {
-              "src": "assets/smma-post2.webm",
-              "color": "#8B1A1A"
-            }
-          ]
-        },
-        {
-          "type": "3-grid",
-          "columns": 3,
-          "images": [
-            {
-              "src": "assets/smma-post9.png",
-              "color": "#8B1A1A"
-            },
-            {
-              "src": "assets/smma-post4.png",
-              "color": "#8B1A1A"
-            },
-            {
-              "src": "assets/smma-post10.png",
-              "color": "#8B1A1A"
-            }
-          ]
-        },
-        {
-          "type": "3-grid",
-          "columns": 3,
-          "images": [
-            {
-              "src": "assets/smma-post13.png",
-              "color": "#8B1A1A"
-            },
-            {
-              "src": "assets/smma-post3.png",
-              "color": "#8B1A1A"
-            },
-            {
-              "src": "assets/smma-post15.png",
-              "color": "#8B1A1A"
-            }
-          ]
         }
       ]
     },
