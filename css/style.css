@@ -1314,12 +1314,26 @@ body.edit-mode .edit-toolbar {
   }
 
   .hero {
-    padding: 30px var(--space-sm) 40px;
+    padding: 24px var(--space-sm) 32px;
+  }
+
+  .projects-grid {
+    padding-bottom: var(--space-lg);
+  }
+
+  .project-hero {
+    margin-top: 24px;
+    padding: 0 var(--space-sm);
+  }
+
+  .project-info {
+    padding: 40px var(--space-sm) 32px;
   }
 
   .project-meta {
     gap: var(--space-sm);
     font-size: 12px;
+    margin-top: 28px;
   }
 
   .block-two-column {
@@ -1335,11 +1349,12 @@ body.edit-mode .edit-toolbar {
   }
 
   .block-image-grid.cols-3 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .content-blocks {
     padding: 0 var(--space-sm) var(--space-xl);
+    gap: var(--space-md);
   }
 
   .about-intro {
@@ -1354,7 +1369,7 @@ body.edit-mode .edit-toolbar {
 
   .about-two-col {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: 32px;
   }
 
   .about-side-projects {
@@ -1367,7 +1382,8 @@ body.edit-mode .edit-toolbar {
   }
 
   .about-container {
-    padding-top: 30px;
+    padding: 24px var(--space-sm) 72px;
+    gap: 40px;
   }
 
   .site-footer {
