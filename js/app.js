@@ -224,11 +224,14 @@ function getProjectById(id) {
 }
 
 function getProjectCategory(project) {
-  return project.category === "lab" ? "lab" : "work";
+  if (project.category === "lab") return "lab";
+  if (project.category === "ux") return "ux";
+  return "work";
 }
 
 function getHomeViewFromHash() {
   if (window.location.hash === "#work") return "work";
+  if (window.location.hash === "#ux") return "ux";
   if (window.location.hash === "#about") return "about";
   if (window.location.hash === "#contact") return "about";
   if (window.location.hash === "#lab") return "lab";
@@ -448,11 +451,21 @@ function scheduleNavHighlightReturn() {
 
 const homepageRenderState = {
   work: false,
+  ux: false,
   lab: false,
   about: false,
 };
 
 function ensureHomepageViewRendered(view) {
+  if (view === "ux") {
+    if (!homepageRenderState.ux) {
+      renderUxHero();
+      renderProjectsGrid("ux");
+      homepageRenderState.ux = true;
+    }
+    return;
+  }
+
   if (view === "lab") {
     if (!homepageRenderState.lab) {
       renderLabHero();
@@ -495,6 +508,15 @@ function wireInternalNavLink(a, href) {
         navigateTo(getHomePath());
       } else {
         switchView("work");
+      }
+      return;
+    }
+
+    if (targetId === "ux") {
+      if (isProjectPage()) {
+        navigateTo(getHomePath("#ux"));
+      } else {
+        switchView("ux");
       }
       return;
     }
@@ -573,23 +595,8 @@ function renderNav() {
     linksShell.onmouseleave = scheduleNavHighlightReturn;
   }
 
-  if (header && !header.dataset.scrollListenerBound) {
-    let lastScrollTop = 0;
-    const handleHeaderScroll = () => {
-      const st = window.scrollY || document.documentElement.scrollTop;
-
-      // Hide on scroll down, show on scroll up
-      if (st > lastScrollTop && st > 100) {
-        header.classList.add("header-hidden");
-      } else {
-        header.classList.remove("header-hidden");
-      }
-
-      lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-    };
-
-    window.addEventListener("scroll", handleHeaderScroll, { passive: true });
-    header.dataset.scrollListenerBound = "true";
+  if (header) {
+    header.classList.remove("header-hidden");
   }
 }
 
@@ -598,6 +605,7 @@ function renderNav() {
 // ============================================================
 function renderHomepage() {
   homepageRenderState.work = false;
+  homepageRenderState.ux = false;
   homepageRenderState.lab = false;
   homepageRenderState.about = false;
 
@@ -672,6 +680,7 @@ function switchView(view, options = {}) {
   ensureHomepageViewRendered(view);
 
   const workView = document.getElementById("workView");
+  const uxView = document.getElementById("uxView");
   const labView = document.getElementById("labView");
   const aboutView = document.getElementById("aboutView");
   const navLinks = Array.from(document.querySelectorAll(".notch-link"));
@@ -684,6 +693,7 @@ function switchView(view, options = {}) {
   navLinks.forEach(link => link.classList.remove("active"));
 
   if (workView) workView.style.display = view === "work" ? "block" : "none";
+  if (uxView) uxView.style.display = view === "ux" ? "block" : "none";
   if (labView) labView.style.display = view === "lab" ? "block" : "none";
   if (aboutView) aboutView.style.display = view === "about" ? "block" : "none";
 
@@ -890,6 +900,16 @@ function renderLabHero() {
   container.innerHTML = renderAnimatedHeadlineLines(`${line1}<br>${line2}`);
 }
 
+function renderUxHero() {
+  const container = document.getElementById("uxTitle");
+  if (!container) return;
+
+  const line1 = PORTFOLIO_DATA.site.uxLine1 || "Journeys, systems and digital experiences.";
+  const line2 = PORTFOLIO_DATA.site.uxLine2 || "";
+
+  container.innerHTML = renderAnimatedHeadlineLines(`${line1}<br>${line2}`);
+}
+
 function moveHomepageProjectByCategory(fromIndex, direction) {
   const project = PORTFOLIO_DATA.projects[fromIndex];
   if (!project) return false;
@@ -905,6 +925,7 @@ function moveHomepageProjectByCategory(fromIndex, direction) {
       PORTFOLIO_DATA.projects[targetIndex] = project;
       saveData();
       renderProjectsGrid("work");
+      renderProjectsGrid("ux");
       renderProjectsGrid("lab");
       if (typeof setupDragAndDrop === "function") setupDragAndDrop();
       return true;
@@ -916,7 +937,12 @@ function moveHomepageProjectByCategory(fromIndex, direction) {
 }
 
 function renderProjectsGrid(category = "work") {
-  const grid = document.getElementById(category === "lab" ? "labProjectsGrid" : "projectsGrid");
+  const gridIdByCategory = {
+    work: "projectsGrid",
+    ux: "uxProjectsGrid",
+    lab: "labProjectsGrid",
+  };
+  const grid = document.getElementById(gridIdByCategory[category] || "projectsGrid");
   if (!grid) return;
 
   grid.innerHTML = "";
@@ -1043,6 +1069,7 @@ function renderProjectsGrid(category = "work") {
           PORTFOLIO_DATA.projects.splice(index, 1);
           saveData();
           renderProjectsGrid("work");
+          renderProjectsGrid("ux");
           renderProjectsGrid("lab");
           if (typeof setupDragAndDrop === 'function') setupDragAndDrop();
         }
@@ -1295,6 +1322,8 @@ function createBlockElement(block, projectIndex, blockIndex) {
       return createImageGridBlock(block, projectIndex, blockIndex);
     case "text":
       return createTextBlock(block, projectIndex, blockIndex);
+    case "two-text-column":
+      return createTwoTextColumnBlock(block, projectIndex, blockIndex);
     case "two-column":
       return createTwoColumnBlock(block, projectIndex, blockIndex);
     case "video":
@@ -1340,7 +1369,11 @@ function createFullImageBlock(block, projectIndex, blockIndex) {
   return div;
 }
 
-function applyImageGridShortestHeight(grid, images = [], heightCompensation = 1) {
+function applyImageGridShortestHeight(grid, images = [], heightCompensation = 1, options = {}) {
+  const {
+    squareSnapRange = null,
+    squareSnapAspectRatio = 1,
+  } = options;
   const sources = images
     .map((img) => img?.src)
     .filter(Boolean);
@@ -1364,7 +1397,14 @@ function applyImageGridShortestHeight(grid, images = [], heightCompensation = 1)
     const validRatios = ratios.filter((ratio) => Number.isFinite(ratio) && ratio > 0);
     if (!validRatios.length) return;
 
-    const shortestHeightRatio = Math.max(...validRatios) * heightCompensation;
+    const allImagesNearSquare = Array.isArray(squareSnapRange)
+      && squareSnapRange.length === 2
+      && validRatios.every((ratio) => ratio >= squareSnapRange[0] && ratio <= squareSnapRange[1]);
+
+    const shortestHeightRatio = allImagesNearSquare
+      ? squareSnapAspectRatio
+      : Math.max(...validRatios) * heightCompensation;
+
     grid.querySelectorAll(".block-grid-item").forEach((item) => {
       item.style.aspectRatio = String(shortestHeightRatio);
     });
@@ -1422,10 +1462,60 @@ function createImageGridBlock(block, projectIndex, blockIndex) {
   if (columns === 3) {
     applyImageGridShortestHeight(div, block.images || [], 0.96);
   } else if (columns === 4) {
-    applyImageGridShortestHeight(div, block.images || [], 0.92);
+    applyImageGridShortestHeight(div, block.images || [], 0.92, {
+      squareSnapRange: [0.95, 1.05],
+      squareSnapAspectRatio: 1,
+    });
   }
 
   return div;
+}
+
+function applyTwoImageEqualHeights(container, images = []) {
+  const items = Array.from(container.querySelectorAll(".block-two-image-item"));
+  if (!items.length) return;
+
+  const sources = images.map((img) => img?.src || null);
+  const ratioPromises = sources.map((src) => {
+    if (!src) return Promise.resolve(16 / 9);
+
+    if (isVideoAsset(src)) {
+      return new Promise((resolve) => {
+        const video = document.createElement("video");
+        video.preload = "metadata";
+        video.onloadedmetadata = () => {
+          if (!video.videoWidth || !video.videoHeight) {
+            resolve(16 / 9);
+            return;
+          }
+          resolve(video.videoWidth / video.videoHeight);
+        };
+        video.onerror = () => resolve(16 / 9);
+        video.src = resolveSitePath(src);
+      });
+    }
+
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        if (!img.width || !img.height) {
+          resolve(16 / 9);
+          return;
+        }
+        resolve(img.width / img.height);
+      };
+      img.onerror = () => resolve(16 / 9);
+      img.src = resolveSitePath(src);
+    });
+  });
+
+  Promise.all(ratioPromises).then((ratios) => {
+    items.forEach((item, index) => {
+      const ratio = Number.isFinite(ratios[index]) && ratios[index] > 0 ? ratios[index] : 16 / 9;
+      item.style.flex = `${ratio} 1 0`;
+      item.style.aspectRatio = String(ratio);
+    });
+  });
 }
 
 function createTwoImageBlock(block, projectIndex, blockIndex) {
@@ -1495,6 +1585,8 @@ function createTwoImageBlock(block, projectIndex, blockIndex) {
     div.appendChild(item);
   });
 
+  applyTwoImageEqualHeights(div, block.images);
+
   return div;
 }
 
@@ -1507,6 +1599,26 @@ function createTextBlock(block, projectIndex, blockIndex) {
   p.innerHTML = block.content || "Enter your text here...";
   p.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.content`);
   div.appendChild(p);
+
+  return div;
+}
+
+function createTwoTextColumnBlock(block, projectIndex, blockIndex) {
+  const div = document.createElement("div");
+  div.className = "block-two-text-column";
+  div.setAttribute("data-block-index", blockIndex);
+
+  const leftCol = document.createElement("div");
+  leftCol.className = "col-text";
+  leftCol.innerHTML = block.leftText || "Enter left column text here...";
+  leftCol.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.leftText`);
+  div.appendChild(leftCol);
+
+  const rightCol = document.createElement("div");
+  rightCol.className = "col-text";
+  rightCol.innerHTML = block.rightText || "Enter right column text here...";
+  rightCol.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.rightText`);
+  div.appendChild(rightCol);
 
   return div;
 }
@@ -1689,7 +1801,11 @@ function addNewProject() {
   const colors = ["#6B4C1E", "#1A6B1A", "#0044FF", "#8B1A1A", "#4A1A6B", "#1A4A6B"];
   const color = colors[PORTFOLIO_DATA.projects.length % colors.length];
   const currentView = getHomeViewFromHash();
-  const category = currentView === "lab" ? "lab" : "work";
+  const category = currentView === "lab"
+    ? "lab"
+    : currentView === "ux"
+      ? "ux"
+      : "work";
 
   PORTFOLIO_DATA.projects.push({
     id: id,
@@ -1717,9 +1833,16 @@ function addNewProject() {
 
   saveData();
   renderProjectsGrid("work");
+  renderProjectsGrid("ux");
   renderProjectsGrid("lab");
   setupDragAndDrop();
-  showToast(category === "lab" ? "Lab project added!" : "Project added!");
+  showToast(
+    category === "lab"
+      ? "Lab project added!"
+      : category === "ux"
+        ? "UX project added!"
+        : "Project added!"
+  );
 }
 
 // ============================================================
@@ -1772,6 +1895,13 @@ function addContentBlock(type) {
       break;
     case "text":
       newBlock = { type: "text", content: "Enter your text here..." };
+      break;
+    case "two-text-column":
+      newBlock = {
+        type: "two-text-column",
+        leftText: "Enter left column text here...",
+        rightText: "Enter right column text here..."
+      };
       break;
     case "two-column":
       newBlock = { type: "two-column", text: "Enter text here...", imageSrc: null, imageColor: color };
