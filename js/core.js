@@ -30,6 +30,10 @@ function normalizeNavLinks(navLinks) {
     .filter(link => link.label && link.href);
 }
 
+function removeDeprecatedNavLinks(navLinks) {
+  return normalizeNavLinks(navLinks).filter(link => link.href !== "#contact");
+}
+
 function shouldKeepDefaultNavLinks(savedNavLinks, defaultNavLinks) {
   const saved = normalizeNavLinks(savedNavLinks);
   const defaults = normalizeNavLinks(defaultNavLinks);
@@ -52,11 +56,16 @@ function loadData() {
     if (parsed.site) {
       Object.assign(PORTFOLIO_DATA.site, parsed.site);
 
+      // Drop deprecated nav items from older browser-saved state.
+      PORTFOLIO_DATA.site.navLinks = removeDeprecatedNavLinks(PORTFOLIO_DATA.site.navLinks);
+
       // Keep nav links from the current source file when older browser state
       // is missing newly added links like "Lab".
       if (shouldKeepDefaultNavLinks(parsed.site.navLinks, defaultSite.navLinks)) {
         PORTFOLIO_DATA.site.navLinks = defaultSite.navLinks;
       }
+
+      PORTFOLIO_DATA.site.navLinks = removeDeprecatedNavLinks(PORTFOLIO_DATA.site.navLinks);
 
       // Migrate older saved lab hero copy so localStorage does not keep reviving it.
       const hadOldLabHeading = parsed.site.labLine1 === "Lab.";

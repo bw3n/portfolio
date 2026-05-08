@@ -25,10 +25,6 @@ const PORTFOLIO_DATA = {
       {
         "label": "ABOUT",
         "href": "#about"
-      },
-      {
-        "label": "CONTACT",
-        "href": "#contact"
       }
     ]
   },
