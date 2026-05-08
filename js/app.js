@@ -85,6 +85,130 @@ function stripHTML(value = "") {
     .trim();
 }
 
+function normalizeRichTextValue(value) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return {
+      heading: typeof value.heading === "string" ? value.heading.trim() : "",
+      paragraphs: Array.isArray(value.paragraphs)
+        ? value.paragraphs.map((paragraph) => typeof paragraph === "string" ? paragraph : "").filter(Boolean)
+        : [],
+      links: Array.isArray(value.links)
+        ? value.links.filter((link) => link && typeof link.label === "string" && typeof link.href === "string")
+        : [],
+      linkIntro: typeof value.linkIntro === "string" ? value.linkIntro : "",
+      linkOutro: typeof value.linkOutro === "string" ? value.linkOutro : ""
+    };
+  }
+
+  return {
+    heading: "",
+    paragraphs: typeof value === "string" && value.trim() ? [stripHTML(value)] : [],
+    links: [],
+    linkIntro: "",
+    linkOutro: ""
+  };
+}
+
+function englishListSeparator(index, total) {
+  if (total <= 1) return "";
+  if (index === 0) return "";
+  return index === total - 1 ? " and " : ", ";
+}
+
+function appendStructuredTextNodes(container, text) {
+  const segments = String(text || "").split("\n");
+  segments.forEach((segment, index) => {
+    if (index > 0) container.appendChild(document.createElement("br"));
+    container.appendChild(document.createTextNode(segment));
+  });
+}
+
+function createEditableTextElement(tagName, className, text, path, {
+  multiline = true,
+  richText = false
+} = {}) {
+  const element = document.createElement(tagName);
+  if (className) element.className = className;
+  if (richText) {
+    element.innerHTML = sanitizeInlineRichTextHTML(text || "");
+    element.setAttribute("data-editable-richtext", "inline");
+  } else {
+    element.textContent = text || "";
+  }
+  if (path) {
+    element.setAttribute("data-editable", path);
+    element.setAttribute("data-editable-plaintext", richText ? "false" : "true");
+    if (multiline) {
+      element.setAttribute("data-editable-multiline", "true");
+    }
+  }
+  return element;
+}
+
+function createEditableLink(link, pathBase) {
+  const anchor = document.createElement("a");
+  anchor.className = "structured-richtext-link";
+  anchor.href = link.href || "#";
+  anchor.target = "_blank";
+  anchor.rel = "noopener noreferrer";
+  anchor.textContent = link.label || "";
+  anchor.setAttribute("data-editable", `${pathBase}.label`);
+  anchor.setAttribute("data-editable-plaintext", "true");
+  anchor.setAttribute("data-editable-link-href", `${pathBase}.href`);
+  return anchor;
+}
+
+function createStructuredLinksElement(content, pathBase, className = "") {
+  if (!Array.isArray(content.links) || !content.links.length) return null;
+
+  const paragraph = document.createElement("p");
+  paragraph.className = className;
+
+  if (content.linkIntro) {
+    appendStructuredTextNodes(paragraph, content.linkIntro);
+  }
+
+  content.links.forEach((link, index) => {
+    if (index > 0) {
+      paragraph.appendChild(document.createTextNode(englishListSeparator(index, content.links.length)));
+    }
+    paragraph.appendChild(createEditableLink(link, `${pathBase}.links.${index}`));
+  });
+
+  if (content.linkOutro) {
+    appendStructuredTextNodes(paragraph, content.linkOutro);
+  }
+
+  return paragraph;
+}
+
+function appendStructuredContent(container, value, pathBase, options = {}) {
+  const content = normalizeRichTextValue(value);
+  const {
+    headingClass = "structured-richtext-heading",
+    paragraphClass = "structured-richtext-paragraph",
+    linksClass = "structured-richtext-links",
+    allowHeading = true
+  } = options;
+
+  if (allowHeading && content.heading) {
+    container.appendChild(
+      createEditableTextElement("div", headingClass, content.heading, `${pathBase}.heading`, { multiline: false })
+    );
+  }
+
+  content.paragraphs.forEach((paragraph, index) => {
+    container.appendChild(
+      createEditableTextElement("p", paragraphClass, paragraph, `${pathBase}.paragraphs.${index}`, {
+        richText: true
+      })
+    );
+  });
+
+  const linksEl = createStructuredLinksElement(content, pathBase, linksClass);
+  if (linksEl) container.appendChild(linksEl);
+}
+
 function slugifyProjectTitle(value = "") {
   return stripHTML(value)
     .toLowerCase()
@@ -1172,16 +1296,41 @@ function renderProjectPage() {
   // Info section
   const infoContainer = document.getElementById("projectInfo");
   if (infoContainer) {
-    infoContainer.innerHTML = `
-      <h1 class="project-info-title" data-editable="projects.${projectIndex}.title">${project.title}</h1>
-      <div class="project-info-description" data-editable="projects.${projectIndex}.description">${project.description}</div>
-      <div class="project-meta">
-        <span>ROLE: <strong data-editable="projects.${projectIndex}.role">${project.role}</strong></span>
-        <span>TYPE: <strong data-editable="projects.${projectIndex}.type">${project.type}</strong></span>
-        <span>CLIENT: <strong data-editable="projects.${projectIndex}.client">${project.client}</strong></span>
-        <span>AGENCY: <strong data-editable="projects.${projectIndex}.agency">${project.agency}</strong></span>
-      </div>
+    infoContainer.innerHTML = "";
+
+    const title = createEditableTextElement(
+      "h1",
+      "project-info-title",
+      project.title || "",
+      `projects.${projectIndex}.title`,
+      { multiline: false }
+    );
+    infoContainer.appendChild(title);
+
+    const description = document.createElement("div");
+    description.className = "project-info-description";
+    appendStructuredContent(
+      description,
+      project.description,
+      `projects.${projectIndex}.description`,
+      {
+        headingClass: "project-info-heading",
+        paragraphClass: "project-info-paragraph",
+        linksClass: "project-info-links",
+        allowHeading: false
+      }
+    );
+    infoContainer.appendChild(description);
+
+    const meta = document.createElement("div");
+    meta.className = "project-meta";
+    meta.innerHTML = `
+      <span>ROLE: <strong data-editable="projects.${projectIndex}.role" data-editable-plaintext="true">${project.role}</strong></span>
+      <span>TYPE: <strong data-editable="projects.${projectIndex}.type" data-editable-plaintext="true">${project.type}</strong></span>
+      <span>CLIENT: <strong data-editable="projects.${projectIndex}.client" data-editable-plaintext="true">${project.client}</strong></span>
+      <span>AGENCY: <strong data-editable="projects.${projectIndex}.agency" data-editable-plaintext="true">${project.agency}</strong></span>
     `;
+    infoContainer.appendChild(meta);
   }
 
   // Content blocks
@@ -1597,8 +1746,31 @@ function createTextBlock(block, projectIndex, blockIndex) {
 
   const content = document.createElement("div");
   content.className = "block-text-content";
-  content.innerHTML = block.content || "Enter your text here...";
-  content.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.content`);
+  appendStructuredContent(
+    content,
+    block.content,
+    `projects.${projectIndex}.contentBlocks.${blockIndex}.content`,
+    {
+      headingClass: "block-text-heading",
+      paragraphClass: "block-text-paragraph",
+      linksClass: "block-text-links",
+      allowHeading: true
+    }
+  );
+
+  if (!content.childNodes.length) {
+    content.appendChild(
+      createEditableTextElement(
+        "p",
+        "block-text-paragraph",
+        "Enter your text here...",
+        `projects.${projectIndex}.contentBlocks.${blockIndex}.content.paragraphs.0`,
+        {
+          richText: true
+        }
+      )
+    );
+  }
   div.appendChild(content);
 
   return div;
@@ -1814,7 +1986,13 @@ function addNewProject() {
     title: "New Project",
     cardColor: color,
     cardImage: null,
-    description: "Project description goes here.",
+    description: {
+      heading: "",
+      paragraphs: ["Project description goes here."],
+      links: [],
+      linkIntro: "",
+      linkOutro: ""
+    },
     role: "Your Role",
     type: "Project Type",
     client: "Client Name",
@@ -1895,7 +2073,16 @@ function addContentBlock(type) {
       };
       break;
     case "text":
-      newBlock = { type: "text", content: "Enter your text here..." };
+      newBlock = {
+        type: "text",
+        content: {
+          heading: "",
+          paragraphs: ["Enter your text here..."],
+          links: [],
+          linkIntro: "",
+          linkOutro: ""
+        }
+      };
       break;
     case "two-text-column":
       newBlock = {

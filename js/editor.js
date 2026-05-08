@@ -3,10 +3,10 @@
 // ============================================================
 
 window.editMode = false;
+let suppressEditableBlurUntil = 0;
 
 function isEditorUIEnabled() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("editor") === "1";
+  return true;
 }
 
 // ============================================================
@@ -40,12 +40,10 @@ function toggleEditMode() {
 
 // Wire up the edit toggle button
 document.addEventListener("DOMContentLoaded", () => {
-  if (isEditorUIEnabled()) {
-    document.body.classList.add("editor-enabled");
-  }
+  document.body.classList.add("editor-enabled");
 
   const btn = document.getElementById("editToggle");
-  if (btn && isEditorUIEnabled()) {
+  if (btn) {
     btn.addEventListener("click", toggleEditMode);
   }
 });
@@ -76,33 +74,266 @@ function disableInlineEditing() {
   });
 }
 
-function handleEditableBlur(e) {
-  const path = e.target.getAttribute("data-editable");
-  
-  // Automatically add target="_blank" to all links inside the block
-  const links = e.target.querySelectorAll("a");
-  links.forEach(link => {
-    link.setAttribute("target", "_blank");
-    link.setAttribute("rel", "noopener noreferrer");
-  });
+function getNestedValue(obj, path) {
+  const keys = path.split(".");
+  let current = obj;
 
-  const value = e.target.innerHTML.trim();
+  for (const rawKey of keys) {
+    const key = isNaN(rawKey) ? rawKey : parseInt(rawKey, 10);
+    current = current?.[key];
+    if (typeof current === "undefined") return undefined;
+  }
+
+  return current;
+}
+
+function rerenderEditorView() {
+  if (typeof isProjectPage === "function" && isProjectPage()) {
+    if (typeof renderProjectPage === "function") renderProjectPage();
+  } else {
+    if (typeof renderHomepage === "function") renderHomepage();
+  }
+
+  if (window.editMode) {
+    enableInlineEditing();
+    if (!isProjectPage()) {
+      if (typeof setupDragAndDrop === "function") setupDragAndDrop();
+    } else {
+      if (typeof setupBlockDragAndDrop === "function") setupBlockDragAndDrop();
+      if (typeof setupThumbnailDragAndDrop === "function") setupThumbnailDragAndDrop();
+    }
+  }
+}
+
+function suppressEditableBlurForRerender() {
+  suppressEditableBlurUntil = Date.now() + 250;
+}
+
+function isEditableTextEmpty(target) {
+  const text = target.textContent.replace(/\u00a0/g, " ").trim();
+  return text.length === 0;
+}
+
+function getSelectionDetailsWithin(target) {
+  const selection = window.getSelection ? window.getSelection() : null;
+  if (!selection || selection.rangeCount === 0) {
+    return {
+      hasSelection: false,
+      selectedText: "",
+      selectedAllText: false
+    };
+  }
+
+  const range = selection.getRangeAt(0);
+  if (!target.contains(range.commonAncestorContainer)) {
+    return {
+      hasSelection: false,
+      selectedText: "",
+      selectedAllText: false
+    };
+  }
+
+  const selectedText = selection.toString().replace(/\u00a0/g, " ").trim();
+  const fullText = target.textContent.replace(/\u00a0/g, " ").trim();
+  const hasSelection = selectedText.length > 0;
+
+  return {
+    hasSelection,
+    selectedText,
+    selectedAllText: hasSelection && fullText.length > 0 && selectedText === fullText
+  };
+}
+
+function getEditableValue(target) {
+  const isPlainText = target.getAttribute("data-editable-plaintext") === "true";
+  const isInlineRichText = target.getAttribute("data-editable-richtext") === "inline";
+
+  if (isPlainText) {
+    return target.textContent.replace(/\u00a0/g, " ").trim();
+  }
+
+  if (isInlineRichText) {
+    return sanitizeInlineRichTextHTML(target.innerHTML);
+  }
+
+  return target.innerHTML.trim();
+}
+
+function syncEditableToData(target) {
+  const path = target.getAttribute("data-editable");
+  if (!path) return false;
+
+  const value = getEditableValue(target);
   setNestedValue(PORTFOLIO_DATA, path, value);
+
+  if (target.getAttribute("data-editable-richtext") === "inline") {
+    target.innerHTML = value;
+  }
+
+  return true;
+}
+
+function removeStructuredEditableLine(target) {
+  syncEditableToData(target);
+
+  const path = target.getAttribute("data-editable");
+  if (!path || !path.includes(".content.")) return false;
+
+  const headingMatch = path.match(/^projects\.(\d+)\.contentBlocks\.(\d+)\.content\.heading$/);
+  if (headingMatch) {
+    const projectIndex = parseInt(headingMatch[1], 10);
+    const blockIndex = parseInt(headingMatch[2], 10);
+    const block = PORTFOLIO_DATA.projects?.[projectIndex]?.contentBlocks?.[blockIndex];
+    if (!block?.content?.heading) return false;
+
+    block.content.heading = "";
+    saveData();
+    suppressEditableBlurForRerender();
+    rerenderEditorView();
+    return true;
+  }
+
+  const paragraphMatch = path.match(/^projects\.(\d+)\.contentBlocks\.(\d+)\.content\.paragraphs\.(\d+)$/);
+  if (!paragraphMatch) return false;
+
+  const projectIndex = parseInt(paragraphMatch[1], 10);
+  const blockIndex = parseInt(paragraphMatch[2], 10);
+  const paragraphIndex = parseInt(paragraphMatch[3], 10);
+  const block = PORTFOLIO_DATA.projects?.[projectIndex]?.contentBlocks?.[blockIndex];
+  const paragraphs = Array.isArray(block?.content?.paragraphs) ? block.content.paragraphs : null;
+  if (!paragraphs || paragraphIndex < 0 || paragraphIndex >= paragraphs.length) return false;
+
+  paragraphs.splice(paragraphIndex, 1);
+  saveData();
+  suppressEditableBlurForRerender();
+  rerenderEditorView();
+  return true;
+}
+
+function toggleStructuredHeadingFromEditable(target) {
+  syncEditableToData(target);
+
+  const path = target.getAttribute("data-editable");
+  if (!path || !path.includes(".content.")) return false;
+
+  const headingMatch = path.match(/^projects\.(\d+)\.contentBlocks\.(\d+)\.content\.heading$/);
+  if (headingMatch) {
+    const projectIndex = parseInt(headingMatch[1], 10);
+    const blockIndex = parseInt(headingMatch[2], 10);
+    const block = PORTFOLIO_DATA.projects?.[projectIndex]?.contentBlocks?.[blockIndex];
+    if (!block?.content) return false;
+
+    const heading = String(block.content.heading || "").trim();
+    if (!heading) return false;
+
+    block.content.paragraphs = [heading, ...(Array.isArray(block.content.paragraphs) ? block.content.paragraphs : [])];
+    block.content.heading = "";
+    saveData();
+    suppressEditableBlurForRerender();
+    rerenderEditorView();
+    return true;
+  }
+
+  const paragraphMatch = path.match(/^projects\.(\d+)\.contentBlocks\.(\d+)\.content\.paragraphs\.(\d+)$/);
+  if (!paragraphMatch) return false;
+
+  const projectIndex = parseInt(paragraphMatch[1], 10);
+  const blockIndex = parseInt(paragraphMatch[2], 10);
+  const paragraphIndex = parseInt(paragraphMatch[3], 10);
+  const block = PORTFOLIO_DATA.projects?.[projectIndex]?.contentBlocks?.[blockIndex];
+  if (!block?.content) return false;
+
+  const paragraphs = Array.isArray(block.content.paragraphs) ? block.content.paragraphs : [];
+  const paragraph = String(paragraphs[paragraphIndex] || "").trim();
+  if (!paragraph) return false;
+
+  if (block.content.heading) {
+    return false;
+  }
+
+  block.content.heading = paragraph;
+  block.content.paragraphs = paragraphs.filter((_, index) => index !== paragraphIndex);
+  saveData();
+  suppressEditableBlurForRerender();
+  rerenderEditorView();
+  return true;
+}
+
+function handleEditableBlur(e) {
+  if (Date.now() < suppressEditableBlurUntil) {
+    return;
+  }
+
+  const path = e.target.getAttribute("data-editable");
+
+  if (!path) return;
+
+  syncEditableToData(e.target);
+
+  const linkHrefPath = e.target.getAttribute("data-editable-link-href");
+  if (linkHrefPath && e.target.tagName === "A") {
+    const href = getNestedValue(PORTFOLIO_DATA, linkHrefPath) || "#";
+    e.target.setAttribute("href", href);
+    e.target.setAttribute("target", "_blank");
+    e.target.setAttribute("rel", "noopener noreferrer");
+  } else {
+    const links = e.target.querySelectorAll("a");
+    links.forEach(link => {
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+    });
+  }
+
   saveData();
 }
 
 function handleEditableKeydown(e) {
-  if (e.key === "Enter" && !e.shiftKey) {
+  const multiline = e.target.getAttribute("data-editable-multiline") === "true";
+  const isInlineRichText = e.target.getAttribute("data-editable-richtext") === "inline";
+
+  if (e.key === "Enter" && !e.shiftKey && !multiline) {
     e.preventDefault();
     e.target.blur();
+  }
+
+  if (e.key === "Enter" && isInlineRichText) {
+    e.preventDefault();
+    document.execCommand("insertLineBreak");
+  }
+
+  if (e.key === "Backspace" && isEditableTextEmpty(e.target) && removeStructuredEditableLine(e.target)) {
+    e.preventDefault();
+    return;
   }
 
   // Handle Cmd+K / Ctrl+K for links
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
     e.preventDefault();
+    const hrefPath = e.target.getAttribute("data-editable-link-href");
+
+    if (hrefPath) {
+      const currentUrl = getNestedValue(PORTFOLIO_DATA, hrefPath) || "https://";
+      const url = prompt("Enter link URL:", currentUrl);
+      if (url && url.trim() !== "") {
+        setNestedValue(PORTFOLIO_DATA, hrefPath, url.trim());
+        e.target.setAttribute("href", url.trim());
+        e.target.setAttribute("target", "_blank");
+        e.target.setAttribute("rel", "noopener noreferrer");
+        saveData();
+      }
+      return;
+    }
+
     const url = prompt("Enter link URL:", "https://");
     if (url && url.trim() !== "") {
       document.execCommand("createLink", false, url.trim());
+    }
+  }
+
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") {
+    e.preventDefault();
+    if (isInlineRichText) {
+      document.execCommand("bold");
     }
   }
 }

@@ -29,6 +29,10 @@
   --serif-display-lg: clamp(32px, 5vw, 48px);
   --serif-display-md: clamp(28px, 4.8vw, 40px);
   --serif-display-sm: clamp(18px, 3vw, 32px);
+  --serif-text-heading-size: var(--serif-display-md);
+  --serif-inline-emphasis-size: var(--serif-display-md);
+  --serif-text-heading-line-height: 1.18;
+  --serif-inline-emphasis-line-height: 1.08;
 
   /* Spacing */
   --space-xs: 8px;
@@ -717,72 +721,68 @@ a {
   margin-bottom: 0 !important;
 }
 
-.block-text b,
-.block-text strong,
-.block-text span[style*="Instrument Serif"],
-.block-text font[face*="Instrument Serif"],
-.block-two-column .col-text b,
-.block-two-column .col-text strong,
-.block-two-column .col-text span[style*="Instrument Serif"],
-.block-two-column .col-text font[face*="Instrument Serif"],
-.block-two-text-column .col-text span[style*="Instrument Serif"],
-.block-two-text-column .col-text font[face*="Instrument Serif"],
-.about-bio b,
-.about-bio strong,
-.about-bio span[style*="Instrument Serif"] {
-  font-family: var(--font-heading);
-  font-size: var(--serif-display-md) !important;
-  font-weight: 400;
-  line-height: 1.18 !important;
-  letter-spacing: -0.02em;
-  color: var(--color-text) !important;
-  display: inline-block;
-  margin-bottom: 0.2em;
+.project-info-paragraph,
+.project-info-links,
+.block-text-paragraph,
+.block-text-links {
+  white-space: pre-line;
 }
 
+.project-info-links,
+.block-text-links {
+  margin-bottom: var(--space-sm);
+}
+
+.project-info-links:last-child,
+.block-text-links:last-child {
+  margin-bottom: 0;
+}
+
+.block-text span[style*="Instrument Serif"],
+.block-text font[face*="Instrument Serif"],
 .block-text font[face*="Instrument Serif"] span,
+.block-two-column .col-text span[style*="Instrument Serif"],
+.block-two-column .col-text font[face*="Instrument Serif"],
 .block-two-column .col-text font[face*="Instrument Serif"] span,
+.block-two-text-column .col-text span[style*="Instrument Serif"],
+.block-two-text-column .col-text font[face*="Instrument Serif"],
 .block-two-text-column .col-text font[face*="Instrument Serif"] span,
-.about-bio span[style*="Instrument Serif"] {
+.about-bio span[style*="Instrument Serif"],
+.project-info-description span[style*="Instrument Serif"],
+[data-editable] span[style*="Instrument Serif"],
+[data-editable] font[face*="Instrument Serif"],
+.project-info-heading,
+.block-text-heading,
+[data-editable].project-info-heading,
+[data-editable].block-text-heading {
   font-family: var(--font-heading) !important;
-  font-size: var(--serif-display-md) !important;
-  line-height: 1.18 !important;
+  font-size: var(--serif-text-heading-size) !important;
+  font-weight: 400;
+  line-height: var(--serif-text-heading-line-height) !important;
   letter-spacing: -0.02em !important;
   color: var(--color-text) !important;
 }
 
 .project-info-description b,
 .project-info-description strong,
-.project-info-description span[style*="Instrument Serif"],
-[data-editable] span[style*="Instrument Serif"],
-[data-editable] font[face*="Instrument Serif"],
-[data-editable] b,
-[data-editable] strong {
+.block-text-content b,
+.block-text-content strong,
+.block-two-column .col-text b,
+.block-two-column .col-text strong,
+.block-two-text-column .col-text b,
+.block-two-text-column .col-text strong,
+.about-bio b,
+.about-bio strong,
+[data-editable][data-editable-richtext="inline"] b,
+[data-editable][data-editable-richtext="inline"] strong {
   font-family: var(--font-heading);
-  font-size: var(--serif-display-sm) !important;
+  font-size: var(--serif-inline-emphasis-size) !important;
   font-weight: 400;
-  line-height: 1.1 !important;
+  line-height: var(--serif-inline-emphasis-line-height) !important;
   letter-spacing: -0.02em;
-  color: var(--color-text) !important;
-}
-
-.block-text [data-editable] span[style*="Instrument Serif"],
-.block-text [data-editable] font[face*="Instrument Serif"],
-.block-text [data-editable] b,
-.block-text [data-editable] strong,
-.block-two-column .col-text[data-editable] span[style*="Instrument Serif"],
-.block-two-column .col-text[data-editable] font[face*="Instrument Serif"],
-.block-two-column .col-text[data-editable] b,
-.block-two-column .col-text[data-editable] strong,
-.block-two-text-column .col-text[data-editable] span[style*="Instrument Serif"],
-.block-two-text-column .col-text[data-editable] font[face*="Instrument Serif"],
-.block-two-text-column .col-text[data-editable] b,
-.block-two-text-column .col-text[data-editable] strong {
-  font-size: var(--serif-display-md) !important;
-  line-height: 1.18 !important;
-  font-family: var(--font-heading) !important;
-  color: var(--color-text) !important;
-  letter-spacing: -0.02em !important;
+  color: var(--color-text);
+  display: inline;
+  margin: 0;
 }
 
 /* Base styles for user-generated inline links */
@@ -956,6 +956,11 @@ body.edit-mode .thumbnail-drag-handle:active {
   font-size: 16px;
   line-height: 1.75;
   color: var(--color-text-secondary);
+}
+
+.block-text-heading {
+  display: block;
+  margin: 0 0 var(--space-sm);
 }
 
 .block-text-content p,
@@ -1160,6 +1165,36 @@ body.edit-mode [data-editable]:hover {
 body.edit-mode [data-editable]:focus {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
+}
+
+body.edit-mode .block-text-content {
+  border-radius: 24px;
+  transition: outline-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+
+body.edit-mode .block-text .block-text-content {
+  outline: 2px dashed rgba(0, 68, 255, 0.3);
+  outline-offset: 4px;
+}
+
+body.edit-mode .block-text:hover .block-text-content {
+  outline-color: var(--color-accent);
+}
+
+body.edit-mode .block-text:focus-within .block-text-content {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+body.edit-mode .block-text .block-text-content [data-editable] {
+  outline: none;
+  outline-offset: 0;
+  border-radius: 0;
+}
+
+body.edit-mode .block-text .block-text-content [data-editable]:hover,
+body.edit-mode .block-text .block-text-content [data-editable]:focus {
+  outline: none;
 }
 
 /* Drag handle for cards and blocks in edit mode */
@@ -1534,6 +1569,17 @@ body.edit-mode .edit-toolbar {
     width: calc(100% - (var(--page-section-padding-x) * 2));
     max-width: calc(100% - (var(--page-section-padding-x) * 2));
     margin: 0 auto;
+  }
+
+  .project-info-title {
+    font-size: clamp(28px, 8.4vw, 40px);
+    line-height: 1.08;
+    margin-bottom: 14px;
+  }
+
+  .block-text-heading {
+    --serif-text-heading-size: clamp(24px, 7.2vw, 34px);
+    margin-bottom: 10px;
   }
 
   .block-two-text-column {

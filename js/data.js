@@ -32,10 +32,23 @@ const PORTFOLIO_DATA = {
     {
       "id": "project-4-1775051652483",
       "category": "lab",
-      "title": "<div>Digitas / Ace the Unicorn Race</div>",
+      "title": "Digitas / Ace the Unicorn Race",
       "cardColor": "#8B1A1A",
       "cardImage": "assets/year-of-the-unicorn-thumbnail.gif",
-      "description": "<blockquote data-start=\"381\" data-end=\"611\"><p data-start=\"383\" data-end=\"611\">\n<p data-start=\"777\" data-end=\"820\"></p></p><blockquote data-start=\"551\" data-end=\"775\"><p data-start=\"553\" data-end=\"775\">A festive red packet reimagined as a competitive digital game. “Ace the Unicorn Race” transforms a traditional giveaway into an interactive experience designed for engagement, replayability, and scalable participation.<br><br></p>\n</blockquote></blockquote><a href=\"https://yearoftheunicorn.digitas-sg.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Play the game</a>!",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "A festive red packet reimagined as a competitive digital game. “Ace the Unicorn Race” transforms a traditional giveaway into an interactive experience designed for engagement, replayability, and scalable participation."
+        ],
+        "links": [
+          {
+            "label": "Play the game",
+            "href": "https://yearoftheunicorn.digitas-sg.com/"
+          }
+        ],
+        "linkIntro": "",
+        "linkOutro": "!"
+      },
       "role": "Creative Lead",
       "type": "integrated creative technology",
       "client": "Digitas",
@@ -49,7 +62,16 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<div><b>The Red Packet</b></div><div><div>The red packet was designed as both a cultural object and an entry point into the experience.</div><div>By deconstructing the ‘North Star’ logo into a generative pattern system, it bridges physical and digital, carrying the same energy into the game.</div></div>"
+          "content": {
+            "heading": "The Red Packet",
+            "paragraphs": [
+              "The red packet was designed as both a cultural object and an entry point into the experience.",
+              "By deconstructing the ‘North Star’ logo into a generative pattern system, it bridges physical and digital, carrying the same energy into the game."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -59,7 +81,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<div><b>From Print to Play</b></div><div><div>A simple racing game designed for quick, repeatable play. Built to work in social settings, where competition, randomness, and leaderboard dynamics drive engagement beyond a single interaction.</div></div>"
+          "content": {
+            "heading": "From Print to Play",
+            "paragraphs": [
+              "A simple racing game designed for quick, repeatable play. Built to work in social settings, where competition, randomness, and leaderboard dynamics drive engagement beyond a single interaction."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -69,7 +99,21 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<b>Gameplay Mechanics<br></b><div>The experience was designed with systems that sustain engagement, not just visual novelty.</div><div><br></div><div><u>Rubber Banding System</u></div><div>Trailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.</div><div><br></div><div><u>Random Event Triggers</u></div><div>Dynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.</div><div><br></div><div><u>Leaderboard Loop</u></div><div>Competitive ranking reinforces social play, driving repeated participation.</div>"
+          "content": {
+            "heading": "Gameplay Mechanics",
+            "paragraphs": [
+              "Gameplay Mechanics\nThe experience was designed with systems that sustain engagement, not just visual novelty.",
+              "Rubber Banding System",
+              "Trailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.",
+              "Random Event Triggers",
+              "Dynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.",
+              "Leaderboard Loop",
+              "Competitive ranking reinforces social play, driving repeated participation."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -79,7 +123,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<div><b>Behind the scenes</b></div><div><div>Using Google Antigravity, I directed AI agents to build and manage both front-end logic and backend infrastructure. This enabled me to operate as a solo creative delivering a functional full-stack experience, focusing on system design, interaction logic, and product thinking.</div></div>"
+          "content": {
+            "heading": "Behind the scenes",
+            "paragraphs": [
+              "Using Google Antigravity, I directed AI agents to build and manage both front-end logic and backend infrastructure. This enabled me to operate as a solo creative delivering a functional full-stack experience, focusing on system design, interaction logic, and product thinking."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -89,17 +141,37 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "A simple format on the surface, built as a loop between physical interaction, digital play, and repeat engagement.<br><br><a href=\"https://yearoftheunicorn.digitas-sg.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Play the game here!</a>"
+          "content": {
+            "heading": "A simple format on the surface, built as a loop between physical interaction, digital play, and repeat engagement.",
+            "paragraphs": [],
+            "links": [
+              {
+                "label": "Play the game here!",
+                "href": "https://yearoftheunicorn.digitas-sg.com/"
+              }
+            ],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         }
       ]
     },
     {
       "id": "project-3",
       "category": "lab",
-      "title": "Personal Project / Masturband&nbsp;",
+      "title": "Personal Project / Masturband",
       "cardColor": "#0044FF",
       "cardImage": "assets/masturband-thumbnail.gif",
-      "description": "<div>MASTURBAND is built on a simple idea: every moment carries a mood, and every mood has a distinct texture. From city commutes to slow coastal afternoons, each piece translates these everyday states into a defined audiovisual experience, where sound and visuals move as one.<br><br>I direct and assemble AI-generated audio, motion, and imagery alongside photography and design, shaping each output as a cohesive system. Every element, from pacing to texture, is intentionally paired to reinforce a singular vibe, turning abstract moods into structured, multi-sensory works.</div>",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "MASTURBAND is built on a simple idea: every moment carries a mood, and every mood has a distinct texture. From city commutes to slow coastal afternoons, each piece translates these everyday states into a defined audiovisual experience, where sound and visuals move as one.",
+          "I direct and assemble AI-generated audio, motion, and imagery alongside photography and design, shaping each output as a cohesive system. Every element, from pacing to texture, is intentionally paired to reinforce a singular vibe, turning abstract moods into structured, multi-sensory works."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art director",
       "type": "Creative / AI",
       "client": "Personal",
@@ -133,7 +205,15 @@ const PORTFOLIO_DATA = {
       "title": "Digitas / U-Scan",
       "cardColor": "#1A6B1A",
       "cardImage": "assets/uscan-thumbnail.gif",
-      "description": "U-Scan is an AI-powered receipt scanning system designed for markets where transactions are still largely offline and unstructured. Built for the Philippines, it transforms handwritten and printed receipts into usable data, enabling brands to track purchases, trigger promotions, and build loyalty without relying on traditional POS integrations.",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "U-Scan is an AI-powered receipt scanning system designed for markets where transactions are still largely offline and unstructured. Built for the Philippines, it transforms handwritten and printed receipts into usable data, enabling brands to track purchases, trigger promotions, and build loyalty without relying on traditional POS integrations."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director",
       "type": "Branding",
       "client": "Digitas",
@@ -147,7 +227,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "The brand is built on the idea of finding structure within imperfection. Inspired by the inconsistencies of physical receipts, the identity translates noise into form, using pixel-based typography and modular graphic systems that evolve from fragmented shapes into recognisable patterns. This reflects how U-Scan processes raw, unstructured inputs into clean, actionable data. The result is a visual system that mirrors the product’s function, turning everyday transactions into scalable digital infrastructure."
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "The brand is built on the idea of finding structure within imperfection. Inspired by the inconsistencies of physical receipts, the identity translates noise into form, using pixel-based typography and modular graphic systems that evolve from fragmented shapes into recognisable patterns. This reflects how U-Scan processes raw, unstructured inputs into clean, actionable data. The result is a visual system that mirrors the product’s function, turning everyday transactions into scalable digital infrastructure."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "two-image",
@@ -177,7 +265,16 @@ const PORTFOLIO_DATA = {
       "title": "SMMA / The Heat Is On",
       "cardColor": "#8B1A1A",
       "cardImage": "assets/smma-thumbnail.gif",
-      "description": "<div>The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.</div><div><br></div><div>Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA.</div>",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.",
+          "Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director",
       "type": "Branding",
       "client": "Singapore Media &amp; Marketing Awards",
@@ -250,7 +347,15 @@ const PORTFOLIO_DATA = {
       "title": "Digitas / Rabbithood",
       "cardColor": "#6B4C1E",
       "cardImage": "assets/rabbithood-thumbnail.gif",
-      "description": "Rabbithood is an AI-powered EDM generator that transforms brand-approved components into modular, production-ready emails. Built on the concept “Enter the Burrow,” the brand unfolds as a generative world where elements morph, duplicate, and adapt, reflecting the platform’s ability to swap, recombine, and scale content across segments.",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "Rabbithood is an AI-powered EDM generator that transforms brand-approved components into modular, production-ready emails. Built on the concept “Enter the Burrow,” the brand unfolds as a generative world where elements morph, duplicate, and adapt, reflecting the platform’s ability to swap, recombine, and scale content across segments."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director",
       "type": "Branding",
       "client": "Digitas",
@@ -264,7 +369,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "The identity is driven by organic, shape-shifting forms and anchored by the brand bunny as a guide. Rather than static assets, the system is designed to behave like the product itself, capable of generating variations and evolving across different outputs. The result is a brand that operates in sync with the platform, reinforcing speed, adaptability, and high-volume personalisation."
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "The identity is driven by organic, shape-shifting forms and anchored by the brand bunny as a guide. Rather than static assets, the system is designed to behave like the product itself, capable of generating variations and evolving across different outputs. The result is a brand that operates in sync with the platform, reinforcing speed, adaptability, and high-volume personalisation."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "two-image",
@@ -301,7 +414,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "Product Demonstration"
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "Product Demonstration"
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         }
       ]
     },
@@ -311,7 +432,15 @@ const PORTFOLIO_DATA = {
       "title": "FLEX by CPF / DollarVille Quiz Experience",
       "cardColor": "#1A4A6B",
       "cardImage": "assets/cpf-thumbnail.webm",
-      "description": "A mobile-first quiz experience that turns financial education into a gamified journey for young Singaporeans to discover their money personality.",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "A mobile-first quiz experience that turns financial education into a gamified journey for young Singaporeans to discover their money personality."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director",
       "type": "PRODUCT EXPERIENCE",
       "client": "CPF",
@@ -319,15 +448,40 @@ const PORTFOLIO_DATA = {
       "contentBlocks": [
         {
           "type": "text",
-          "content": "<span style=\"font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; color: rgb(26, 26, 26);\">Context</span><br>FLEX by CPF was created to help young Singaporeans build better financial habits through relatable, bite-sized financial education. As its interactive entry point, DollarVille turns financial self-discovery into a mobile-first quiz experience, helping users discover their money personality through a playful financial world."
+          "content": {
+            "heading": "Context",
+            "paragraphs": [
+              "FLEX by CPF was created to help young Singaporeans build better financial habits through relatable, bite-sized financial education. As its interactive entry point, DollarVille turns financial self-discovery into a mobile-first quiz experience, helping users discover their money personality through a playful financial world."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "text",
-          "content": "<div><span style=\"font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; color: rgb(26, 26, 26);\">The challenge</span></div><div>CPF is often associated with long-term planning and retirement, which can feel distant to younger audiences. The challenge was to make financial education feel immediate, approachable, and worth completing while retaining the credibility of a government-backed platform.</div>"
+          "content": {
+            "heading": "The challenge",
+            "paragraphs": [
+              "CPF is often associated with long-term planning and retirement, which can feel distant to younger audiences. The challenge was to make financial education feel immediate, approachable, and worth completing while retaining the credibility of a government-backed platform."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "text",
-          "content": "<p data-start=\"144\" data-end=\"163\" style=\"font-family: Inter, sans-serif; color: rgb(107, 107, 107);\"><span data-start=\"144\" data-end=\"163\" style=\"margin: 0px 0px 0.2em; font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; letter-spacing: -0.02em; color: rgb(26, 26, 26); display: inline-block;\">Experience Flow<br></span></p><h2 data-start=\"501\" data-end=\"514\"></h2><p style=\"font-family: Inter, sans-serif; color: rgb(107, 107, 107);\"></p><blockquote data-start=\"180\" data-end=\"499\"><p data-start=\"182\" data-end=\"499\" style=\"\">DollarVille was designed as a short, mobile-first journey that turns financial education into self-discovery. Users enter a playful financial world, answer bite-sized questions, receive a money personality result, and continue into FLEX with a more personalised starting point.</p></blockquote>"
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "Experience Flow",
+              "DollarVille was designed as a short, mobile-first journey that turns financial education into self-discovery. Users enter a playful financial world, answer bite-sized questions, receive a money personality result, and continue into FLEX with a more personalised starting point."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "4-grid",
@@ -353,7 +507,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<b>Interaction Design<br></b><blockquote data-start=\"1497\" data-end=\"1775\"><p data-start=\"1499\" data-end=\"1775\">To keep the quiz simple and easy to complete on mobile, each question used familiar gestures instead of static form inputs. These interaction patterns made financial reflection feel more playful while keeping the journey clear and low-friction.<br><br>\n</p><h2 data-section-id=\"15bxai7\" data-start=\"1036\" data-end=\"1102\"></h2><p></p><blockquote data-start=\"881\" data-end=\"1034\"><p data-start=\"883\" data-end=\"1034\">Gestures such as pinch, flick, tap, and hold made each question feel active without requiring users to learn a complex interaction system.</p>\n</blockquote>\n</blockquote>\n<p data-start=\"1777\" data-end=\"1801\"></p>"
+          "content": {
+            "heading": "Interaction Design",
+            "paragraphs": [
+              "To keep the quiz simple and easy to complete on mobile, each question used familiar gestures instead of static form inputs. These interaction patterns made financial reflection feel more playful while keeping the journey clear and low-friction.Gestures such as pinch, flick, tap, and hold made each question feel active without requiring users to learn a complex interaction system."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -381,7 +543,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<font color=\"#1a1a1a\" face=\"Instrument Serif, serif\"><span style=\"font-size: 25.368px; letter-spacing: -0.50736px;\">Result System<br></span></font><blockquote data-start=\"1522\" data-end=\"1766\"><p data-start=\"1524\" data-end=\"1766\">Each completed quiz led to a money personality profile, turning abstract financial habits into a more relatable identity. The result gave users a clearer starting point within FLEX, connecting their quiz outcome to tailored tips and follow-up content.</p>\n</blockquote>\n<p data-start=\"1768\" data-end=\"1793\"></p>"
+          "content": {
+            "heading": "Result System",
+            "paragraphs": [
+              "Each completed quiz led to a money personality profile, turning abstract financial habits into a more relatable identity. The result gave users a clearer starting point within FLEX, connecting their quiz outcome to tailored tips and follow-up content."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "4-grid",
@@ -407,7 +577,15 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<b>Visual World&nbsp;<br></b><blockquote data-start=\"1423\" data-end=\"1704\"><p data-start=\"1425\" data-end=\"1704\">DollarVille was built as a playful financial world, using characters, landmarks, gestures, and result profiles to make money habits feel easier to explore. The illustration system helped turn financial education from static content into an interactive journey.</p>\n</blockquote>\n<p data-start=\"1706\" data-end=\"1716\"></p>"
+          "content": {
+            "heading": "Visual World",
+            "paragraphs": [
+              "DollarVille was built as a playful financial world, using characters, landmarks, gestures, and result profiles to make money habits feel easier to explore. The illustration system helped turn financial education from static content into an interactive journey."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -423,17 +601,34 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<div><b>My Role</b></div>As part of the creative team, I contributed to the development of DollarVille, helping refine the mobile quiz experience across visual direction, interaction cues, result screens, and production handoff. The work was highly collaborative, with the team shaping the experience together over an extended project timeline."
+          "content": {
+            "heading": "My Role",
+            "paragraphs": [
+              "As part of the creative team, I contributed to the development of DollarVille, helping refine the mobile quiz experience across visual direction, interaction cues, result screens, and production handoff. The work was highly collaborative, with the team shaping the experience together over an extended project timeline."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         }
       ]
     },
     {
       "id": "project-9-1777357020366",
       "category": "ux",
-      "title": "Samsung / Regional Experience &amp; Design",
+      "title": "Samsung / Regional Experience & Design",
       "cardColor": "#0044FF",
       "cardImage": "assets/samsung-thumbnail.gif",
-      "description": "<div>As Regional Art Director for Samsung CRM, I shaped a scalable lifecycle experience system across Southeast Asia, translating global launch direction into localised CRM journeys across EDM, push, landing pages, and digital touchpoints.</div><div><br></div><div>The work went beyond campaign adaptation. It focused on building a repeatable framework for product storytelling, audience personalisation, content hierarchy, and conversion across every stage of a launch.</div>",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "As Regional Art Director for Samsung CRM, I shaped a scalable lifecycle experience system across Southeast Asia, translating global launch direction into localised CRM journeys across EDM, push, landing pages, and digital touchpoints.",
+          "The work went beyond campaign adaptation. It focused on building a repeatable framework for product storytelling, audience personalisation, content hierarchy, and conversion across every stage of a launch."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Regional Art Director",
       "type": "CRM",
       "client": "Samsung",
@@ -441,7 +636,15 @@ const PORTFOLIO_DATA = {
       "contentBlocks": [
         {
           "type": "text",
-          "content": "<p data-start=\"1171\" data-end=\"1297\"><b>The Journey</b><br>Samsung CRM operates as a continuous journey across multiple phases of a launch, guiding users from awareness to conversion.</p>\n<p data-start=\"1304\" data-end=\"1459\"></p>"
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "The Journey\nSamsung CRM operates as a continuous journey across multiple phases of a launch, guiding users from awareness to conversion."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -487,7 +690,17 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<blockquote data-start=\"1652\" data-end=\"1844\"><p data-start=\"1654\" data-end=\"1844\"><b>Selected CRM Modules Across Journey Phases<br></b><br>The work focused on shaping visual hierarchy and narrative flow across CRM touchpoints, balancing Samsung’s premium product storytelling with clear, action-driven communication.</p><p data-start=\"1654\" data-end=\"1844\"><br></p><p data-start=\"1654\" data-end=\"1844\">Each asset is designed as part of a larger system, where layout, pacing and messaging work together across the full journey.</p>\n</blockquote>"
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "Selected CRM Modules Across Journey Phases",
+              "The work focused on shaping visual hierarchy and narrative flow across CRM touchpoints, balancing Samsung’s premium product storytelling with clear, action-driven communication.",
+              "Each asset is designed as part of a larger system, where layout, pacing and messaging work together across the full journey."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "full-image",
@@ -519,17 +732,33 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         }
       ]
     },
     {
       "id": "project-2",
       "category": "work",
-      "title": "<h1 class=\"project-info-title\" data-editable=\"projects.0.title\" spellcheck=\"false\" style=\"margin-bottom: 24px; font-family: &quot;Instrument Serif&quot;, serif; transition: outline-color 0.2s;\">Riot Games / Pengu's Big Adventure</h1>",
+      "title": "Riot Games / Pengu's Big Adventure",
       "cardColor": "#1A6B1A",
       "cardImage": "assets/pengu-big-adventure-thumbnail.gif",
-      "description": "<span style=\"color: rgb(28, 28, 28); font-family: &quot;Helvetica Neue&quot;; font-size: 13.3333px; text-align: left;\">To launch Teamfight Tactics Mobile in South East Asia for our fans who have been waiting for three long years, we proposed a social strategy that transformed the mobile launch from a mere extension of TFT into a trailblazing event that celebrated and united the APAC gaming community, ensuring TFT Mobile wasn’t just launched – it was spectacularly unleashed. we sought out to amplify every asset from Riot Games, giving them a bigger purpose — beyond simply being eye-catching. We tapped into the kind of stimuli that instinctively makes our fans tick at every touchpoint, giving them a chance to be part of Riot’s plan to take over the region.&nbsp;&nbsp;</span>",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "To launch Teamfight Tactics Mobile in South East Asia for our fans who have been waiting for three long years, we proposed a social strategy that transformed the mobile launch from a mere extension of TFT into a trailblazing event that celebrated and united the APAC gaming community, ensuring TFT Mobile wasn’t just launched – it was spectacularly unleashed. we sought out to amplify every asset from Riot Games, giving them a bigger purpose — beyond simply being eye-catching. We tapped into the kind of stimuli that instinctively makes our fans tick at every touchpoint, giving them a chance to be part of Riot’s plan to take over the region."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director",
       "type": "Social Launch",
       "client": "Riot Games",
@@ -548,7 +777,18 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "Featured on <a href=\"https://sg.news.yahoo.com/teamfight-tactics-mobile-debuts-in-singapore-malaysia-the-philippines-and-other-sea-countries-132022096.html\" target=\"_blank\" rel=\"noopener noreferrer\">Yahoo! News</a>."
+          "content": {
+            "heading": "",
+            "paragraphs": [],
+            "links": [
+              {
+                "label": "Yahoo! News",
+                "href": "https://sg.news.yahoo.com/teamfight-tactics-mobile-debuts-in-singapore-malaysia-the-philippines-and-other-sea-countries-132022096.html"
+              }
+            ],
+            "linkIntro": "Featured on",
+            "linkOutro": "."
+          }
         }
       ]
     },
@@ -558,7 +798,15 @@ const PORTFOLIO_DATA = {
       "title": "Riot Games / Hyper Roll Karaoke",
       "cardColor": "#6B4C1E",
       "cardImage": "assets/hyper-roll-karaoke-thumbnail.gif",
-      "description": "<p dir=\"ltr\" style=\"line-height:1.5;margin-top:6pt;margin-bottom:0pt;\"><span style=\"color: rgb(28, 28, 28); font-family: &quot;Helvetica Neue&quot;; font-size: 13.3333px; text-align: left;\">After three years of waiting, Teamfight Tactics Mobile was ready to make a big impact in South East Asia. Our audience, thriving on unpredictability and chaos, we knew we needed to engage our fans authentically. Our strategy was to surprise and excite players with an adrenaline-fueled experience. We selected nine super fans from across APAC to join us in a custom-designed vehicle. They competed to master TFT Mobile gameplay and sing the most lyrics, all for the chance to win the coveted Golden Spatula, an iconic symbol in the TFT universe.</span></p>",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "After three years of waiting, Teamfight Tactics Mobile was ready to make a big impact in South East Asia. Our audience, thriving on unpredictability and chaos, we knew we needed to engage our fans authentically. Our strategy was to surprise and excite players with an adrenaline-fueled experience. We selected nine super fans from across APAC to join us in a custom-designed vehicle. They competed to master TFT Mobile gameplay and sing the most lyrics, all for the chance to win the coveted Golden Spatula, an iconic symbol in the TFT universe."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director",
       "type": "Digital Campaign",
       "client": "RIOT Games",
@@ -577,7 +825,22 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "Featured on <a href=\"https://www.marketing-interactive.com/teamfight-tactics-goodstuph-sg-karaoke-and-gaming\" target=\"_blank\" rel=\"noopener noreferrer\">Marketing Interactive</a> and <a href=\"https://campaignbriefasia.com/2023/12/05/teamfight-tactics-mobile-launches-in-apac-with-karaoke-challenge-by-goodstuph-singapore/\" target=\"_blank\" rel=\"noopener noreferrer\">Campaign Brief Asia</a>."
+          "content": {
+            "heading": "",
+            "paragraphs": [],
+            "links": [
+              {
+                "label": "Marketing Interactive",
+                "href": "https://www.marketing-interactive.com/teamfight-tactics-goodstuph-sg-karaoke-and-gaming"
+              },
+              {
+                "label": "Campaign Brief Asia",
+                "href": "https://campaignbriefasia.com/2023/12/05/teamfight-tactics-mobile-launches-in-apac-with-karaoke-challenge-by-goodstuph-singapore/"
+              }
+            ],
+            "linkIntro": "Featured on",
+            "linkOutro": "."
+          }
         }
       ]
     },
@@ -587,7 +850,15 @@ const PORTFOLIO_DATA = {
       "title": "MCCY / Let The Music Play",
       "cardColor": "#4A1A6B",
       "cardImage": "assets/mccy-thumbnail.gif",
-      "description": "<div>To promote local music in a Singapore where we are spoilt for choice, we created a series of playlists featuring Singaporean artistes, to accompany truly Singaporean moments. Each animated playlist is seen through the lens of the ubiquitous neighbourhood cat. As it wanders and peers into the moments that make this little red dot so unique.<br></div>",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "To promote local music in a Singapore where we are spoilt for choice, we created a series of playlists featuring Singaporean artistes, to accompany truly Singaporean moments. Each animated playlist is seen through the lens of the ubiquitous neighbourhood cat. As it wanders and peers into the moments that make this little red dot so unique."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director / Animator",
       "type": "Animated film",
       "client": "MCCY Singapore",
@@ -610,7 +881,18 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "text",
-          "content": "<a href=\"https://open.spotify.com/user/31ucvejxlaawbs5s6cylpmyak5mm?si=b73bf40552c94de7\" target=\"_blank\" rel=\"noopener noreferrer\">Please enjoy the full playlist on Spotify here</a>. :)"
+          "content": {
+            "heading": "",
+            "paragraphs": [],
+            "links": [
+              {
+                "label": "Please enjoy the full playlist on Spotify here",
+                "href": "https://open.spotify.com/user/31ucvejxlaawbs5s6cylpmyak5mm?si=b73bf40552c94de7"
+              }
+            ],
+            "linkIntro": "",
+            "linkOutro": ". :)"
+          }
         }
       ]
     },
@@ -620,7 +902,15 @@ const PORTFOLIO_DATA = {
       "title": "Facebook / The Butterfly Fashion Show",
       "cardColor": "#4A1A6B",
       "cardImage": "assets/bff-thumbnail.webm",
-      "description": "The Butterfly Fashion Show was created to inspire and support young girls from Singapore’s children’s homes, giving them a night where fashion became more than a runway, but a moment of confidence, care and possibility. I developed the brand identity around the butterfly as a symbol of transformation, capturing it between flight and rest to reflect the girls’ own journey of growing, becoming and finding their place in the world. The result was an identity that felt graceful, hopeful and memorable, helping the event carry both the elegance of a fashion show and the emotional weight of its purpose.",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "The Butterfly Fashion Show was created to inspire and support young girls from Singapore’s children’s homes, giving them a night where fashion became more than a runway, but a moment of confidence, care and possibility. I developed the brand identity around the butterfly as a symbol of transformation, capturing it between flight and rest to reflect the girls’ own journey of growing, becoming and finding their place in the world. The result was an identity that felt graceful, hopeful and memorable, helping the event carry both the elegance of a fashion show and the emotional weight of its purpose."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art Director",
       "type": "Branding",
       "client": "Facebook",
@@ -628,7 +918,22 @@ const PORTFOLIO_DATA = {
       "contentBlocks": [
         {
           "type": "text",
-          "content": "Documented in <a href=\"https://marymountctr.org.sg/pdf/AR2018.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Marymount Centre Annual Report 2018</a> and listed in <a href=\"https://static1.straitstimes.com.sg/s3fs-public/attachments/2018/11/29/st_20181130_gigs.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">The Straits Times</a>."
+          "content": {
+            "heading": "",
+            "paragraphs": [],
+            "links": [
+              {
+                "label": "Marymount Centre Annual Report 2018",
+                "href": "https://marymountctr.org.sg/pdf/AR2018.pdf"
+              },
+              {
+                "label": "The Straits Times",
+                "href": "https://static1.straitstimes.com.sg/s3fs-public/attachments/2018/11/29/st_20181130_gigs.pdf"
+              }
+            ],
+            "linkIntro": "Documented in",
+            "linkOutro": "."
+          }
         },
         {
           "type": "video",
@@ -673,7 +978,17 @@ const PORTFOLIO_DATA = {
       "title": "MORROW / Longevity Care",
       "cardColor": "#1A4A6B",
       "cardImage": "assets/morrow-thumbnail.gif",
-      "description": "MORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.<div><br></div><div>I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.</div><div><br></div>The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth.",
+      "description": {
+        "heading": "",
+        "paragraphs": [
+          "MORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.",
+          "I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.",
+          "The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth."
+        ],
+        "links": [],
+        "linkIntro": "",
+        "linkOutro": ""
+      },
       "role": "Art director / UIUX Designer",
       "type": "Web Design",
       "client": "Morrow",
