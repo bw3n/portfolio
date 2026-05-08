@@ -951,13 +951,34 @@ body.edit-mode .thumbnail-drag-handle:active {
   margin: 0 auto;
 }
 
-.block-text p {
+.block-text-content {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.75;
   color: var(--color-text-secondary);
-  max-width: none;
-  margin: 0;
+}
+
+.block-text-content p,
+.block-text-content div,
+.block-text-content blockquote,
+.block-text-content h1,
+.block-text-content h2,
+.block-text-content h3,
+.block-text-content h4,
+.block-text-content h5,
+.block-text-content h6 {
+  margin: 0 0 var(--space-sm);
+}
+
+.block-text-content blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  border: 0;
+}
+
+.block-text-content > :last-child {
+  margin-bottom: 0;
 }
 
 .block-video {

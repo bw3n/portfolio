@@ -181,7 +181,7 @@ const PORTFOLIO_DATA = {
       "title": "SMMA / The Heat Is On",
       "cardColor": "#8B1A1A",
       "cardImage": "assets/smma-thumbnail.gif",
-      "description": "<div>The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.</div><div><br></div><div>Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: <b>the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry</b>. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA.</div>",
+      "description": "<div>The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.</div><div><br></div><div>Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA.</div>",
       "role": "Art Director",
       "type": "Branding",
       "client": "Singapore Media &amp; Marketing Awards",
@@ -310,6 +310,128 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
+      "id": "project-12-1778214680834",
+      "category": "ux",
+      "title": "FLEX by CPF / DollarVille Quiz Experience",
+      "cardColor": "#1A4A6B",
+      "cardImage": "assets/cpf-thumbnail.webm",
+      "description": "A mobile-first quiz experience that turns financial education into a gamified journey for young Singaporeans to discover their money personality.",
+      "role": "Art Director",
+      "type": "PRODUCT EXPERIENCE",
+      "client": "CPF",
+      "agency": "Digitas Publicis",
+      "contentBlocks": [
+        {
+          "type": "text",
+          "content": "<span style=\"font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; color: rgb(26, 26, 26);\">Context</span><br>FLEX by CPF was created to help young Singaporeans build better financial habits through relatable, bite-sized financial education. As its interactive entry point, DollarVille turns financial self-discovery into a mobile-first quiz experience, helping users discover their money personality through a playful financial world."
+        },
+        {
+          "type": "text",
+          "content": "<div><span style=\"font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; color: rgb(26, 26, 26);\">The challenge</span></div><div>CPF is often associated with long-term planning and retirement, which can feel distant to younger audiences. The challenge was to make financial education feel immediate, approachable, and worth completing while retaining the credibility of a government-backed platform.</div>"
+        },
+        {
+          "type": "text",
+          "content": "<p data-start=\"144\" data-end=\"163\" style=\"font-family: Inter, sans-serif; color: rgb(107, 107, 107);\"><span data-start=\"144\" data-end=\"163\" style=\"margin: 0px 0px 0.2em; font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; letter-spacing: -0.02em; color: rgb(26, 26, 26); display: inline-block;\">Experience Flow<br></span></p><h2 data-start=\"501\" data-end=\"514\"></h2><p style=\"font-family: Inter, sans-serif; color: rgb(107, 107, 107);\"></p><blockquote data-start=\"180\" data-end=\"499\"><p data-start=\"182\" data-end=\"499\" style=\"\">DollarVille was designed as a short, mobile-first journey that turns financial education into self-discovery. Users enter a playful financial world, answer bite-sized questions, receive a money personality result, and continue into FLEX with a more personalised starting point.</p></blockquote>"
+        },
+        {
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/cpf-1.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-2.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-3.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-4.jpg",
+              "color": "#1A4A6B"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "<b>Interaction Design<br></b><blockquote data-start=\"1497\" data-end=\"1775\"><p data-start=\"1499\" data-end=\"1775\">To keep the quiz simple and easy to complete on mobile, each question used familiar gestures instead of static form inputs. These interaction patterns made financial reflection feel more playful while keeping the journey clear and low-friction.<br><br>\n</p><h2 data-section-id=\"15bxai7\" data-start=\"1036\" data-end=\"1102\"></h2><p></p><blockquote data-start=\"881\" data-end=\"1034\"><p data-start=\"883\" data-end=\"1034\">Gestures such as pinch, flick, tap, and hold made each question feel active without requiring users to learn a complex interaction system.</p>\n</blockquote>\n</blockquote>\n<p data-start=\"1777\" data-end=\"1801\"></p>"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/cpf-5.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "3-grid",
+          "columns": 3,
+          "images": [
+            {
+              "src": "assets/cpf-8.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-6.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-7.jpg",
+              "color": "#1A4A6B"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "<font color=\"#1a1a1a\" face=\"Instrument Serif, serif\"><span style=\"font-size: 25.368px; letter-spacing: -0.50736px;\">Result System<br></span></font><blockquote data-start=\"1522\" data-end=\"1766\"><p data-start=\"1524\" data-end=\"1766\">Each completed quiz led to a money personality profile, turning abstract financial habits into a more relatable identity. The result gave users a clearer starting point within FLEX, connecting their quiz outcome to tailored tips and follow-up content.</p>\n</blockquote>\n<p data-start=\"1768\" data-end=\"1793\"></p>"
+        },
+        {
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/cpf-cashmere-cozyphile.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-diamond-mogul.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-glass-apprentice.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-steel-trouper.jpg",
+              "color": "#1A4A6B"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "<b>Visual World&nbsp;<br></b><blockquote data-start=\"1423\" data-end=\"1704\"><p data-start=\"1425\" data-end=\"1704\">DollarVille was built as a playful financial world, using characters, landmarks, gestures, and result profiles to make money habits feel easier to explore. The illustration system helped turn financial education from static content into an interactive journey.</p>\n</blockquote>\n<p data-start=\"1706\" data-end=\"1716\"></p>"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/cpf-10.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/cpf-9.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": "<div><b>My Role</b></div>As part of the creative team, I contributed to the development of DollarVille, helping refine the mobile quiz experience across visual direction, interaction cues, result screens, and production handoff. The work was highly collaborative, with the team shaping the experience together over an extended project timeline."
+        }
+      ]
+    },
+    {
       "id": "project-9-1777357020366",
       "category": "ux",
       "title": "Samsung / Regional Experience &amp; Design",
@@ -322,14 +444,14 @@ const PORTFOLIO_DATA = {
       "agency": "Digitas Publicis",
       "contentBlocks": [
         {
+          "type": "text",
+          "content": "<p data-start=\"1171\" data-end=\"1297\"><b>The Journey</b><br>Samsung CRM operates as a continuous journey across multiple phases of a launch, guiding users from awareness to conversion.</p>\n<p data-start=\"1304\" data-end=\"1459\"></p>"
+        },
+        {
           "type": "full-image",
           "src": "assets/samsung-0.png",
           "color": "#0044FF",
           "label": "SECTION TITLE"
-        },
-        {
-          "type": "text",
-          "content": "<p data-start=\"1171\" data-end=\"1297\">Samsung CRM operates as a continuous journey across multiple phases of a launch, guiding users from awareness to conversion.</p>\n<p data-start=\"1304\" data-end=\"1459\"></p>"
         },
         {
           "type": "image-grid",
@@ -402,50 +524,6 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
-        }
-      ]
-    },
-    {
-      "id": "project-6-1775716421818",
-      "category": "ux",
-      "title": "MORROW / Longevity Care",
-      "cardColor": "#1A4A6B",
-      "cardImage": "assets/morrow-thumbnail.gif",
-      "description": "MORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.<div><br></div><div>I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.</div><div><br></div>The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth.",
-      "role": "Art director / UIUX Designer",
-      "type": "Web Design",
-      "client": "Morrow",
-      "agency": "Digitas publicis",
-      "contentBlocks": [
-        {
-          "type": "full-image",
-          "src": "assets/morrow-intro.gif",
-          "color": "#1A4A6B",
-          "label": "VISUALS"
-        },
-        {
-          "type": "full-image",
-          "src": "assets/morrow-three.gif",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "full-image",
-          "src": "assets/morrow-two.gif",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "full-image",
-          "src": "assets/morrow-one.gif",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "full-image",
-          "src": "assets/morrow-moodboard.jpg",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
         }
       ]
     },
@@ -594,108 +672,46 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
-      "id": "project-12-1778214680834",
+      "id": "project-6-1775716421818",
       "category": "ux",
-      "title": "FLEX by CPF / DollarVille Quiz Experience",
+      "title": "MORROW / Longevity Care",
       "cardColor": "#1A4A6B",
-      "cardImage": "assets/cpf-thumbnail.webm",
-      "description": "A mobile-first quiz experience that turns financial education into a gamified journey for young Singaporeans to discover their money personality.",
-      "role": "Art Director",
-      "type": "PRODUCT EXPERIENCE",
-      "client": "CPF",
-      "agency": "Digitas Publicis",
+      "cardImage": "assets/morrow-thumbnail.gif",
+      "description": "MORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.<div><br></div><div>I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.</div><div><br></div>The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth.",
+      "role": "Art director / UIUX Designer",
+      "type": "Web Design",
+      "client": "Morrow",
+      "agency": "Digitas publicis",
       "contentBlocks": [
         {
-          "type": "text",
-          "content": "<p data-start=\"144\" data-end=\"163\"><span style=\"margin: 0px 0px 0.2em; font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; letter-spacing: -0.02em; color: rgb(26, 26, 26); display: inline-block;\">Context</span><br>FLEX by CPF was created to help young Singaporeans build better financial habits through relatable, bite-sized financial education. As its interactive entry point, DollarVille turns financial self-discovery into a mobile-first quiz experience, helping users discover their money personality through a playful financial world.</p><blockquote data-start=\"180\" data-end=\"499\">\n</blockquote>\n<h2 data-start=\"165\" data-end=\"178\"></h2>"
-        },
-        {
-          "type": "text",
-          "content": "<div><span style=\"margin: 0px 0px 0.2em; font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; letter-spacing: -0.02em; color: rgb(26, 26, 26); display: inline-block;\">The challenge</span></div><div>CPF is often associated with long-term planning and retirement, which can feel distant to younger audiences. The challenge was to make financial education feel immediate, approachable, and worth completing while retaining the credibility of a government-backed platform.</div>"
-        },
-        {
-          "type": "text",
-          "content": "<p data-start=\"144\" data-end=\"163\" style=\"font-family: Inter, sans-serif; color: rgb(107, 107, 107);\"><span data-start=\"144\" data-end=\"163\" style=\"margin: 0px 0px 0.2em; font-family: &quot;Instrument Serif&quot;, serif; font-size: clamp(20px, 2.8vw, 30px); line-height: 1.1; letter-spacing: -0.02em; color: rgb(26, 26, 26); display: inline-block;\">Experience Flow<br></span></p><h2 data-start=\"501\" data-end=\"514\"></h2><p style=\"font-family: Inter, sans-serif; color: rgb(107, 107, 107);\"></p><blockquote data-start=\"180\" data-end=\"499\"><p data-start=\"182\" data-end=\"499\" style=\"\">DollarVille was designed as a short, mobile-first journey that turns financial education into self-discovery. Users enter a playful financial world, answer bite-sized questions, receive a money personality result, and continue into FLEX with a more personalised starting point.</p></blockquote>"
-        },
-        {
-          "type": "4-grid",
-          "columns": 4,
-          "images": [
-            {
-              "src": "assets/cpf-1.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-2.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-3.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-4.jpg",
-              "color": "#1A4A6B"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "content": "<b>Interaction Design<br></b><blockquote data-start=\"1497\" data-end=\"1775\"><p data-start=\"1499\" data-end=\"1775\">To keep the quiz simple and easy to complete on mobile, each question used familiar gestures instead of static form inputs. These interaction patterns made financial reflection feel more playful while keeping the journey clear and low-friction.<br><br>\n</p><h2 data-section-id=\"15bxai7\" data-start=\"1036\" data-end=\"1102\"></h2><p></p><blockquote data-start=\"881\" data-end=\"1034\"><p data-start=\"883\" data-end=\"1034\">Gestures such as pinch, flick, tap, and hold made each question feel active without requiring users to learn a complex interaction system.</p>\n</blockquote>\n</blockquote>\n<p data-start=\"1777\" data-end=\"1801\"></p>"
+          "type": "full-image",
+          "src": "assets/morrow-intro.gif",
+          "color": "#1A4A6B",
+          "label": "VISUALS"
         },
         {
           "type": "full-image",
-          "src": "assets/cpf-5.jpg",
+          "src": "assets/morrow-three.gif",
           "color": "#1A4A6B",
           "label": "SECTION TITLE"
         },
         {
-          "type": "3-grid",
-          "columns": 3,
-          "images": [
-            {
-              "src": "assets/cpf-8.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-6.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-7.jpg",
-              "color": "#1A4A6B"
-            }
-          ]
+          "type": "full-image",
+          "src": "assets/morrow-two.gif",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
         },
         {
-          "type": "text",
-          "content": "<font color=\"#1a1a1a\" face=\"Instrument Serif, serif\"><span style=\"font-size: 25.368px; letter-spacing: -0.50736px;\">Result System<br></span></font><blockquote data-start=\"1522\" data-end=\"1766\"><p data-start=\"1524\" data-end=\"1766\">Each completed quiz led to a money personality profile, turning abstract financial habits into a more relatable identity. The result gave users a clearer starting point within FLEX, connecting their quiz outcome to tailored tips and follow-up content.</p>\n</blockquote>\n<p data-start=\"1768\" data-end=\"1793\"></p>"
+          "type": "full-image",
+          "src": "assets/morrow-one.gif",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
         },
         {
-          "type": "4-grid",
-          "columns": 4,
-          "images": [
-            {
-              "src": "assets/cpf-cashmere-cozyphile.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-diamond-mogul.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-glass-apprentice.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-steel-trouper.jpg",
-              "color": "#1A4A6B"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "content": "<b>Visual World&nbsp;<br></b><blockquote data-start=\"1423\" data-end=\"1704\"><p data-start=\"1425\" data-end=\"1704\">To make financial education feel less formal, DollarVille was built as a playful financial world with its own characters, landmarks, gestures, and result profiles. The illustration system helped turn money habits into something users could explore, rather than simply read about.</p>\n</blockquote>\n<p data-start=\"1706\" data-end=\"1716\"></p>"
+          "type": "full-image",
+          "src": "assets/morrow-moodboard.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
         }
       ]
     }

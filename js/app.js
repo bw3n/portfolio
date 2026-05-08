@@ -1595,10 +1595,11 @@ function createTextBlock(block, projectIndex, blockIndex) {
   div.className = "block-text";
   div.setAttribute("data-block-index", blockIndex);
 
-  const p = document.createElement("p");
-  p.innerHTML = block.content || "Enter your text here...";
-  p.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.content`);
-  div.appendChild(p);
+  const content = document.createElement("div");
+  content.className = "block-text-content";
+  content.innerHTML = block.content || "Enter your text here...";
+  content.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.content`);
+  div.appendChild(content);
 
   return div;
 }
