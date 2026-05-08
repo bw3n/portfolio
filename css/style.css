@@ -133,6 +133,7 @@ a {
   border-radius: var(--frame-radius);
   overflow: visible;
   position: relative;
+  z-index: 1;
   transition:
     transform 0.42s var(--ease-out),
     opacity 0.28s var(--ease-out),
@@ -158,6 +159,8 @@ a {
    SITE FOOTER
    ============================================================ */
 .site-footer {
+  position: relative;
+  z-index: 0;
   background: var(--color-footer-bg);
   color: var(--color-footer-text);
   padding: 0 var(--frame-padding) calc(var(--space-md) + 20px);
@@ -264,7 +267,7 @@ a {
 
 .site-footer-toplink {
   position: absolute;
-  top: -56px;
+  top: -34px;
   left: 50%;
   display: flex;
   align-items: center;
@@ -293,7 +296,7 @@ a {
 .site-footer.footer-reveal-active .site-footer-toplink {
   visibility: visible;
   pointer-events: auto;
-  transform: translate(-50%, 10px);
+  transform: translate(-50%, 2px);
 }
 
 .site-footer-toplink:hover {
@@ -1680,13 +1683,13 @@ body.edit-mode .edit-toolbar {
     min-height: 46px;
     padding: 0 22px;
     border-radius: 0 0 var(--surface-radius) var(--surface-radius);
-    top: -44px;
+    top: -20px;
     font-size: 10px;
     letter-spacing: 0.12em;
   }
 
   .site-footer.footer-reveal-active .site-footer-toplink {
-    transform: translate(-50%, 18px);
+    transform: translate(-50%, 8px);
   }
 
   .site-footer-logo-mark {

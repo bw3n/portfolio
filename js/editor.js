@@ -6,7 +6,8 @@ window.editMode = false;
 let suppressEditableBlurUntil = 0;
 
 function isEditorUIEnabled() {
-  return true;
+  const params = new URLSearchParams(window.location.search);
+  return params.get("editor") === "1";
 }
 
 // ============================================================
@@ -40,6 +41,10 @@ function toggleEditMode() {
 
 // Wire up the edit toggle button
 document.addEventListener("DOMContentLoaded", () => {
+  if (!isEditorUIEnabled()) {
+    return;
+  }
+
   document.body.classList.add("editor-enabled");
 
   const btn = document.getElementById("editToggle");

@@ -40,12 +40,29 @@ function decodeContentHTML(value = "") {
   return textarea.value;
 }
 
+function sanitizeEditableHref(href = "") {
+  const value = typeof href === "string" ? href.trim() : "";
+  if (!value) return "";
+
+  if (/^(https?:|mailto:|tel:|#|\/)/i.test(value)) {
+    return value;
+  }
+
+  return "";
+}
+
 function sanitizeInlineRichTextHTML(html = "") {
   const value = typeof html === "string" ? html : "";
 
   if (typeof document === "undefined") {
     return value
-      .replace(/<(?!\/?(?:b|strong|br)\b)[^>]+>/gi, "")
+      .replace(/<(?!\/?(?:a|b|strong|br)\b)[^>]+>/gi, "")
+      .replace(/<a\b[^>]*href=(["'])(.*?)\1[^>]*>/gi, (_, quote, href) => {
+        const safeHref = sanitizeEditableHref(decodeContentHTML(href));
+        return safeHref ? `<a href="${safeHref}">` : "";
+      })
+      .replace(/<a\b[^>]*>/gi, "")
+      .replace(/<\/a>/gi, "</a>")
       .replace(/<\s*b\s*>/gi, "<strong>")
       .replace(/<\s*\/\s*b\s*>/gi, "</strong>")
       .replace(/<br\s*\/?>/gi, "<br>");
@@ -75,6 +92,24 @@ function sanitizeInlineRichTextHTML(html = "") {
         strong.appendChild(sanitizeNode(child));
       });
       return strong;
+    }
+
+    if (tag === "a") {
+      const safeHref = sanitizeEditableHref(node.getAttribute("href") || "");
+      if (!safeHref) {
+        const fragment = document.createDocumentFragment();
+        Array.from(node.childNodes).forEach((child) => {
+          fragment.appendChild(sanitizeNode(child));
+        });
+        return fragment;
+      }
+
+      const anchor = document.createElement("a");
+      anchor.setAttribute("href", safeHref);
+      Array.from(node.childNodes).forEach((child) => {
+        anchor.appendChild(sanitizeNode(child));
+      });
+      return anchor;
     }
 
     const fragment = document.createDocumentFragment();
