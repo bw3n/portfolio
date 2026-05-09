@@ -3,11 +3,11 @@ const PORTFOLIO_DATA = {
     "logo": "B",
     "logoImage": "assets/boon-logo.png",
     "logoAlt": "Boon",
-    "heroLine1": "Art direction for campaigns, brands and digital experiences.",
+    "heroLine1": "Pushing the limits of brands, pixel by pixel.",
     "heroLine2": "",
-    "uxLine1": "Product-minded design for journeys, systems and digital experiences.",
+    "uxLine1": "Shaping digital journeys that feel simple, human, and seamless.",
     "uxLine2": "",
-    "labLine1": "AI experiments for faster prototyping, creative systems and new interactions.",
+    "labLine1": "Exploring new ways to think, build, and create with AI.",
     "labLine2": "",
     "navLinks": [
       {
@@ -15,7 +15,7 @@ const PORTFOLIO_DATA = {
         "href": "#work"
       },
       {
-        "label": "PRODUCT",
+        "label": "UI/UX",
         "href": "#ux"
       },
       {
@@ -100,15 +100,9 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "Gameplay Mechanics",
+            "heading": "",
             "paragraphs": [
-              "Gameplay Mechanics\nThe experience was designed with systems that sustain engagement, not just visual novelty.",
-              "Rubber Banding System",
-              "Trailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.",
-              "Random Event Triggers",
-              "Dynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.",
-              "Leaderboard Loop",
-              "Competitive ranking reinforces social play, driving repeated participation."
+              "<strong>Gameplay Mechanics\n</strong>The experience was designed with systems that sustain engagement, not just visual novelty.\n\nRubber Banding System\nTrailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.\n\nRandom Event Triggers\nDynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.\n\nLeaderboard Loop\nCompetitive ranking reinforces social play, driving repeated participation."
             ],
             "links": [],
             "linkIntro": "",
@@ -154,7 +148,8 @@ const PORTFOLIO_DATA = {
             "linkOutro": ""
           }
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "project-3",
@@ -197,11 +192,13 @@ const PORTFOLIO_DATA = {
           "url": "https://www.youtube.com/watch?v=VhiYcOHkPQg",
           "color": "#0044FF"
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "project-8-1775740149910",
       "category": "lab",
+      "archived": true,
       "title": "Digitas / U-Scan",
       "cardColor": "#1A6B1A",
       "cardImage": "assets/uscan-thumbnail.gif",
@@ -260,90 +257,199 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
-      "id": "project-10-1777516844723",
+      "id": "project-9-1777357020366",
       "category": "work",
-      "title": "SMMA / The Heat Is On",
-      "cardColor": "#8B1A1A",
-      "cardImage": "assets/smma-thumbnail.gif",
+      "title": "Samsung / Regional Experience & Design",
+      "cardColor": "#0044FF",
+      "cardImage": "assets/samsung-thumbnail.gif",
       "description": {
         "heading": "",
         "paragraphs": [
-          "The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.",
-          "Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA."
+          "As Regional Art Director for Samsung CRM, I shaped a scalable lifecycle experience system across Southeast Asia, translating global launch direction into localised CRM journeys across EDM, push, landing pages, and digital touchpoints.",
+          "The work focused on turning fast-moving product launches into scalable CRM experiences that could guide users from interest to action while adapting across different regional markets."
         ],
         "links": [],
         "linkIntro": "",
         "linkOutro": ""
       },
-      "role": "Art Director",
-      "type": "Branding",
-      "client": "Singapore Media &amp; Marketing Awards",
+      "role": "Regional Art Director",
+      "type": "CRM Design",
+      "client": "Samsung",
       "agency": "Digitas Publicis",
       "contentBlocks": [
         {
-          "type": "video",
-          "url": "https://vimeo.com/1187963229?fl=pl&fe=cm",
-          "color": "#8B1A1A"
+          "type": "text",
+          "content": {
+            "heading": "Samsung needed a system that could scale across markets, drive conversion, and still feel visually strong, all at the speed of light.",
+            "paragraphs": [],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
-          "type": "3-grid",
+          "type": "text",
+          "content": {
+            "heading": "The Journey",
+            "paragraphs": [
+              "Each launch was designed as a connected CRM journey, guiding users from early awareness to preorder and long-term engagement."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "full-image",
+          "src": "assets/samsung-0.png",
+          "color": "#0044FF",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "Modular CRM Storytelling",
+            "paragraphs": [
+              "Each CRM module was designed to work across the launch journey, balancing product storytelling, clear offers, and action-driven communication across different audience segments."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "image-grid",
           "columns": 3,
           "images": [
             {
-              "src": "assets/smma-pos1.webm",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-3.gif",
+              "color": "#0044FF"
             },
             {
-              "src": "assets/smma-post8.png",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-5.gif",
+              "color": "#0044FF"
             },
             {
-              "src": "assets/smma-post2.webm",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-4.gif",
+              "color": "#0044FF"
             }
           ]
         },
         {
-          "type": "3-grid",
+          "type": "image-grid",
           "columns": 3,
           "images": [
             {
-              "src": "assets/smma-post9.png",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-2 copy.png",
+              "color": "#0044FF"
             },
             {
-              "src": "assets/smma-post4.png",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-7.png",
+              "color": "#0044FF"
             },
             {
-              "src": "assets/smma-post10.png",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-6.png",
+              "color": "#0044FF"
             }
           ]
         },
         {
-          "type": "3-grid",
-          "columns": 3,
+          "type": "text",
+          "content": {
+            "heading": "Scaling Across Southeast Asia",
+            "paragraphs": [
+              "The CRM system was designed to scale across Singapore, Thailand, Vietnam, Malaysia, Indonesia, and Australia while adapting to different market needs, launches, and audience behaviours."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "full-image",
+          "src": "assets/samsung-1.jpg",
+          "color": "#0044FF",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "Building for Scale",
+            "paragraphs": [
+              "Built in Stripo to help regional teams adapt, scale, and launch campaigns faster across markets.\n\nThe modular system reduced manual production work while making campaign deployment faster and easier across multiple launch cycles.<br>"
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "two-image",
+          "color": "#0044FF",
           "images": [
             {
-              "src": "assets/smma-post13.png",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-6.webm",
+              "color": "#0044FF"
             },
             {
-              "src": "assets/smma-post3.png",
-              "color": "#8B1A1A"
-            },
-            {
-              "src": "assets/smma-post15.png",
-              "color": "#8B1A1A"
+              "src": "assets/samsung-7.webm",
+              "color": "#0044FF"
             }
           ]
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "Impact",
+            "paragraphs": [
+              "Key results across major Samsung launches during my time as Regional Art Director."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/samsung-stat1.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-stat3.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-stat2.png",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-stat4.png",
+              "color": "#0044FF"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "project-7-1775737307838",
       "category": "lab",
+      "archived": true,
       "title": "Digitas / Rabbithood",
       "cardColor": "#6B4C1E",
       "cardImage": "assets/rabbithood-thumbnail.gif",
@@ -449,10 +555,8 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "Context",
-            "paragraphs": [
-              "FLEX by CPF was created to help young Singaporeans build better financial habits through relatable, bite-sized financial education. As its interactive entry point, DollarVille turns financial self-discovery into a mobile-first quiz experience, helping users discover their money personality through a playful financial world."
-            ],
+            "heading": "CPF can feel distant to younger audiences. DollarVille was created to make financial education feel lighter, more immediate, and easier to complete.",
+            "paragraphs": [],
             "links": [],
             "linkIntro": "",
             "linkOutro": ""
@@ -461,22 +565,9 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "The challenge",
+            "heading": "Experience Flow",
             "paragraphs": [
-              "CPF is often associated with long-term planning and retirement, which can feel distant to younger audiences. The challenge was to make financial education feel immediate, approachable, and worth completing while retaining the credibility of a government-backed platform."
-            ],
-            "links": [],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
-        },
-        {
-          "type": "text",
-          "content": {
-            "heading": "",
-            "paragraphs": [
-              "Experience Flow",
-              "DollarVille was designed as a short, mobile-first journey that turns financial education into self-discovery. Users enter a playful financial world, answer bite-sized questions, receive a money personality result, and continue into FLEX with a more personalised starting point."
+              "A short mobile quiz where users answer bite-sized questions, interact through simple gestures, and unlock a money personality that leads them into FLEX."
             ],
             "links": [],
             "linkIntro": "",
@@ -510,7 +601,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "Interaction Design",
             "paragraphs": [
-              "To keep the quiz simple and easy to complete on mobile, each question used familiar gestures instead of static form inputs. These interaction patterns made financial reflection feel more playful while keeping the journey clear and low-friction.Gestures such as pinch, flick, tap, and hold made each question feel active without requiring users to learn a complex interaction system."
+              "We used familiar mobile actions like pinch, flick, tap, and hold to make each question feel more playful than a standard multiple-choice quiz."
             ],
             "links": [],
             "linkIntro": "",
@@ -546,7 +637,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "Result System",
             "paragraphs": [
-              "Each completed quiz led to a money personality profile, turning abstract financial habits into a more relatable identity. The result gave users a clearer starting point within FLEX, connecting their quiz outcome to tailored tips and follow-up content."
+              "The result system translated financial behaviours into personality profiles, giving users a more relatable starting point."
             ],
             "links": [],
             "linkIntro": "",
@@ -580,7 +671,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "Visual World",
             "paragraphs": [
-              "DollarVille was built as a playful financial world, using characters, landmarks, gestures, and result profiles to make money habits feel easier to explore. The illustration system helped turn financial education from static content into an interactive journey."
+              "The experience was wrapped in a playful visual system of characters, landmarks, gestures, and result profiles, making money habits feel easier to explore."
             ],
             "links": [],
             "linkIntro": "",
@@ -604,145 +695,104 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "My Role",
             "paragraphs": [
-              "As part of the creative team, I contributed to the development of DollarVille, helping refine the mobile quiz experience across visual direction, interaction cues, result screens, and production handoff. The work was highly collaborative, with the team shaping the experience together over an extended project timeline."
+              "I contributed as part of the creative team, refining visual direction, interaction cues, result screens, and production handoff together with the illustration house and dev team."
             ],
             "links": [],
             "linkIntro": "",
             "linkOutro": ""
           }
+        },
+        {
+          "type": "full-image",
+          "src": "assets/cpf-11.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
         }
-      ]
+      ],
+      "archived": false
     },
     {
-      "id": "project-9-1777357020366",
-      "category": "ux",
-      "title": "Samsung / Regional Experience & Design",
-      "cardColor": "#0044FF",
-      "cardImage": "assets/samsung-thumbnail.gif",
+      "id": "project-10-1777516844723",
+      "category": "work",
+      "title": "SMMA / The Heat Is On",
+      "cardColor": "#8B1A1A",
+      "cardImage": "assets/smma-thumbnail.gif",
       "description": {
         "heading": "",
         "paragraphs": [
-          "As Regional Art Director for Samsung CRM, I shaped a scalable lifecycle experience system across Southeast Asia, translating global launch direction into localised CRM journeys across EDM, push, landing pages, and digital touchpoints.",
-          "The work went beyond campaign adaptation. It focused on building a repeatable framework for product storytelling, audience personalisation, content hierarchy, and conversion across every stage of a launch."
+          "The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.",
+          "Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA."
         ],
         "links": [],
         "linkIntro": "",
         "linkOutro": ""
       },
-      "role": "Regional Art Director",
-      "type": "CRM",
-      "client": "Samsung",
+      "role": "Art Director",
+      "type": "Branding",
+      "client": "SMMA",
       "agency": "Digitas Publicis",
       "contentBlocks": [
         {
-          "type": "text",
-          "content": {
-            "heading": "",
-            "paragraphs": [
-              "The Journey\nSamsung CRM operates as a continuous journey across multiple phases of a launch, guiding users from awareness to conversion."
-            ],
-            "links": [],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
+          "type": "video",
+          "url": "https://vimeo.com/1187963229?fl=pl&fe=cm",
+          "color": "#8B1A1A"
         },
         {
-          "type": "full-image",
-          "src": "assets/samsung-0.png",
-          "color": "#0044FF",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "image-grid",
+          "type": "3-grid",
           "columns": 3,
           "images": [
             {
-              "src": "assets/samsung-3.gif",
-              "color": "#0044FF"
+              "src": "assets/smma-pos1.webm",
+              "color": "#8B1A1A"
             },
             {
-              "src": "assets/samsung-5.gif",
-              "color": "#0044FF"
+              "src": "assets/smma-post8.png",
+              "color": "#8B1A1A"
             },
             {
-              "src": "assets/samsung-4.gif",
-              "color": "#0044FF"
+              "src": "assets/smma-post2.webm",
+              "color": "#8B1A1A"
             }
           ]
         },
         {
-          "type": "image-grid",
+          "type": "3-grid",
           "columns": 3,
           "images": [
             {
-              "src": "assets/samsung-2 copy.png",
-              "color": "#0044FF"
+              "src": "assets/smma-post9.png",
+              "color": "#8B1A1A"
             },
             {
-              "src": "assets/samsung-7.png",
-              "color": "#0044FF"
+              "src": "assets/smma-post4.png",
+              "color": "#8B1A1A"
             },
             {
-              "src": "assets/samsung-6.png",
-              "color": "#0044FF"
+              "src": "assets/smma-post10.png",
+              "color": "#8B1A1A"
             }
           ]
         },
         {
-          "type": "text",
-          "content": {
-            "heading": "",
-            "paragraphs": [
-              "Selected CRM Modules Across Journey Phases",
-              "The work focused on shaping visual hierarchy and narrative flow across CRM touchpoints, balancing Samsung’s premium product storytelling with clear, action-driven communication.",
-              "Each asset is designed as part of a larger system, where layout, pacing and messaging work together across the full journey."
-            ],
-            "links": [],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
-        },
-        {
-          "type": "full-image",
-          "src": "assets/samsung-1.jpg",
-          "color": "#0044FF",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "4-grid",
-          "columns": 4,
+          "type": "3-grid",
+          "columns": 3,
           "images": [
             {
-              "src": "assets/samsung-stat1.png",
-              "color": "#0044FF"
+              "src": "assets/smma-post13.png",
+              "color": "#8B1A1A"
             },
             {
-              "src": "assets/samsung-stat3.png",
-              "color": "#0044FF"
+              "src": "assets/smma-post3.png",
+              "color": "#8B1A1A"
             },
             {
-              "src": "assets/samsung-stat2.png",
-              "color": "#0044FF"
-            },
-            {
-              "src": "assets/samsung-stat4.png",
-              "color": "#0044FF"
+              "src": "assets/smma-post15.png",
+              "color": "#8B1A1A"
             }
           ]
-        },
-        {
-          "type": "text",
-          "content": {
-            "heading": "",
-            "paragraphs": [
-              "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
-            ],
-            "links": [],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "project-2",
@@ -790,7 +840,8 @@ const PORTFOLIO_DATA = {
             "linkOutro": "."
           }
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "hyper-roll-karaoke",
@@ -842,7 +893,8 @@ const PORTFOLIO_DATA = {
             "linkOutro": "."
           }
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "project-5-1775635733779",
@@ -894,7 +946,8 @@ const PORTFOLIO_DATA = {
             "linkOutro": ". :)"
           }
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "project-11-1777902605684",
@@ -970,7 +1023,8 @@ const PORTFOLIO_DATA = {
           "color": "#4A1A6B",
           "label": "VISUALS"
         }
-      ]
+      ],
+      "archived": false
     },
     {
       "id": "project-6-1775716421818",
@@ -981,50 +1035,128 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "MORROW is a next-generation longevity and lifestyle medical startup in Singapore. In a space where trust defines conversion, the brand needed to feel both medically credible and culturally relevant.",
-          "I worked across art direction and UX to shape a digital experience that bridges both, translating medical clarity into something more considered, accessible, and desirable.",
-          "The result is a mobile-first, conversion-led platform built in Framer, designed to launch quickly while establishing a scalable foundation for growth."
+          "A mobile-first digital experience that translates science-led longevity care into a premium journey for people to understand their health, improve how they live, and take action earlier."
         ],
         "links": [],
         "linkIntro": "",
         "linkOutro": ""
       },
-      "role": "Art director / UIUX Designer",
-      "type": "Web Design",
+      "role": "Art Director",
+      "type": "Digital EXperience",
       "client": "Morrow",
       "agency": "Digitas publicis",
       "contentBlocks": [
         {
-          "type": "full-image",
-          "src": "assets/morrow-intro.gif",
-          "color": "#1A4A6B",
-          "label": "VISUALS"
+          "type": "text",
+          "content": {
+            "heading": "Making science-led longevity care feel clear, human, and approachable.",
+            "paragraphs": [],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
-          "type": "full-image",
-          "src": "assets/morrow-three.gif",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
+          "type": "text",
+          "content": {
+            "heading": "Phase 1 — Brand Storytelling",
+            "paragraphs": [
+              "To stand out in a growing longevity space, MORROW launched with an immersive long-scroll experience built to capture attention through cinematic storytelling."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
-          "type": "full-image",
-          "src": "assets/morrow-two.gif",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
+          "type": "video",
+          "url": "https://vimeo.com/1190781600?share=copy",
+          "color": "#1A4A6B"
         },
         {
-          "type": "full-image",
-          "src": "assets/morrow-one.gif",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/morrow-4.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/morrow-2.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/morrow-3.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/morrow-5.jpg",
+              "color": "#1A4A6B"
+            }
+          ]
         },
         {
-          "type": "full-image",
-          "src": "assets/morrow-moodboard.jpg",
+          "type": "text",
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "<strong>Phase 2 — Service-Led Experience\n</strong>As MORROW evolved beyond launch, the experience shifted from brand storytelling into a clearer service-led platform focused on trust, navigation, and conversion. \n\nThe second phase introduced clearer service architecture and more conversion-focused journeys across diagnostics, recovery, movement, and coaching."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "two-image",
           "color": "#1A4A6B",
-          "label": "SECTION TITLE"
+          "images": [
+            {
+              "src": "assets/morrow-6.webm",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/morrow-7.webm",
+              "color": "#1A4A6B"
+            }
+          ]
+        },
+        {
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/morrow-9.webm",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/morrow-8.webm",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/morrow-10.webm",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/morrow-11.webm",
+              "color": "#1A4A6B"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "<strong>Building in Framer\n</strong>\nTo move quickly from pitch to launch, the experience was designed and implemented directly in Framer alongside the UX team. This allowed the visual system, responsive layouts, and interaction details to evolve closer to the final experience without relying on a traditional developer handoff."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         }
-      ]
+      ],
+      "archived": false
     }
   ],
   "about": {

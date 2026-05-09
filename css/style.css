@@ -87,6 +87,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-gutter: stable both-edges;
 }
 
 body {
@@ -704,7 +705,7 @@ a {
 
 .project-info-description {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.75;
   color: var(--color-text-secondary);
   width: min(100%, var(--text-content-max-width));
@@ -948,7 +949,7 @@ body.edit-mode .thumbnail-drag-handle:active {
 
 .block-text {
   text-align: left;
-  padding: 8px 0;
+  padding: var(--space-md) 0;
   width: min(100%, var(--text-content-max-width));
   max-width: var(--text-content-max-width);
   margin: 0 auto;
@@ -956,14 +957,17 @@ body.edit-mode .thumbnail-drag-handle:active {
 
 .block-text-content {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.75;
   color: var(--color-text-secondary);
+  display: grid;
+  row-gap: var(--space-sm);
 }
 
 .block-text-heading {
   display: block;
-  margin: 0 0 var(--space-sm);
+  line-height: 1.05 !important;
+  margin: 0;
 }
 
 .block-text-content p,
@@ -975,8 +979,9 @@ body.edit-mode .thumbnail-drag-handle:active {
 .block-text-content h4,
 .block-text-content h5,
 .block-text-content h6 {
-  margin: 0 0 var(--space-sm);
+  margin: 0;
 }
+
 
 .block-text-content blockquote {
   margin-left: 0;
@@ -987,6 +992,23 @@ body.edit-mode .thumbnail-drag-handle:active {
 
 .block-text-content > :last-child {
   margin-bottom: 0;
+}
+
+.block-text--framer-callout .block-text-content strong:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.block-text--framer-callout .block-text-content strong:first-child::after {
+  content: "";
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  background-image: url("../assets/framer%20logo.avif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .block-video {
@@ -1026,7 +1048,7 @@ body.edit-mode .thumbnail-drag-handle:active {
 
 .block-two-text-column .col-text {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.75;
   color: var(--color-text-secondary);
   min-width: 0;
@@ -1034,7 +1056,7 @@ body.edit-mode .thumbnail-drag-handle:active {
 
 .block-two-column .col-text {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.75;
   color: var(--color-text-secondary);
   padding: var(--space-sm) 0;
@@ -1582,7 +1604,6 @@ body.edit-mode .edit-toolbar {
 
   .block-text-heading {
     --serif-text-heading-size: clamp(24px, 7.2vw, 34px);
-    margin-bottom: 10px;
   }
 
   .block-two-text-column {
@@ -1744,6 +1765,9 @@ body.edit-mode .edit-toolbar {
 .about-divider {
   border: none;
   border-top: 1px solid rgba(26, 26, 26, 0.12);
+  width: min(100%, var(--text-content-max-width));
+  max-width: var(--text-content-max-width);
+  margin: 0 auto;
 }
 
 /* --- Intro --- */
@@ -1808,7 +1832,7 @@ body.edit-mode .edit-toolbar {
 
 .about-bio {
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.8;
   color: var(--color-text);
   margin-top: 0;
@@ -1847,6 +1871,9 @@ body.edit-mode .edit-toolbar {
   grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
   gap: clamp(36px, 5vw, var(--space-2xl));
   align-items: start;
+  width: min(100%, var(--text-content-max-width));
+  max-width: var(--text-content-max-width);
+  margin: 0 auto;
 }
 
 .about-col {
@@ -2197,6 +2224,9 @@ body.edit-mode .edit-toolbar {
   flex-direction: column;
   gap: var(--space-md);
   padding-bottom: var(--space-lg);
+  width: min(100%, var(--text-content-max-width));
+  max-width: var(--text-content-max-width);
+  margin: 0 auto;
 }
 
 .about-contact-links {

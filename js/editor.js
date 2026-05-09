@@ -41,9 +41,7 @@ function toggleEditMode() {
 
 // Wire up the edit toggle button
 document.addEventListener("DOMContentLoaded", () => {
-  if (!isEditorUIEnabled()) {
-    return;
-  }
+  if (!isEditorUIEnabled()) return;
 
   document.body.classList.add("editor-enabled");
 
@@ -119,6 +117,54 @@ function isEditableTextEmpty(target) {
   return text.length === 0;
 }
 
+function findClosestInlineBoldAncestor(node, boundary) {
+  let current = node && node.nodeType === Node.TEXT_NODE ? node.parentNode : node;
+  while (current && current !== boundary) {
+    if (current.nodeType === Node.ELEMENT_NODE) {
+      const tagName = current.tagName.toLowerCase();
+      if (tagName === "strong" || tagName === "b") {
+        return current;
+      }
+    }
+    current = current.parentNode;
+  }
+  return null;
+}
+
+function unwrapSelectedInlineBold(target) {
+  const selection = window.getSelection ? window.getSelection() : null;
+  if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+    return false;
+  }
+
+  const range = selection.getRangeAt(0);
+  if (!target.contains(range.commonAncestorContainer)) {
+    return false;
+  }
+
+  const startBold = findClosestInlineBoldAncestor(range.startContainer, target);
+  const endBold = findClosestInlineBoldAncestor(range.endContainer, target);
+  if (!startBold || startBold !== endBold) {
+    return false;
+  }
+
+  const selectedText = selection.toString().replace(/\u00a0/g, " ").trim();
+  const boldText = startBold.textContent.replace(/\u00a0/g, " ").trim();
+  if (!selectedText || selectedText !== boldText) {
+    return false;
+  }
+
+  const parent = startBold.parentNode;
+  if (!parent) return false;
+
+  while (startBold.firstChild) {
+    parent.insertBefore(startBold.firstChild, startBold);
+  }
+  parent.removeChild(startBold);
+  parent.normalize();
+  return true;
+}
+
 function getSelectionDetailsWithin(target) {
   const selection = window.getSelection ? window.getSelection() : null;
   if (!selection || selection.rangeCount === 0) {
@@ -176,6 +222,29 @@ function syncEditableToData(target) {
   }
 
   return true;
+}
+
+function getStructuredContentLocation(path = "") {
+  const match = path.match(/^projects\.(\d+)\.contentBlocks\.(\d+)\.content(?:\.|$)/);
+  if (!match) return null;
+
+  return {
+    projectIndex: parseInt(match[1], 10),
+    blockIndex: parseInt(match[2], 10)
+  };
+}
+
+function getStructuredContentShape(path = "") {
+  const location = getStructuredContentLocation(path);
+  if (!location) return null;
+
+  const content = PORTFOLIO_DATA.projects?.[location.projectIndex]?.contentBlocks?.[location.blockIndex]?.content;
+  if (!content || typeof content !== "object") return null;
+
+  return JSON.stringify({
+    hasHeading: Boolean(String(content.heading || "").trim()),
+    paragraphCount: Array.isArray(content.paragraphs) ? content.paragraphs.length : 0
+  });
 }
 
 function removeStructuredEditableLine(target) {
@@ -273,6 +342,8 @@ function handleEditableBlur(e) {
 
   if (!path) return;
 
+  const structuredShapeBeforeSave = getStructuredContentShape(path);
+
   syncEditableToData(e.target);
 
   const linkHrefPath = e.target.getAttribute("data-editable-link-href");
@@ -290,11 +361,18 @@ function handleEditableBlur(e) {
   }
 
   saveData();
+
+  const structuredShapeAfterSave = getStructuredContentShape(path);
+  if (structuredShapeBeforeSave && structuredShapeAfterSave && structuredShapeBeforeSave !== structuredShapeAfterSave) {
+    suppressEditableBlurForRerender();
+    rerenderEditorView();
+  }
 }
 
 function handleEditableKeydown(e) {
   const multiline = e.target.getAttribute("data-editable-multiline") === "true";
   const isInlineRichText = e.target.getAttribute("data-editable-richtext") === "inline";
+  const selectionDetails = getSelectionDetailsWithin(e.target);
 
   if (e.key === "Enter" && !e.shiftKey && !multiline) {
     e.preventDefault();
@@ -306,9 +384,14 @@ function handleEditableKeydown(e) {
     document.execCommand("insertLineBreak");
   }
 
-  if (e.key === "Backspace" && isEditableTextEmpty(e.target) && removeStructuredEditableLine(e.target)) {
-    e.preventDefault();
-    return;
+  if (e.key === "Backspace" || e.key === "Delete") {
+    const shouldRemoveStructuredLine =
+      isEditableTextEmpty(e.target) || selectionDetails.selectedAllText;
+
+    if (shouldRemoveStructuredLine && removeStructuredEditableLine(e.target)) {
+      e.preventDefault();
+      return;
+    }
   }
 
   // Handle Cmd+K / Ctrl+K for links
@@ -337,7 +420,18 @@ function handleEditableKeydown(e) {
 
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "b") {
     e.preventDefault();
+    const path = e.target.getAttribute("data-editable") || "";
+
+    if (/^projects\.\d+\.contentBlocks\.\d+\.content\.heading$/.test(path)) {
+      toggleStructuredHeadingFromEditable(e.target);
+      return;
+    }
+
     if (isInlineRichText) {
+      if (unwrapSelectedInlineBold(e.target)) {
+        syncEditableToData(e.target);
+        return;
+      }
       document.execCommand("bold");
     }
   }
@@ -480,12 +574,16 @@ function resetBlockDragState(container) {
   if (draggedBlock) {
     draggedBlock.classList.remove("dragging");
     draggedBlock.style.opacity = "";
+    draggedBlock.setAttribute("draggable", "false");
   }
   draggedBlock = null;
   draggedBlockIndex = -1;
   blockDropIndex = -1;
   blockDragArmed = false;
   if (container) {
+    container.querySelectorAll("[data-block-index]").forEach((block) => {
+      block.setAttribute("draggable", "false");
+    });
     container.querySelectorAll(".drag-placeholder-block").forEach(p => p.remove());
   }
 }
@@ -516,12 +614,13 @@ function setupBlockDragAndDrop() {
     if (indexStr === null) return;
     const handle = block.querySelector(".block-drag-handle");
 
-    block.setAttribute("draggable", "true");
+    block.setAttribute("draggable", "false");
 
     if (handle) {
       handle.addEventListener("pointerdown", (e) => {
         if (!window.editMode) return;
         blockDragArmed = true;
+        block.setAttribute("draggable", "true");
         e.stopPropagation();
       });
 
@@ -535,6 +634,7 @@ function setupBlockDragAndDrop() {
     block.addEventListener("dragstart", (e) => {
       if (!window.editMode) return;
       if (!blockDragArmed) {
+        block.setAttribute("draggable", "false");
         e.preventDefault();
         return;
       }

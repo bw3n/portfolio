@@ -86,11 +86,20 @@ function stripHTML(value = "") {
 }
 
 function normalizeRichTextValue(value) {
+  const normalizeParagraph = (paragraph) => {
+    if (typeof paragraph !== "string") return "";
+    const normalized = paragraph.trim();
+    if (!normalized) return "";
+
+    const visibleText = stripHTML(sanitizeInlineRichTextHTML(normalized));
+    return visibleText ? normalized : "";
+  };
+
   if (value && typeof value === "object" && !Array.isArray(value)) {
     return {
       heading: typeof value.heading === "string" ? value.heading.trim() : "",
       paragraphs: Array.isArray(value.paragraphs)
-        ? value.paragraphs.map((paragraph) => typeof paragraph === "string" ? paragraph : "").filter(Boolean)
+        ? value.paragraphs.map(normalizeParagraph).filter(Boolean)
         : [],
       links: Array.isArray(value.links)
         ? value.links.filter((link) => link && typeof link.label === "string" && typeof link.href === "string")
@@ -345,6 +354,10 @@ function getProjectById(id) {
   return PORTFOLIO_DATA.projects.find((project) => {
     return project.id === id || getProjectSlug(project) === id;
   }) || null;
+}
+
+function isProjectArchived(project) {
+  return Boolean(project?.archived);
 }
 
 function getProjectCategory(project) {
@@ -1073,6 +1086,7 @@ function renderProjectsGrid(category = "work") {
 
   PORTFOLIO_DATA.projects.forEach((project, index) => {
     if (getProjectCategory(project) !== category) return;
+    if (isProjectArchived(project)) return;
 
     const card = document.createElement("div");
     card.className = "project-card";
@@ -1127,7 +1141,11 @@ function renderProjectsGrid(category = "work") {
     card.appendChild(dragHandle);
 
     const siblingIndexes = PORTFOLIO_DATA.projects
-      .map((candidate, candidateIndex) => getProjectCategory(candidate) === category ? candidateIndex : -1)
+      .map((candidate, candidateIndex) => {
+        return getProjectCategory(candidate) === category && !isProjectArchived(candidate)
+          ? candidateIndex
+          : -1;
+      })
       .filter((candidateIndex) => candidateIndex !== -1);
     const categoryPosition = siblingIndexes.indexOf(index);
 
@@ -1743,6 +1761,15 @@ function createTextBlock(block, projectIndex, blockIndex) {
   const div = document.createElement("div");
   div.className = "block-text";
   div.setAttribute("data-block-index", blockIndex);
+
+  const paragraphs = Array.isArray(block?.content?.paragraphs) ? block.content.paragraphs : [];
+  const hasFramerCallout = paragraphs.some((paragraph) => {
+    return typeof paragraph === "string" && paragraph.includes("Building in Framer");
+  });
+
+  if (hasFramerCallout) {
+    div.classList.add("block-text--framer-callout");
+  }
 
   const content = document.createElement("div");
   content.className = "block-text-content";

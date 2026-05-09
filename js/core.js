@@ -5,7 +5,7 @@
 
 const PORTFOLIO_BROWSER_STATE_KEY = "portfolio_v3_data";
 const PORTFOLIO_BROWSER_STATE_VERSION_KEY = "portfolio_v3_state_version";
-const PORTFOLIO_BROWSER_STATE_VERSION = "20260509-11";
+const PORTFOLIO_BROWSER_STATE_VERSION = "20260510-18";
 
 function saveData() {
   try {
@@ -138,9 +138,18 @@ function stripContentHTML(value = "") {
 }
 
 function splitStructuredParagraphs(value) {
+  const normalizeParagraph = (paragraph) => {
+    if (typeof paragraph !== "string") return "";
+    const normalized = paragraph.replace(/\r\n?/g, "\n").trim();
+    if (!normalized) return "";
+
+    const visibleText = stripContentHTML(sanitizeInlineRichTextHTML(normalized));
+    return visibleText ? normalized : "";
+  };
+
   if (Array.isArray(value)) {
     return value
-      .map(item => typeof item === "string" ? item.replace(/\r\n?/g, "\n").trim() : "")
+      .map(normalizeParagraph)
       .filter(Boolean);
   }
 
@@ -149,7 +158,7 @@ function splitStructuredParagraphs(value) {
   return value
     .replace(/\r\n?/g, "\n")
     .split(/\n{2,}/)
-    .map(item => item.trim())
+    .map(normalizeParagraph)
     .filter(Boolean);
 }
 
@@ -167,18 +176,6 @@ function normalizeStructuredLinks(links) {
       return { label, href };
     })
     .filter(Boolean);
-}
-
-function shouldPromoteFirstParagraphToHeading(content) {
-  if (!content || content.heading || !Array.isArray(content.paragraphs) || content.paragraphs.length < 2) {
-    return false;
-  }
-
-  const candidate = String(content.paragraphs[0] || "").trim();
-  if (!candidate || candidate.length > 80) return false;
-  if (/[.!?:]$/.test(candidate)) return false;
-
-  return /^[A-Z0-9][A-Za-z0-9'&/,\- ]+$/.test(candidate);
 }
 
 function extractEmbeddedHeadingFromFirstParagraph(content) {
@@ -209,6 +206,29 @@ function extractEmbeddedHeadingFromFirstParagraph(content) {
   return content;
 }
 
+function extractLeadingStrongHeadingFromFirstParagraph(content) {
+  if (!content || content.heading || !Array.isArray(content.paragraphs) || !content.paragraphs.length) {
+    return content;
+  }
+
+  const firstParagraph = sanitizeInlineRichTextHTML(String(content.paragraphs[0] || "").trim());
+  if (!firstParagraph) return content;
+
+  const match = firstParagraph.match(/^\s*<strong>(.*?)<\/strong>(?:<br>\s*|\s+)?([\s\S]*)$/i);
+  if (!match) return content;
+
+  const candidateHeading = stripContentHTML(match[1]);
+  if (!candidateHeading) return content;
+
+  const remainder = sanitizeInlineRichTextHTML(match[2] || "");
+  content.heading = candidateHeading;
+  content.paragraphs = splitStructuredParagraphs([
+    remainder,
+    ...content.paragraphs.slice(1)
+  ]);
+  return content;
+}
+
 function normalizeStructuredObjectContent(content) {
   const normalized = {
     heading: typeof content.heading === "string" ? content.heading.trim() : "",
@@ -221,6 +241,7 @@ function normalizeStructuredObjectContent(content) {
   // Recover only the specific earlier bug where a heading and body were
   // accidentally merged into the same paragraph with a newline.
   extractEmbeddedHeadingFromFirstParagraph(normalized);
+  extractLeadingStrongHeadingFromFirstParagraph(normalized);
 
   return normalized;
 }
@@ -333,6 +354,7 @@ function normalizeStructuredContent(value, { extractHeading = false } = {}) {
 function normalizeProject(project) {
   if (!project || typeof project !== "object") return;
 
+  project.archived = Boolean(project.archived);
   project.title = stripContentHTML(typeof project.title === "string" ? project.title : "");
   project.description = normalizeStructuredContent(project.description);
 
@@ -343,6 +365,25 @@ function normalizeProject(project) {
 
     if (block.type === "text") {
       block.content = normalizeStructuredContent(block.content, { extractHeading: true });
+
+      // Recover older Samsung saved-state text blocks where the section title
+      // was stored as the first paragraph instead of the heading field.
+      if (
+        project.id === "project-9-1777357020366" &&
+        block.content &&
+        !block.content.heading &&
+        Array.isArray(block.content.paragraphs) &&
+        block.content.paragraphs.length > 1
+      ) {
+        const firstParagraph = String(block.content.paragraphs[0] || "").trim();
+        if (
+          firstParagraph === "Selected CRM Modules Across Journey Phases" ||
+          firstParagraph === "Modular CRM Storytelling"
+        ) {
+          block.content.heading = "Modular CRM Storytelling";
+          block.content.paragraphs.shift();
+        }
+      }
     }
   });
 }
@@ -388,40 +429,46 @@ function shouldKeepDefaultNavLinks(savedNavLinks, defaultNavLinks) {
 function loadData() {
   normalizePortfolioData(PORTFOLIO_DATA);
 
-  const savedStateVersion = localStorage.getItem(PORTFOLIO_BROWSER_STATE_VERSION_KEY);
-  if (savedStateVersion && savedStateVersion !== PORTFOLIO_BROWSER_STATE_VERSION) {
+  try {
+    const savedStateVersion = localStorage.getItem(PORTFOLIO_BROWSER_STATE_VERSION_KEY);
+    if (savedStateVersion && savedStateVersion !== PORTFOLIO_BROWSER_STATE_VERSION) {
+      localStorage.removeItem(PORTFOLIO_BROWSER_STATE_KEY);
+      localStorage.removeItem(PORTFOLIO_BROWSER_STATE_VERSION_KEY);
+    }
+
+    const saved = localStorage.getItem(PORTFOLIO_BROWSER_STATE_KEY);
+    if (saved) {
+      const defaultSite = cloneData(PORTFOLIO_DATA.site);
+      const parsed = JSON.parse(saved);
+      if (parsed.site) {
+        Object.assign(PORTFOLIO_DATA.site, parsed.site);
+
+        // Drop deprecated nav items from older browser-saved state.
+        PORTFOLIO_DATA.site.navLinks = removeDeprecatedNavLinks(PORTFOLIO_DATA.site.navLinks);
+
+        // Keep nav links from the current source file when older browser state
+        // is missing newly added links like "Lab".
+        if (shouldKeepDefaultNavLinks(parsed.site.navLinks, defaultSite.navLinks)) {
+          PORTFOLIO_DATA.site.navLinks = defaultSite.navLinks;
+        }
+
+        PORTFOLIO_DATA.site.navLinks = removeDeprecatedNavLinks(PORTFOLIO_DATA.site.navLinks);
+
+        // Migrate older saved lab hero copy so localStorage does not keep reviving it.
+        const hadOldLabHeading = parsed.site.labLine1 === "Lab.";
+        const hadOldLabSubheading = parsed.site.labLine2 === "Side projects, experiments, and things I make for myself.";
+
+        if (hadOldLabHeading || hadOldLabSubheading) {
+          PORTFOLIO_DATA.site.labLine1 = "Experiments, ideas and vibes";
+          PORTFOLIO_DATA.site.labLine2 = "";
+        }
+      }
+      if (parsed.projects) PORTFOLIO_DATA.projects = parsed.projects;
+    }
+  } catch (error) {
+    console.error("Failed to load saved portfolio browser state:", error);
     localStorage.removeItem(PORTFOLIO_BROWSER_STATE_KEY);
     localStorage.removeItem(PORTFOLIO_BROWSER_STATE_VERSION_KEY);
-  }
-
-  const saved = localStorage.getItem(PORTFOLIO_BROWSER_STATE_KEY);
-  if (saved) {
-    const defaultSite = cloneData(PORTFOLIO_DATA.site);
-    const parsed = JSON.parse(saved);
-    if (parsed.site) {
-      Object.assign(PORTFOLIO_DATA.site, parsed.site);
-
-      // Drop deprecated nav items from older browser-saved state.
-      PORTFOLIO_DATA.site.navLinks = removeDeprecatedNavLinks(PORTFOLIO_DATA.site.navLinks);
-
-      // Keep nav links from the current source file when older browser state
-      // is missing newly added links like "Lab".
-      if (shouldKeepDefaultNavLinks(parsed.site.navLinks, defaultSite.navLinks)) {
-        PORTFOLIO_DATA.site.navLinks = defaultSite.navLinks;
-      }
-
-      PORTFOLIO_DATA.site.navLinks = removeDeprecatedNavLinks(PORTFOLIO_DATA.site.navLinks);
-
-      // Migrate older saved lab hero copy so localStorage does not keep reviving it.
-      const hadOldLabHeading = parsed.site.labLine1 === "Lab.";
-      const hadOldLabSubheading = parsed.site.labLine2 === "Side projects, experiments, and things I make for myself.";
-
-      if (hadOldLabHeading || hadOldLabSubheading) {
-        PORTFOLIO_DATA.site.labLine1 = "Experiments, ideas and vibes";
-        PORTFOLIO_DATA.site.labLine2 = "";
-      }
-    }
-    if (parsed.projects) PORTFOLIO_DATA.projects = parsed.projects;
   }
 
   normalizePortfolioData(PORTFOLIO_DATA);
@@ -517,9 +564,18 @@ async function syncFromFile() {
 }
 
 function resetSavedData({ reload = true } = {}) {
-  localStorage.removeItem(PORTFOLIO_BROWSER_STATE_KEY);
-  localStorage.removeItem(PORTFOLIO_BROWSER_STATE_VERSION_KEY);
-  if (reload) window.location.reload();
+  try {
+    localStorage.removeItem(PORTFOLIO_BROWSER_STATE_KEY);
+    localStorage.removeItem(PORTFOLIO_BROWSER_STATE_VERSION_KEY);
+  } catch (error) {
+    console.error("Failed to reset portfolio browser state:", error);
+  }
+
+  if (reload) {
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 0);
+  }
 }
 
 window.resetPortfolioBrowserState = resetSavedData;
