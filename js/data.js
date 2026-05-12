@@ -38,7 +38,7 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "A festive red packet reimagined as a competitive digital game. “Ace the Unicorn Race” transforms a traditional giveaway into an interactive experience designed for engagement, replayability, and scalable participation."
+          "A festive red packet transformed into a physical-to-digital game experience, turning a once-in-12-years brand opportunity into a playful engagement loop."
         ],
         "links": [
           {
@@ -50,23 +50,88 @@ const PORTFOLIO_DATA = {
         "linkOutro": "!"
       },
       "role": "Creative Lead",
-      "type": "integrated creative technology",
+      "type": "Creative Technology",
       "client": "Digitas",
       "agency": "Digitas",
       "contentBlocks": [
         {
+          "type": "text",
+          "content": {
+            "heading": "2026 was the Year of the Horse. For Digitas, it became the Year of the Unicorn.",
+            "paragraphs": [],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "A once-in-12-years brand moment.",
+            "paragraphs": [
+              "Most Chinese New Year red packets follow the zodiac. 2026 was the Year of the Horse, but Digitas had a better reason to show up differently: our agency mascot is the unicorn.\n\nThat overlap only happens once every 12 years. Instead of designing another festive giveaway, we turned the moment into a branded race where the unicorn could take the lead."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-board-kv.png",
+          "src": "assets/year-of-the-unicorn-1.jpg",
           "color": "#8B1A1A",
-          "label": "VISUALS"
+          "label": "SECTION TITLE"
         },
         {
           "type": "text",
           "content": {
             "heading": "The Red Packet",
             "paragraphs": [
-              "The red packet was designed as both a cultural object and an entry point into the experience.",
-              "By deconstructing the ‘North Star’ logo into a generative pattern system, it bridges physical and digital, carrying the same energy into the game."
+              "The red packet became the physical entry point into the experience. The key visual shows the Digitas unicorn racing ahead of the horses, turning the agency mascot into the hero of the season.\n\nThe visual system used a festive red-and-gold palette, layered horse silhouettes, and a bespoke pattern adapted from the Digitas North Star, giving the object a branded texture beyond decoration."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "full-image",
+          "src": "assets/year-of-the-unicorn-board-kv.jpg",
+          "color": "#8B1A1A",
+          "label": "VISUALS"
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "From Print to Play",
+            "paragraphs": [
+              "A red packet is usually a one-way exchange. Give, receive, keep, forget.\n\nWe added a QR-led game layer to turn the packet into a repeatable interaction. Scanning the packet opened Ace the Unicorn Race, a simple browser game designed for quick play, social settings, and light competition."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "two-image",
+          "color": "#8B1A1A",
+          "images": [
+            {
+              "src": "assets/year-of-the-unicorn-2.jpg",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/year-of-the-unicorn-3.jpg",
+              "color": "#8B1A1A"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "<strong>The Game Loop\n</strong>The experience was intentionally simple: enter the game, add players, start the race, and see whose unicorn crosses the line first.\n\nThe point was not depth. It was repeatability. The game needed to be fast enough for casual play, random enough to feel fun, and competitive enough for people to try again."
             ],
             "links": [],
             "linkIntro": "",
@@ -80,20 +145,8 @@ const PORTFOLIO_DATA = {
           "label": "SECTION TITLE"
         },
         {
-          "type": "text",
-          "content": {
-            "heading": "From Print to Play",
-            "paragraphs": [
-              "A simple racing game designed for quick, repeatable play. Built to work in social settings, where competition, randomness, and leaderboard dynamics drive engagement beyond a single interaction."
-            ],
-            "links": [],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
-        },
-        {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-race.gif",
+          "src": "assets/year-of-the-unicorn-8.webm",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
         },
@@ -102,7 +155,47 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "",
             "paragraphs": [
-              "<strong>Gameplay Mechanics\n</strong>The experience was designed with systems that sustain engagement, not just visual novelty.\n\nRubber Banding System\nTrailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.\n\nRandom Event Triggers\nDynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.\n\nLeaderboard Loop\nCompetitive ranking reinforces social play, driving repeated participation."
+              "<strong>Gameplay Mechanics\n</strong>Under the simple format, the game used small systems to keep each race unpredictable.\n\nRubber Banding System\nTrailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.\n\nRandom Event Triggers\nDynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.\n\nLeaderboard Loop\nCompetitive ranking reinforces social play, driving repeated participation."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "two-image",
+          "color": "#8B1A1A",
+          "images": [
+            {
+              "src": "assets/year-of-the-unicorn-4.jpg",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/year-of-the-unicorn-5.webm",
+              "color": "#8B1A1A"
+            }
+          ]
+        },
+        {
+          "type": "two-image",
+          "color": "#8B1A1A",
+          "images": [
+            {
+              "src": "assets/year-of-the-unicorn-6.webm",
+              "color": "#8B1A1A"
+            },
+            {
+              "src": "assets/year-of-the-unicorn-7.webm",
+              "color": "#8B1A1A"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "Building With AI Agents",
+            "paragraphs": [
+              "I’m an Art Director, not a full-stack engineer. This project became a test of how far I could take an idea by directing AI agents like a creative production team.\n\nUsing Google Antigravity, I shaped the product logic, interface behaviour, game rules, database flow, debugging direction, and deployment decisions. The agents handled the code, but the experience still needed creative judgement: what should happen, how it should feel, when it was too slow, too random, too flat, or too complicated."
             ],
             "links": [],
             "linkIntro": "",
@@ -118,9 +211,9 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "Behind the scenes",
+            "heading": "A simple format on the surface, built as a loop between physical interaction, digital play, and repeat engagement.",
             "paragraphs": [
-              "Using Google Antigravity, I directed AI agents to build and manage both front-end logic and backend infrastructure. This enabled me to operate as a solo creative delivering a functional full-stack experience, focusing on system design, interaction logic, and product thinking."
+              "The final experience connected a physical red packet, a mobile-first racing game, and a repeat-play leaderboard into one festive brand loop.\n\nWhat started as a seasonal design became a working interactive prototype, built with no dedicated development budget and shaped end to end through creative direction, product logic, and AI-assisted execution.\n\n<a href=\"https://yearoftheunicorn.digitas-sg.com/\">Play the game here!</a>"
             ],
             "links": [],
             "linkIntro": "",
@@ -132,21 +225,6 @@ const PORTFOLIO_DATA = {
           "src": "assets/year-of-the-unicorn-board.gif",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
-        },
-        {
-          "type": "text",
-          "content": {
-            "heading": "A simple format on the surface, built as a loop between physical interaction, digital play, and repeat engagement.",
-            "paragraphs": [],
-            "links": [
-              {
-                "label": "Play the game here!",
-                "href": "https://yearoftheunicorn.digitas-sg.com/"
-              }
-            ],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
         }
       ],
       "archived": false
@@ -265,22 +343,22 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "As Regional Art Director for Samsung CRM, I shaped a scalable lifecycle experience system across Southeast Asia, translating global launch direction into localised CRM journeys across EDM, push, landing pages, and digital touchpoints.",
-          "The work focused on turning fast-moving product launches into scalable CRM experiences that could guide users from interest to action while adapting across different regional markets."
+          "As Regional Art Director for Samsung CRM, I helped shape a scalable lifecycle experience system across Southeast Asia, turning global launch direction into localised CRM journeys across EDMs, push, landing pages, and digital touchpoints.",
+          "The challenge was speed and consistency. Each launch had to move quickly across markets, while still guiding users from interest to action through clear, product-led storytelling."
         ],
         "links": [],
         "linkIntro": "",
         "linkOutro": ""
       },
       "role": "Regional Art Director",
-      "type": "CRM Design",
+      "type": "CRM",
       "client": "Samsung",
       "agency": "Digitas Publicis",
       "contentBlocks": [
         {
           "type": "text",
           "content": {
-            "heading": "Samsung needed a system that could scale across markets, drive conversion, and still feel visually strong, all at the speed of light.",
+            "heading": "Samsung needed a CRM system that could scale across markets, drive conversion, and stay visually sharp under launch-speed pressure.",
             "paragraphs": [],
             "links": [],
             "linkIntro": "",
@@ -292,7 +370,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "The Journey",
             "paragraphs": [
-              "Each launch was designed as a connected CRM journey, guiding users from early awareness to preorder and long-term engagement."
+              "Each launch was treated as a connected CRM journey, moving users from early awareness to preorder, remarketing, and long-term engagement."
             ],
             "links": [],
             "linkIntro": "",
@@ -310,7 +388,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "Modular CRM Storytelling",
             "paragraphs": [
-              "Each CRM module was designed to work across the launch journey, balancing product storytelling, clear offers, and action-driven communication across different audience segments."
+              "Each CRM module had to balance product storytelling, offer clarity, and conversion, while adapting across audience segments and markets."
             ],
             "links": [],
             "linkIntro": "",
@@ -376,7 +454,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "Building for Scale",
             "paragraphs": [
-              "Built in Stripo to help regional teams adapt, scale, and launch campaigns faster across markets.\n\nThe modular system reduced manual production work while making campaign deployment faster and easier across multiple launch cycles.<br>"
+              "Built in Stripo, the system helped regional teams adapt campaigns faster, reduce production friction, and keep launches consistent across markets.\n\nThe modular system reduced manual production work and made campaign deployment faster across multiple launch cycles, without sacrificing visual consistency.<br>"
             ],
             "links": [],
             "linkIntro": "",
@@ -436,7 +514,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "",
             "paragraphs": [
-              "From campaign execution to experience design, this work reframes CRM as a structured brand layer connecting product, audience and conversion at scale"
+              "The work reframed CRM from a production channel into a structured brand and conversion layer, connecting product storytelling, audience journeys, and regional scale."
             ],
             "links": [],
             "linkIntro": "",
@@ -533,29 +611,29 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
-      "id": "project-12-1778214680834",
+      "id": "project-6-1775716421818",
       "category": "ux",
-      "title": "FLEX by CPF / DollarVille Quiz Experience",
+      "title": "MORROW / Longevity Care",
       "cardColor": "#1A4A6B",
-      "cardImage": "assets/cpf-thumbnail.webm",
+      "cardImage": "assets/morrow-thumbnail.gif",
       "description": {
         "heading": "",
         "paragraphs": [
-          "A mobile-first quiz experience that turns financial education into a gamified journey for young Singaporeans to discover their money personality."
+          "A mobile-first digital experience for a longevity care brand with ambition, science, and a premium vision, but no clear way for people to understand what it offered or why they should act on it."
         ],
         "links": [],
         "linkIntro": "",
         "linkOutro": ""
       },
       "role": "Art Director",
-      "type": "PRODUCT EXPERIENCE",
-      "client": "CPF",
-      "agency": "Digitas Publicis",
+      "type": "Digital EXperience",
+      "client": "Morrow",
+      "agency": "Digitas publicis",
       "contentBlocks": [
         {
           "type": "text",
           "content": {
-            "heading": "CPF can feel distant to younger audiences. DollarVille was created to make financial education feel lighter, more immediate, and easier to complete.",
+            "heading": "Longevity care is complex, clinical, and often intimidating. Our job was to make it feel human enough that people would actually act on it.",
             "paragraphs": [],
             "links": [],
             "linkIntro": "",
@@ -565,33 +643,38 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "Experience Flow",
+            "heading": "Phase 1 — Brand Storytelling",
             "paragraphs": [
-              "A short mobile quiz where users answer bite-sized questions, interact through simple gestures, and unlock a money personality that leads them into FLEX."
+              "MORROW first needed people to care. In a space that can feel clinical and hard to understand, we used cinematic storytelling to make longevity feel aspirational, emotional, and worth exploring."
             ],
             "links": [],
             "linkIntro": "",
             "linkOutro": ""
           }
+        },
+        {
+          "type": "video",
+          "url": "https://vimeo.com/1190781600?share=copy",
+          "color": "#1A4A6B"
         },
         {
           "type": "4-grid",
           "columns": 4,
           "images": [
             {
-              "src": "assets/cpf-1.jpg",
+              "src": "assets/morrow-4.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/cpf-2.jpg",
+              "src": "assets/morrow-2.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/cpf-3.jpg",
+              "src": "assets/morrow-3.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/cpf-4.jpg",
+              "src": "assets/morrow-5.jpg",
               "color": "#1A4A6B"
             }
           ]
@@ -599,9 +682,9 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "Interaction Design",
+            "heading": "",
             "paragraphs": [
-              "We used familiar mobile actions like pinch, flick, tap, and hold to make each question feel more playful than a standard multiple-choice quiz."
+              "<strong>Phase 2 — Service-Led Experience\n</strong>MORROW started with no clear service structure, just a vision for longevity care. We realised quickly that UX wasn’t the problem. Clarity was. So we worked alongside the client to shape their offering into four core journeys: diagnostics, recovery, movement, and coaching. This gave users something they could understand and gave the product a foundation to scale."
             ],
             "links": [],
             "linkIntro": "",
@@ -609,59 +692,37 @@ const PORTFOLIO_DATA = {
           }
         },
         {
-          "type": "full-image",
-          "src": "assets/cpf-5.jpg",
+          "type": "two-image",
           "color": "#1A4A6B",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "3-grid",
-          "columns": 3,
           "images": [
             {
-              "src": "assets/cpf-8.jpg",
+              "src": "assets/morrow-6.webm",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/cpf-6.jpg",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/cpf-7.jpg",
+              "src": "assets/morrow-7.webm",
               "color": "#1A4A6B"
             }
           ]
-        },
-        {
-          "type": "text",
-          "content": {
-            "heading": "Result System",
-            "paragraphs": [
-              "The result system translated financial behaviours into personality profiles, giving users a more relatable starting point."
-            ],
-            "links": [],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
         },
         {
           "type": "4-grid",
           "columns": 4,
           "images": [
             {
-              "src": "assets/cpf-cashmere-cozyphile.jpg",
+              "src": "assets/morrow-9.webm",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/cpf-diamond-mogul.jpg",
+              "src": "assets/morrow-8.webm",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/cpf-glass-apprentice.jpg",
+              "src": "assets/morrow-10.webm",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/cpf-steel-trouper.jpg",
+              "src": "assets/morrow-11.webm",
               "color": "#1A4A6B"
             }
           ]
@@ -669,44 +730,14 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "Visual World",
+            "heading": "",
             "paragraphs": [
-              "The experience was wrapped in a playful visual system of characters, landmarks, gestures, and result profiles, making money habits feel easier to explore."
+              "<strong>Building in Framer\n</strong>\nBuilding in Framer changed how we thought about the product. Instead of designing and handing off, we were shaping the experience in real time. Components, layouts, and interactions could be tested instantly, which opened up more exploration because we could see and feel ideas instead of imagining them in static screens."
             ],
             "links": [],
             "linkIntro": "",
             "linkOutro": ""
           }
-        },
-        {
-          "type": "full-image",
-          "src": "assets/cpf-10.jpg",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "full-image",
-          "src": "assets/cpf-9.jpg",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
-        },
-        {
-          "type": "text",
-          "content": {
-            "heading": "My Role",
-            "paragraphs": [
-              "I contributed as part of the creative team, refining visual direction, interaction cues, result screens, and production handoff together with the illustration house and dev team."
-            ],
-            "links": [],
-            "linkIntro": "",
-            "linkOutro": ""
-          }
-        },
-        {
-          "type": "full-image",
-          "src": "assets/cpf-11.jpg",
-          "color": "#1A4A6B",
-          "label": "SECTION TITLE"
         }
       ],
       "archived": false
@@ -720,8 +751,7 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "The Heat Is On was a campaign identity created for the Singapore Media Marketing Awards 2024, designed to turn the pressure, energy, and competitive spirit of awards season into a bold visual system.",
-          "Built around the language of thermal imaging, the campaign uses heat as a metaphor for creative momentum: the work that rises, the ideas that burn brighter, and the people bringing intensity to the industry. Across launch assets, social teasers, EDMs, event communications, and awards-day extensions, the system combines high-contrast typography, infrared-inspired colour, glowing textures, and punchy copy to create a campaign world that feels urgent, charged, and unmistakably SMMA."
+          "A campaign identity for Singapore Media &amp; Marketing Awards, built around the pressure, intensity, and competitive energy of awards season."
         ],
         "links": [],
         "linkIntro": "",
@@ -733,9 +763,43 @@ const PORTFOLIO_DATA = {
       "agency": "Digitas Publicis",
       "contentBlocks": [
         {
+          "type": "text",
+          "content": {
+            "heading": "Awards season is noisy. SMMA needed a campaign world that could cut through the industry feed, rally submissions, and make creative competition feel visceral.",
+            "paragraphs": [],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "From Synergy Rising to The Heat Is On",
+            "paragraphs": [
+              "The previous year centred on convergence: media and marketing coming together. For 2024, we pushed that energy further. If 2023 lit the flame, 2024 had to turn up the heat."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
           "type": "video",
           "url": "https://vimeo.com/1187963229?fl=pl&fe=cm",
           "color": "#8B1A1A"
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "Thermal Imaging as a Visual Language",
+            "paragraphs": [
+              "Drawing from thermal imaging, the identity visualised intensity: the pressure of deadlines, the heat of competition, and the work that burns brighter under scrutiny. The system used infrared colour, glowing textures, compressed typography, and punchy copy to create a campaign world that felt urgent, charged, and unmistakably SMMA."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "3-grid",
@@ -790,6 +854,18 @@ const PORTFOLIO_DATA = {
               "color": "#8B1A1A"
             }
           ]
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "Built for Campaign Momentum",
+            "paragraphs": [
+              "The identity extended across teaser posts, launch assets, EDMs, social content, LinkedIn posts, website moments, and awards-day extensions. Each touchpoint used the same heat-driven language, but flexed between hype, submission urgency, speaker features, and event energy."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         }
       ],
       "archived": false
@@ -1027,29 +1103,29 @@ const PORTFOLIO_DATA = {
       "archived": false
     },
     {
-      "id": "project-6-1775716421818",
+      "id": "project-12-1778214680834",
       "category": "ux",
-      "title": "MORROW / Longevity Care",
+      "title": "FLEX by CPF / DollarVille Quiz Experience",
       "cardColor": "#1A4A6B",
-      "cardImage": "assets/morrow-thumbnail.gif",
+      "cardImage": "assets/cpf-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
-          "A mobile-first digital experience that translates science-led longevity care into a premium journey for people to understand their health, improve how they live, and take action earlier."
+          "A mobile-first quiz experience that turns financial education into a gamified journey for young Singaporeans to discover their money personality."
         ],
         "links": [],
         "linkIntro": "",
         "linkOutro": ""
       },
       "role": "Art Director",
-      "type": "Digital EXperience",
-      "client": "Morrow",
-      "agency": "Digitas publicis",
+      "type": "PRODUCT EXPERIENCE",
+      "client": "CPF",
+      "agency": "Digitas Publicis",
       "contentBlocks": [
         {
           "type": "text",
           "content": {
-            "heading": "Making science-led longevity care feel clear, human, and approachable.",
+            "heading": "Long-term financial planning can feel too abstract when you’re young. DollarVille made it immediate by turning financial habits into a short, playful self-discovery journey.",
             "paragraphs": [],
             "links": [],
             "linkIntro": "",
@@ -1059,9 +1135,9 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "Phase 1 — Brand Storytelling",
+            "heading": "Experience Flow",
             "paragraphs": [
-              "To stand out in a growing longevity space, MORROW launched with an immersive long-scroll experience built to capture attention through cinematic storytelling."
+              "The experience was built as a short mobile journey: enter DollarVille, answer bite-sized questions, interact through simple gestures, reveal a money personality, then continue into FLEX with a more relatable starting point."
             ],
             "links": [],
             "linkIntro": "",
@@ -1069,28 +1145,23 @@ const PORTFOLIO_DATA = {
           }
         },
         {
-          "type": "video",
-          "url": "https://vimeo.com/1190781600?share=copy",
-          "color": "#1A4A6B"
-        },
-        {
           "type": "4-grid",
           "columns": 4,
           "images": [
             {
-              "src": "assets/morrow-4.jpg",
+              "src": "assets/cpf-1.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/morrow-2.jpg",
+              "src": "assets/cpf-2.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/morrow-3.jpg",
+              "src": "assets/cpf-3.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/morrow-5.jpg",
+              "src": "assets/cpf-4.jpg",
               "color": "#1A4A6B"
             }
           ]
@@ -1098,9 +1169,9 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "",
+            "heading": "Interaction Design",
             "paragraphs": [
-              "<strong>Phase 2 — Service-Led Experience\n</strong>As MORROW evolved beyond launch, the experience shifted from brand storytelling into a clearer service-led platform focused on trust, navigation, and conversion. \n\nThe second phase introduced clearer service architecture and more conversion-focused journeys across diagnostics, recovery, movement, and coaching."
+              "We used familiar mobile actions like pinch, flick, tap, and hold to make each question feel more playful than a standard multiple-choice quiz, while keeping the interaction simple enough to complete quickly."
             ],
             "links": [],
             "linkIntro": "",
@@ -1108,37 +1179,25 @@ const PORTFOLIO_DATA = {
           }
         },
         {
-          "type": "two-image",
+          "type": "full-image",
+          "src": "assets/cpf-5.jpg",
           "color": "#1A4A6B",
-          "images": [
-            {
-              "src": "assets/morrow-6.webm",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/morrow-7.webm",
-              "color": "#1A4A6B"
-            }
-          ]
+          "label": "SECTION TITLE"
         },
         {
-          "type": "4-grid",
-          "columns": 4,
+          "type": "3-grid",
+          "columns": 3,
           "images": [
             {
-              "src": "assets/morrow-9.webm",
+              "src": "assets/cpf-8.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/morrow-8.webm",
+              "src": "assets/cpf-6.jpg",
               "color": "#1A4A6B"
             },
             {
-              "src": "assets/morrow-10.webm",
-              "color": "#1A4A6B"
-            },
-            {
-              "src": "assets/morrow-11.webm",
+              "src": "assets/cpf-7.jpg",
               "color": "#1A4A6B"
             }
           ]
@@ -1146,14 +1205,78 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "",
+            "heading": "Result System",
             "paragraphs": [
-              "<strong>Building in Framer\n</strong>\nTo move quickly from pitch to launch, the experience was designed and implemented directly in Framer alongside the UX team. This allowed the visual system, responsive layouts, and interaction details to evolve closer to the final experience without relying on a traditional developer handoff."
+              "The result system translated financial behaviours into personality profiles, giving users a more relatable way to understand their habits before entering FLEX."
             ],
             "links": [],
             "linkIntro": "",
             "linkOutro": ""
           }
+        },
+        {
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/cpf-cashmere-cozyphile.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-diamond-mogul.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-glass-apprentice.jpg",
+              "color": "#1A4A6B"
+            },
+            {
+              "src": "assets/cpf-steel-trouper.jpg",
+              "color": "#1A4A6B"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "Visual World",
+            "paragraphs": [
+              "The experience was wrapped in a playful visual system of characters, landmarks, gestures, and result profiles, making money habits feel easier to explore."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "full-image",
+          "src": "assets/cpf-10.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "full-image",
+          "src": "assets/cpf-9.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
+        },
+        {
+          "type": "text",
+          "content": {
+            "heading": "My Role",
+            "paragraphs": [
+              "I worked as part of the creative team, shaping the art direction across interaction cues, result screens, visual flow, and production handoff with the illustration house and dev team."
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
+        },
+        {
+          "type": "full-image",
+          "src": "assets/cpf-11.jpg",
+          "color": "#1A4A6B",
+          "label": "SECTION TITLE"
         }
       ],
       "archived": false

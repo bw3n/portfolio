@@ -1052,6 +1052,9 @@ body.edit-mode .thumbnail-drag-handle:active {
   line-height: 1.75;
   color: var(--color-text-secondary);
   min-width: 0;
+  display: grid;
+  row-gap: var(--space-sm);
+  padding: var(--space-md) 0;
 }
 
 .block-two-column .col-text {
@@ -1059,10 +1062,46 @@ body.edit-mode .thumbnail-drag-handle:active {
   font-size: 18px;
   line-height: 1.75;
   color: var(--color-text-secondary);
-  padding: var(--space-sm) 0;
+  display: grid;
+  row-gap: var(--space-sm);
+  padding: var(--space-md) 0;
   width: min(100%, var(--text-content-max-width));
   max-width: var(--text-content-max-width);
   margin: 0;
+}
+
+.block-two-text-column .col-text p,
+.block-two-text-column .col-text div,
+.block-two-text-column .col-text blockquote,
+.block-two-text-column .col-text h1,
+.block-two-text-column .col-text h2,
+.block-two-text-column .col-text h3,
+.block-two-text-column .col-text h4,
+.block-two-text-column .col-text h5,
+.block-two-text-column .col-text h6,
+.block-two-column .col-text p,
+.block-two-column .col-text div,
+.block-two-column .col-text blockquote,
+.block-two-column .col-text h1,
+.block-two-column .col-text h2,
+.block-two-column .col-text h3,
+.block-two-column .col-text h4,
+.block-two-column .col-text h5,
+.block-two-column .col-text h6 {
+  margin: 0;
+}
+
+.block-two-text-column .col-text blockquote,
+.block-two-column .col-text blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  border: 0;
+}
+
+.block-two-text-column .col-text > :last-child,
+.block-two-column .col-text > :last-child {
+  margin-bottom: 0;
 }
 
 .block-two-column .col-image {

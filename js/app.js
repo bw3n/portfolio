@@ -1808,16 +1808,26 @@ function createTwoTextColumnBlock(block, projectIndex, blockIndex) {
   div.className = "block-two-text-column";
   div.setAttribute("data-block-index", blockIndex);
 
-  const leftCol = document.createElement("div");
-  leftCol.className = "col-text";
-  leftCol.innerHTML = block.leftText || "Enter left column text here...";
-  leftCol.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.leftText`);
+  const leftCol = createEditableTextElement(
+    "div",
+    "col-text",
+    block.leftText || "Enter left column text here...",
+    `projects.${projectIndex}.contentBlocks.${blockIndex}.leftText`,
+    {
+      richText: true
+    }
+  );
   div.appendChild(leftCol);
 
-  const rightCol = document.createElement("div");
-  rightCol.className = "col-text";
-  rightCol.innerHTML = block.rightText || "Enter right column text here...";
-  rightCol.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.rightText`);
+  const rightCol = createEditableTextElement(
+    "div",
+    "col-text",
+    block.rightText || "Enter right column text here...",
+    `projects.${projectIndex}.contentBlocks.${blockIndex}.rightText`,
+    {
+      richText: true
+    }
+  );
   div.appendChild(rightCol);
 
   return div;
@@ -1829,10 +1839,15 @@ function createTwoColumnBlock(block, projectIndex, blockIndex) {
   div.setAttribute("data-block-index", blockIndex);
 
   // Text column
-  const textCol = document.createElement("div");
-  textCol.className = "col-text";
-  textCol.innerHTML = block.text || "Enter text here...";
-  textCol.setAttribute("data-editable", `projects.${projectIndex}.contentBlocks.${blockIndex}.text`);
+  const textCol = createEditableTextElement(
+    "div",
+    "col-text",
+    block.text || "Enter text here...",
+    `projects.${projectIndex}.contentBlocks.${blockIndex}.text`,
+    {
+      richText: true
+    }
+  );
   div.appendChild(textCol);
 
   // Image column
