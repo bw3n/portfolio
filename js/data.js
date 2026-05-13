@@ -34,7 +34,7 @@ const PORTFOLIO_DATA = {
       "category": "lab",
       "title": "Digitas / Ace the Unicorn Race",
       "cardColor": "#8B1A1A",
-      "cardImage": "assets/year-of-the-unicorn-thumbnail.gif",
+      "cardImage": "assets/year-of-the-unicorn-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -234,7 +234,7 @@ const PORTFOLIO_DATA = {
       "category": "lab",
       "title": "Personal Project / Masturband",
       "cardColor": "#0044FF",
-      "cardImage": "assets/masturband-thumbnail.gif",
+      "cardImage": "assets/masturband-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -279,7 +279,7 @@ const PORTFOLIO_DATA = {
       "archived": true,
       "title": "Digitas / U-Scan",
       "cardColor": "#1A6B1A",
-      "cardImage": "assets/uscan-thumbnail.gif",
+      "cardImage": "assets/uscan-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -339,7 +339,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "Samsung / Regional Experience & Design",
       "cardColor": "#0044FF",
-      "cardImage": "assets/samsung-thumbnail.gif",
+      "cardImage": "assets/samsung-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -553,7 +553,7 @@ const PORTFOLIO_DATA = {
       "archived": true,
       "title": "Digitas / Rabbithood",
       "cardColor": "#6B4C1E",
-      "cardImage": "assets/rabbithood-thumbnail.gif",
+      "cardImage": "assets/rabbithood-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -638,7 +638,7 @@ const PORTFOLIO_DATA = {
       "category": "ux",
       "title": "MORROW / Longevity Care",
       "cardColor": "#1A4A6B",
-      "cardImage": "assets/morrow-thumbnail.gif",
+      "cardImage": "assets/morrow-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -770,7 +770,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "SMMA / The Heat Is On",
       "cardColor": "#8B1A1A",
-      "cardImage": "assets/smma-thumbnail.gif",
+      "cardImage": "assets/smma-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -898,7 +898,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "Riot Games / Pengu's Big Adventure",
       "cardColor": "#1A6B1A",
-      "cardImage": "assets/pengu-big-adventure-thumbnail.gif",
+      "cardImage": "assets/pengu-big-adventure-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -947,7 +947,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "Riot Games / Hyper Roll Karaoke",
       "cardColor": "#6B4C1E",
-      "cardImage": "assets/hyper-roll-karaoke-thumbnail.gif",
+      "cardImage": "assets/hyper-roll-karaoke-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
@@ -1000,7 +1000,7 @@ const PORTFOLIO_DATA = {
       "category": "work",
       "title": "MCCY / Let The Music Play",
       "cardColor": "#4A1A6B",
-      "cardImage": "assets/mccy-thumbnail.gif",
+      "cardImage": "assets/mccy-thumbnail.webm",
       "description": {
         "heading": "",
         "paragraphs": [
