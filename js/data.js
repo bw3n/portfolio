@@ -38,7 +38,7 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "A festive red packet transformed into a physical-to-digital game experience, turning a once-in-12-years brand opportunity into a playful engagement loop."
+          "A festive red packet turned into a physical-to-digital game experience, transforming a once-in-12-years brand opportunity into a playful engagement loop."
         ],
         "links": [
           {
@@ -47,7 +47,7 @@ const PORTFOLIO_DATA = {
           }
         ],
         "linkIntro": "",
-        "linkOutro": "!"
+        "linkOutro": ""
       },
       "role": "Creative Lead",
       "type": "Creative Technology",
@@ -69,7 +69,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "A once-in-12-years brand moment.",
             "paragraphs": [
-              "Most Chinese New Year red packets follow the zodiac. 2026 was the Year of the Horse, but Digitas had a better reason to show up differently: our agency mascot is the unicorn.\n\nThat overlap only happens once every 12 years. Instead of designing another festive giveaway, we turned the moment into a branded race where the unicorn could take the lead."
+              "Most CNY red packets follow the zodiac, but in 2026, the Year of the Horse overlapped with Digitas’ unicorn mascot. Instead of creating another festive giveaway, we turned that timing into a branded race where the unicorn could take the lead."
             ],
             "links": [],
             "linkIntro": "",
@@ -87,7 +87,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "The Red Packet",
             "paragraphs": [
-              "The red packet became the physical entry point into the experience. The key visual shows the Digitas unicorn racing ahead of the horses, turning the agency mascot into the hero of the season.\n\nThe visual system used a festive red-and-gold palette, layered horse silhouettes, and a bespoke pattern adapted from the Digitas North Star, giving the object a branded texture beyond decoration."
+              "The red packet became the physical entry point into the experience, using a racing unicorn, layered horse silhouettes, and a festive red-gold system to turn a traditional object into a branded invitation to play."
             ],
             "links": [],
             "linkIntro": "",
@@ -105,7 +105,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "From Print to Play",
             "paragraphs": [
-              "A red packet is usually a one-way exchange. Give, receive, keep, forget.\n\nWe added a QR-led game layer to turn the packet into a repeatable interaction. Scanning the packet opened Ace the Unicorn Race, a simple browser game designed for quick play, social settings, and light competition."
+              "A red packet is usually a one-way exchange: give, receive, keep, forget. We added a QR-led game layer, turning the packet into a repeatable interaction that could be scanned, played, and shared."
             ],
             "links": [],
             "linkIntro": "",
@@ -131,7 +131,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "",
             "paragraphs": [
-              "<strong>The Game Loop\n</strong>The experience was intentionally simple: enter the game, add players, start the race, and see whose unicorn crosses the line first.\n\nThe point was not depth. It was repeatability. The game needed to be fast enough for casual play, random enough to feel fun, and competitive enough for people to try again."
+              "<strong>The Game Loop\n</strong>The experience was intentionally simple: enter the game, add players, start the race, and see whose unicorn crosses the line first. Fast enough for casual play, random enough to feel fun, and competitive enough to replay."
             ],
             "links": [],
             "linkIntro": "",
@@ -155,7 +155,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "",
             "paragraphs": [
-              "<strong>Gameplay Mechanics\n</strong>Under the simple format, the game used small systems to keep each race unpredictable.\n\nRubber Banding System\nTrailing players receive subtle speed advantages while leaders face slight resistance, ensuring races stay competitive until the final moments.\n\nRandom Event Triggers\nDynamic boosts and slowdowns are introduced mid-race, creating unpredictability and encouraging replay.\n\nLeaderboard Loop\nCompetitive ranking reinforces social play, driving repeated participation."
+              "<strong>Gameplay Mechanics\n</strong>Under the simple format, small game systems kept each race unpredictable: rubber-banding kept races close, random events created surprise, and the leaderboard gave players a reason to try again.\n\nReceive → Scan → Play → Rank → Replay"
             ],
             "links": [],
             "linkIntro": "",
@@ -195,7 +195,7 @@ const PORTFOLIO_DATA = {
           "content": {
             "heading": "Building With AI Agents",
             "paragraphs": [
-              "I’m an Art Director, not a full-stack engineer. This project became a test of how far I could take an idea by directing AI agents like a creative production team.\n\nUsing Google Antigravity, I shaped the product logic, interface behaviour, game rules, database flow, debugging direction, and deployment decisions. The agents handled the code, but the experience still needed creative judgement: what should happen, how it should feel, when it was too slow, too random, too flat, or too complicated."
+              "I’m an Art Director, not a full-stack engineer. This project tested how far I could take an idea by directing AI agents like a creative production team, shaping the product logic, interface behaviour, game rules, debugging, and deployment while Google Antigravity handled the code."
             ],
             "links": [],
             "linkIntro": "",
@@ -211,9 +211,9 @@ const PORTFOLIO_DATA = {
         {
           "type": "text",
           "content": {
-            "heading": "A simple format on the surface, built as a loop between physical interaction, digital play, and repeat engagement.",
+            "heading": "From red packet to playable brand loop.",
             "paragraphs": [
-              "The final experience connected a physical red packet, a mobile-first racing game, and a repeat-play leaderboard into one festive brand loop.\n\nWhat started as a seasonal design became a working interactive prototype, built with no dedicated development budget and shaped end to end through creative direction, product logic, and AI-assisted execution.\n\n<a href=\"https://yearoftheunicorn.digitas-sg.com/\">Play the game here!</a>"
+              "The final experience connected a physical red packet, a mobile-first racing game, and a replayable leaderboard into one festive brand loop, built with no dedicated development budget and shaped through creative direction, product logic, and AI-assisted execution.\n<a href=\"https://yearoftheunicorn.digitas-sg.com/\">Play the game here!</a>"
             ],
             "links": [],
             "linkIntro": "",
@@ -343,8 +343,7 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "As Regional Art Director for Samsung CRM, I helped shape a scalable lifecycle experience system across Southeast Asia, turning global launch direction into localised CRM journeys across EDMs, push, landing pages, and digital touchpoints.",
-          "The challenge was speed and consistency. Each launch had to move quickly across markets, while still guiding users from interest to action through clear, product-led storytelling."
+          "I helped shape Samsung CRM into a scalable regional experience system, turning global launch direction into localised journeys across Southeast Asia built for speed, consistency, and conversion."
         ],
         "links": [],
         "linkIntro": "",
@@ -378,10 +377,16 @@ const PORTFOLIO_DATA = {
           }
         },
         {
-          "type": "full-image",
-          "src": "assets/samsung-0.png",
-          "color": "#0044FF",
-          "label": "SECTION TITLE"
+          "type": "text",
+          "content": {
+            "heading": "",
+            "paragraphs": [
+              "Teaser →Handraiser → Full Form → Pre-order → Remarketing → Sustain"
+            ],
+            "links": [],
+            "linkIntro": "",
+            "linkOutro": ""
+          }
         },
         {
           "type": "text",
@@ -396,37 +401,55 @@ const PORTFOLIO_DATA = {
           }
         },
         {
-          "type": "image-grid",
+          "type": "3-grid",
           "columns": 3,
           "images": [
             {
-              "src": "assets/samsung-3.gif",
+              "src": "assets/samsung-3.webm",
               "color": "#0044FF"
             },
             {
-              "src": "assets/samsung-5.gif",
+              "src": "assets/samsung-4.webm",
               "color": "#0044FF"
             },
             {
-              "src": "assets/samsung-4.gif",
+              "src": "assets/samsung-5.webm",
               "color": "#0044FF"
             }
           ]
         },
         {
-          "type": "image-grid",
-          "columns": 3,
+          "type": "two-image",
+          "color": "#0044FF",
           "images": [
             {
+              "src": "assets/samsung-8.jpg",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-12.webm",
+              "color": "#0044FF"
+            }
+          ]
+        },
+        {
+          "type": "4-grid",
+          "columns": 4,
+          "images": [
+            {
+              "src": "assets/samsung-7.jpg",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-6.jpg",
+              "color": "#0044FF"
+            },
+            {
+              "src": "assets/samsung-11.webm",
+              "color": "#0044FF"
+            },
+            {
               "src": "assets/samsung-2 copy.png",
-              "color": "#0044FF"
-            },
-            {
-              "src": "assets/samsung-7.png",
-              "color": "#0044FF"
-            },
-            {
-              "src": "assets/samsung-6.png",
               "color": "#0044FF"
             }
           ]

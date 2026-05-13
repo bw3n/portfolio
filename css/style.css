@@ -1660,7 +1660,13 @@ body.edit-mode .edit-toolbar {
   }
 
   .block-two-image {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .block-two-image-item {
+    width: 100%;
+    flex: none !important;
   }
 
   .block-image-grid.cols-4 {
@@ -1770,6 +1776,7 @@ body.edit-mode .edit-toolbar {
     max-width: calc(100% - (var(--page-section-padding-x) * 2));
     margin: 0 auto;
   }
+
 }
 
 /* ============================================================

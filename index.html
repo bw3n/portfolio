@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Boon — Creative Portfolio. Currently Pushin' Ps in Digitas Singapore.">
   <title>Boon — Portfolio</title>
+  <link rel="icon" type="image/png" href="assets/boon-logo.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="assets/boon-logo-white.png" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" href="assets/boon-logo.png">
   <link rel="apple-touch-icon" href="assets/boon-logo.png">
-  <link rel="stylesheet" href="css/style.css?v=20260513-02">
+  <link rel="stylesheet" href="css/style.css?v=20260513-05">
 </head>
 <body>
 
@@ -75,19 +77,6 @@
 
   <footer class="site-footer" id="siteFooter"></footer>
 
-  <!-- Sync Button -->
-  <button class="sync-toggle" id="syncToggle" title="Sync from data.js" onclick="syncFromFile()">↻</button>
-
-  <!-- Edit Mode Toggle -->
-  <button class="edit-toggle" id="editToggle">Edit</button>
-
-  <!-- Edit Toolbar -->
-  <div class="edit-toolbar" id="editToolbar">
-    <button onclick="addNewProject()">+ Add Project</button>
-    <button onclick="exportData()">Export Data</button>
-    <button class="primary" onclick="saveData(); showToast('Saved!');">Save</button>
-  </div>
-
   <!-- Toast notification -->
   <div id="toast" style="
     position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
@@ -97,9 +86,8 @@
   "></div>
 
   <!-- Scripts -->
-  <script defer src="js/data.js?v=20260513-02"></script>
-  <script defer src="js/core.js?v=20260513-02"></script>
-  <script defer src="js/app.js?v=20260513-02"></script>
-  <script defer src="js/editor.js?v=20260513-02"></script>
+  <script defer src="js/data.js?v=20260513-05"></script>
+  <script defer src="js/core.js?v=20260513-05"></script>
+  <script defer src="js/app.js?v=20260513-05"></script>
 </body>
 </html>
