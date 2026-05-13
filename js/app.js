@@ -316,7 +316,7 @@ function createMediaElement(src, className, { autoplay = true, loop = true, mute
   video.muted = muted;
   video.playsInline = playsInline;
   video.defaultMuted = muted;
-  video.preload = "auto";
+  video.preload = "metadata";
   video.setAttribute("aria-hidden", "true");
   video.setAttribute("playsinline", "");
   video.setAttribute("muted", "");

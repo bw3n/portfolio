@@ -140,7 +140,7 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-board-tech.png",
+          "src": "assets/year-of-the-unicorn-board-tech.jpg",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
         },
@@ -204,7 +204,7 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-bts.gif",
+          "src": "assets/year-of-the-unicorn-bts.webm",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
         },
@@ -222,7 +222,7 @@ const PORTFOLIO_DATA = {
         },
         {
           "type": "full-image",
-          "src": "assets/year-of-the-unicorn-board.gif",
+          "src": "assets/year-of-the-unicorn-board.webm",
           "color": "#8B1A1A",
           "label": "SECTION TITLE"
         }
@@ -296,7 +296,7 @@ const PORTFOLIO_DATA = {
       "contentBlocks": [
         {
           "type": "full-image",
-          "src": "assets/uscan-one.gif",
+          "src": "assets/uscan-one.webm",
           "color": "#1A6B1A",
           "label": "VISUALS"
         },
@@ -317,18 +317,18 @@ const PORTFOLIO_DATA = {
           "color": "#1A6B1A",
           "images": [
             {
-              "src": "assets/uscan-two.gif",
+              "src": "assets/uscan-two.webm",
               "color": "#1A6B1A"
             },
             {
-              "src": "assets/uscan-three.gif",
+              "src": "assets/uscan-three.webm",
               "color": "#1A6B1A"
             }
           ]
         },
         {
           "type": "full-image",
-          "src": "assets/uscan-four.gif",
+          "src": "assets/uscan-four.webm",
           "color": "#1A6B1A",
           "label": "SECTION TITLE"
         }
