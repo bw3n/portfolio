@@ -38,14 +38,9 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "A festive red packet turned into a physical-to-digital game experience, transforming a once-in-12-years brand opportunity into a playful engagement loop."
+          "During CNY, most branded red packets are quickly forgotten, so we turned Digitas’ unicorn mascot into a playful Year of the Horse interaction that made the brand feel ownable and participatory."
         ],
-        "links": [
-          {
-            "label": "Play the game",
-            "href": "https://yearoftheunicorn.digitas-sg.com/"
-          }
-        ],
+        "links": [],
         "linkIntro": "",
         "linkOutro": ""
       },
@@ -774,7 +769,7 @@ const PORTFOLIO_DATA = {
       "description": {
         "heading": "",
         "paragraphs": [
-          "A campaign identity for Singapore Media &amp; Marketing Awards, built around the pressure, intensity, and competitive energy of awards season."
+          "The best media and marketing work is forged under pressure. In an industry where teams are constantly challenged by tight timelines, shifting briefs, and rising expectations, creative excellence doesn’t happen in comfort. It happens in the heat."
         ],
         "links": [],
         "linkIntro": "",
